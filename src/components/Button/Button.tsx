@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 import styles from './Button.module.css';
 
 type ButtonType = {
@@ -28,7 +28,7 @@ export default function Button({
   return (
     <view
       key={key}
-      className={`flex ${icon ? 'justify-start' : 'justify-center'} items-center border border-4 rounded-2xl ${buttonVariantCss} ${className}`}
+      className={`flex ${icon ? 'justify-start' : 'justify-center'} items-center border ${variant === 'plain' ? 'border-2' : 'border-4'} rounded-2xl ${buttonVariantCss} ${className} ${isHighlighted && styles.highlighted}`}
       bindtap={onTap}
     >
       {icon && icon}

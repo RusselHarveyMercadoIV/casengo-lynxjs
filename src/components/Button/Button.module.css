@@ -14,3 +14,8 @@
   background-color: white;
   border-color: #dee1e6;
 }
+
+.highlighted {
+  border-color: #ed7d2d;
+  background-color: #fff3ea;
+}
