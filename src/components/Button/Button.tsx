@@ -14,7 +14,11 @@ export default function Button({ text, variant }: ButtonType) {
     <view
       className={`flex justify-center items-center border border-4 rounded-2xl min-w-[350px] min-h-[60px]  ${buttonVariantCss}`}
     >
-      <text className="text-xl text-white font-bold">{text}</text>
+      <text
+        className={`text-xl ${variant === 'orange' ? 'text-white' : 'text-[#ed7d2d]'} font-bold`}
+      >
+        {text}
+      </text>
     </view>
   );
 }
