@@ -1,4 +1,4 @@
-export default DIAGNOSTIC_QUESTIONS = {
+export const DIAGNOSTIC_QUESTIONS = {
   Freshman: {
     anatomyAndPhysiology: {
       easy: {
