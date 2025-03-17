@@ -85,7 +85,7 @@ export default function Start() {
     const imgCss = 'w-10 h-10 rounded-2xl  ';
 
     content = (
-      <scroll-view className="flex gap-10 grow justify-center items-center">
+      <view className="flex flex-col gap-10 grow justify-center items-center">
         <Button
           key={'p1-1'}
           variant="plain"
@@ -135,7 +135,7 @@ export default function Start() {
             />
           </view>
         </view>
-      </scroll-view>
+      </view>
     );
   }
 
@@ -147,6 +147,7 @@ export default function Start() {
     <view className="container mt-[25px] flex-col justify-start items-center h-full">
       {currentStep > 0 && (
         <Steps
+          header={headers[currentStep].header}
           currentStep={currentStep}
           formData={formData}
           icon={icons.leftArrow}
@@ -159,7 +160,7 @@ export default function Start() {
           text="CONTINUE"
           variant="orange"
           onTap={() => handleStepChange(1)}
-          className={`mb-10  ${isContinue && 'opacity-40'} ${commonButtonCss}`}
+          className={`mb-10 mt-10 ${isContinue && 'opacity-40'} ${commonButtonCss}`}
         />
       )}
     </view>
