@@ -90,7 +90,7 @@ export default function Profiling() {
             className={buttonCss + disabledCss}
             variant="plain"
             icon={<image src={icons.america} className={imgCss} />}
-            // disabled={true}
+            disabled={true}
             text="NCLEX - RN"
             isHighlighted={formData.countryExam === 'NCLEX-RN'}
             onTap={
@@ -103,7 +103,7 @@ export default function Profiling() {
           <Button
             key={'p1-3'}
             className={buttonCss + disabledCss}
-            // disabled={true}
+            disabled={true}
             text="NCLEX - PN"
             variant="plain"
             icon={<image src={icons.america} className={imgCss} />}
@@ -141,6 +141,7 @@ export default function Profiling() {
         <Button
           text="CONTINUE"
           variant="orange"
+          disabled={isContinue}
           onTap={() => handleStepChange(1)}
           className={`mb-10 ${isContinue && 'opacity-40'} ${commonButtonCss}`}
         />
