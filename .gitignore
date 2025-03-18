@@ -11,3 +11,10 @@ dist/
 .vscode/*
 !.vscode/extensions.json
 .idea
+
+# Environment variables
+.env.local
+.env.*.local
+
+# Config files with sensitive data
+src/config/appwrite.ts

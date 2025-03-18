@@ -9,6 +9,14 @@ export default function Start() {
 
   let commonButtonCss = 'min-w-[350px] min-h-[60px]';
 
+  const handleSignIn = () => {
+    navigation('/login');
+  };
+
+  const handleGetStarted = () => {
+    navigation('/profiling');
+  };
+
   return (
     <view className="container mt-[25px] flex-col justify-start items-center h-full">
       <view className="grow justify-center items-center">
@@ -20,6 +28,7 @@ export default function Start() {
             text={'SIGN IN'}
             variant="orange"
             className={commonButtonCss}
+            onTap={handleSignIn}
           />
         </view>
         <Separator className="mt-16 mb-12" />
@@ -30,7 +39,7 @@ export default function Start() {
           <Button
             text={'GET STARTED'}
             variant="white"
-            onTap={() => navigation('/profiling')}
+            onTap={handleGetStarted}
             className={commonButtonCss}
           />
         </view>
