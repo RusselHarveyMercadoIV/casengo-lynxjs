@@ -73,7 +73,7 @@ export default function Steps({
           />
         </view>
       </view>
-      {header && <text className="text-2xl w-[350px] mt-10  ">{header}</text>}
+      {header && <text className="text-2xl w-[350px] my-10  ">{header}</text>}
     </>
   );
 }
