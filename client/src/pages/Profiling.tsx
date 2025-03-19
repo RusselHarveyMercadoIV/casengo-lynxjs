@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import Button from '../components/Button/Button.jsx';
 import Separator from '../components/Separator.jsx';
 import StepsIndicator, { type Step } from '../components/StepsIndicator.jsx';
@@ -27,8 +27,9 @@ const profilingData: profilingDataType = {
 // Common styles
 const STYLES = {
   container: 'container mt-[25px] flex-col justify-start items-center h-full',
+  contentWrapper: 'relative w-full h-[500px] mb-14 overflow-hidden',
   contentContainer:
-    'flex-col flex gap-14 mb-14 h-[500px] justify-start items-center',
+    'flex-col flex gap-14 justify-start items-center absolute top-0 left-0 w-full h-full transition-all duration-300 ease-in-out',
   buttonBase: 'flex-row gap-5 py-4 px-8 justify-start items-center w-[350px]',
   buttonLarge: 'flex-row gap-5 py-6 px-8 justify-start items-center w-[350px]',
   buttonCommon: 'min-w-[350px] min-h-[60px]',
@@ -38,6 +39,9 @@ const STYLES = {
   comingSoon: 'flex flex-col justify-center items-center gap-10 w-[350px]',
   comingSoonText: 'text-2xl text-[#9095a0]',
   buttonList: 'flex flex-col gap-6',
+  slideLeft: 'transform -translate-x-full opacity-0',
+  slideRight: 'transform translate-x-full opacity-0',
+  slideIn: 'transform translate-x-0 opacity-100',
 } as const;
 
 // Constants
@@ -59,6 +63,9 @@ const COMMITMENTS: comittmentsType = {
 export default function Profiling() {
   const [formData, setFormData] = useState<profilingDataType>(profilingData);
   const [currentStep, setCurrentStep] = useState<number>(0);
+  const [previousStep, setPreviousStep] = useState<number>(0);
+  const [direction, setDirection] = useState<'forward' | 'backward'>('forward');
+  const [animating, setAnimating] = useState<boolean>(false);
   const navigation = useNavigate();
 
   const handleDataChange = (
@@ -79,20 +86,29 @@ export default function Profiling() {
   };
 
   const handleStepChange = (step: number) => {
-    if (currentStep === 5 && step > 0) {
-      navigation('/quiz', {
-        state: {
-          questions: DIAGNOSTIC_QUESTIONS,
-          academicStatus: formData?.academicStatus as AcademicStatus,
-        },
-      });
-    } else {
-      if (currentStep === 0 && step < 0) {
-        navigation('/');
+    if (animating) return;
+
+    setDirection(step > 0 ? 'forward' : 'backward');
+    setAnimating(true);
+    setPreviousStep(currentStep);
+
+    setTimeout(() => {
+      if (currentStep === 5 && step > 0) {
+        navigation('/quiz', {
+          state: {
+            questions: DIAGNOSTIC_QUESTIONS,
+            academicStatus: formData?.academicStatus as AcademicStatus,
+          },
+        });
       } else {
-        setCurrentStep((prevStep) => prevStep + step);
+        if (currentStep === 0 && step < 0) {
+          navigation('/');
+        } else {
+          setCurrentStep((prevStep) => prevStep + step);
+        }
       }
-    }
+      setAnimating(false);
+    }, 300);
   };
 
   const renderCountryExamStep = useMemo(
@@ -315,8 +331,8 @@ export default function Profiling() {
     [formData.start],
   );
 
-  const content = useMemo(() => {
-    switch (currentStep) {
+  const renderStep = (stepNumber: number) => {
+    switch (stepNumber) {
       case 0:
         return renderCountryExamStep;
       case 1:
@@ -332,15 +348,21 @@ export default function Profiling() {
       default:
         return null;
     }
-  }, [
-    currentStep,
-    renderCountryExamStep,
-    renderAdNoticeStep,
-    renderAcademicStatusStep,
-    renderGoalStep,
-    renderCommitmentStep,
-    renderStartStep,
-  ]);
+  };
+
+  const getInitialPositionClass = (stepNumber: number) => {
+    if (stepNumber === currentStep) {
+      return direction === 'forward' ? STYLES.slideRight : STYLES.slideLeft;
+    }
+    return STYLES.slideIn;
+  };
+
+  const getFinalPositionClass = (stepNumber: number) => {
+    if (stepNumber === previousStep) {
+      return direction === 'forward' ? STYLES.slideLeft : STYLES.slideRight;
+    }
+    return STYLES.slideIn;
+  };
 
   const steps = Object.keys(formData);
   const current = formData[steps[currentStep] as keyof profilingDataType];
@@ -376,7 +398,25 @@ export default function Profiling() {
           currentStepLabel: 'text-2xl w-[350px] my-10',
         }}
       />
-      <view className={STYLES.contentContainer}>{content}</view>
+
+      <view className={STYLES.contentWrapper}>
+        {/* Exiting Content */}
+        {animating && (
+          <view
+            className={`${STYLES.contentContainer} ${getFinalPositionClass(previousStep)}`}
+          >
+            {renderStep(previousStep)}
+          </view>
+        )}
+
+        {/* Current Content */}
+        <view
+          className={`${STYLES.contentContainer} ${animating ? getInitialPositionClass(currentStep) : STYLES.slideIn}`}
+        >
+          {renderStep(currentStep)}
+        </view>
+      </view>
+
       <Button
         text="CONTINUE"
         variant="orange"
