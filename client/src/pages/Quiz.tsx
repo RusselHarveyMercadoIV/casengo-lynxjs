@@ -21,7 +21,7 @@ const STYLES = {
   progressContainer: 'w-[270px] ml-10 h-[20px]',
   cursor: 'w-[10px] h-[10px] left-[-2.5px] top-[22px] absolute',
   progressBar: 'flex flex-row gap-1 items-center h-full w-full overflow-hidden',
-  progressDot: 'w-[5px] h-[12px] rounded-full opacity-50',
+  progressDot: 'w-[6px] h-[12px] rounded-full opacity-50',
   remainingCount: 'text-sm text-[#ed7d2d]',
   questionCard:
     'flex flex-col bg-white justify-between py-8 border-x-2 border-[#dee1e6] items-center w-[370px] h-[665px] mt-7 mb-3 rounded-lg',
