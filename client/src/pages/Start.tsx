@@ -7,7 +7,7 @@ import Separator from '../components/Separator.jsx';
 export default function Start() {
   const navigation = useNavigate();
 
-  let commonButtonCss = 'min-w-[350px] min-h-[60px]';
+  let commonButtonCss = 'min-w-[350px] min-h-[60px] justify-center';
 
   const handleSignIn = () => {
     navigation('/login');

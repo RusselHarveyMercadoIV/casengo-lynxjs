@@ -3,6 +3,9 @@ import styles from './Button.module.css';
 
 type ButtonType = {
   text?: string;
+  sup?: string;
+  sub?: string;
+  secondText?: string;
   variant: 'orange' | 'white' | 'plain';
   onTap?: () => void;
   isHighlighted?: boolean;
@@ -14,6 +17,9 @@ type ButtonType = {
 
 export default function Button({
   text,
+  sup,
+  sub,
+  secondText,
   variant,
   onTap,
   isHighlighted,
@@ -29,16 +35,31 @@ export default function Button({
   return (
     <view
       key={key}
-      className={`flex ${icon ? 'justify-start' : 'justify-center'} items-center border ${variant === 'plain' ? 'border-2' : 'border-4'}  rounded-2xl ${buttonVariantCss} ${className} ${isHighlighted && styles.highlighted}`}
+      className={`flex  items-center border ${variant === 'plain' ? 'border-2' : 'border-4'}  rounded-2xl ${buttonVariantCss} ${className} ${isHighlighted && styles.highlighted}`}
       bindtap={!disabled ? onTap : () => {}}
     >
+      {sup && (
+        <text className="absolute text-xs font-bold top-0 right-0 bg-[#1ac052] text-white py-2 px-3 rounded-lg">
+          {sup}
+        </text>
+      )}
+
       {icon && icon}
       {text && (
-        <text
-          className={`text-xl ${variant === 'orange' ? 'text-white' : variant === 'white' ? 'text-[#ed7d2d]' : 'text-[#323842]'} font-bold`}
-        >
-          {text}
-        </text>
+        <>
+          <view className="flex flex-col gap-5">
+            <text
+              className={`text-xl ${variant === 'orange' ? 'text-white' : variant === 'white' ? 'text-[#ed7d2d]' : 'text-[#323842]'} font-bold`}
+            >
+              {text}
+            </text>
+            {sub && <text className="text-sm text-[#9095a0]">{sub}</text>}
+          </view>
+
+          {secondText && (
+            <text className="text-sm text-[#9095a0]">{secondText}</text>
+          )}
+        </>
       )}
     </view>
   );

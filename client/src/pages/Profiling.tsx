@@ -262,8 +262,9 @@ export default function Profiling() {
           (comittment: keyof comittmentsType) => (
             <Button
               key={comittment}
-              className={STYLES.buttonLarge}
+              className={STYLES.buttonLarge + ' justify-between'}
               text={comittment}
+              secondText={COMMITMENTS[comittment]}
               variant="plain"
               isHighlighted={formData.comittment === comittment}
               onTap={
@@ -286,6 +287,8 @@ export default function Profiling() {
           key={'p6-1'}
           className={STYLES.buttonLarge}
           text="Take the Assessment"
+          sup="RECOMMENDED"
+          sub="Let's make a personalized learning for you!"
           variant="plain"
           isHighlighted={formData.start === 'personalized'}
           onTap={
@@ -298,6 +301,7 @@ export default function Profiling() {
           key={'p6-2'}
           className={STYLES.buttonLarge}
           text="Start from scratch!"
+          sub="Good for people starting out."
           variant="plain"
           isHighlighted={formData.start === 'scratch'}
           onTap={
@@ -378,7 +382,7 @@ export default function Profiling() {
         variant="orange"
         disabled={isContinue}
         onTap={() => handleStepChange(1)}
-        className={`mb-10 ${isContinue && STYLES.disabled} ${STYLES.buttonCommon}`}
+        className={`mb-10 ${isContinue && STYLES.disabled} ${STYLES.buttonCommon} justify-center`}
       />
     </view>
   );
