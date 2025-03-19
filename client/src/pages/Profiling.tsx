@@ -420,6 +420,7 @@ export default function Profiling() {
       <Button
         text="CONTINUE"
         variant="orange"
+        bold={true}
         disabled={isContinue}
         onTap={() => handleStepChange(1)}
         className={`mb-10 ${isContinue && STYLES.disabled} ${STYLES.buttonCommon} justify-center`}
