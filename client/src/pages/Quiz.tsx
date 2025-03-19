@@ -30,6 +30,8 @@ const STYLES = {
   questionText: 'text-2xl text-clip  mb-4  text-[#323842]',
   choicesContainer: 'h-[350px] grow justify-center ',
   choiceButton: 'py-6 px-4 rounded-xl w-full',
+  selectedChoiceButton:
+    'py-6 px-4 rounded-xl w-full bg-[#fff3ea] border border-[#ed7d2d]',
   choiceText: 'text-lg text-center text-[#565e6c]',
   sequenceItem: 'py-6 px-4 my-[5px] rounded-[8px] flex flex-row items-center',
   sequenceText: 'text-lg text-[#565e6c] flex-1',
@@ -64,6 +66,9 @@ export default function Quiz() {
     null,
   );
   const [isAnimating, setIsAnimating] = useState(false);
+  const [selectedChoiceIndex, setSelectedChoiceIndex] = useState<number | null>(
+    null,
+  );
 
   const navigation = useNavigate();
   const location = useLocation();
@@ -110,6 +115,7 @@ export default function Quiz() {
       setItems((prevItems) => prevItems.slice(1));
       setIsAnimating(false);
       setSlideDirection(null);
+      setSelectedChoiceIndex(null);
     }, 500); // Match this with the CSS transition duration
   };
 
@@ -128,11 +134,14 @@ export default function Quiz() {
   // Handler for checking if a multiple choice answer is correct
   const handleChoiceSelection = (choice: string, index: number) => {
     if (currentItem) {
+      // Highlight the selected choice first
+      setSelectedChoiceIndex(index);
+
       // Handle different answer types (string or string[])
       if (Array.isArray(currentItem.answer)) {
         // For SATA or other multiple answer questions
         // Not implemented in this version - just move to next question
-        handleFinishQuestion(false);
+        setTimeout(() => handleFinishQuestion(false), 700);
         return;
       }
 
@@ -152,9 +161,10 @@ export default function Quiz() {
         isCorrect = choice === answer;
       }
 
-      handleFinishQuestion(isCorrect);
+      // Show feedback after a delay to give user time to see the highlighted selection
+      setTimeout(() => handleFinishQuestion(isCorrect), 100);
     } else {
-      handleFinishQuestion(false);
+      setTimeout(() => handleFinishQuestion(false), 700);
     }
   };
 
@@ -351,7 +361,11 @@ export default function Quiz() {
                       (choice: string, index: number) => (
                         <Button
                           key={index}
-                          className={STYLES.choiceButton + ' my-2'}
+                          className={
+                            selectedChoiceIndex === index
+                              ? STYLES.selectedChoiceButton + ' my-2'
+                              : STYLES.choiceButton + ' my-2'
+                          }
                           variant="plain"
                           text={choice}
                           onTap={() => handleChoiceSelection(choice, index)}
