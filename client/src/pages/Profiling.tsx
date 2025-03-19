@@ -79,7 +79,7 @@ export default function Profiling() {
 
   const handleStepChange = (step: number) => {
     if (currentStep === 6 && step > 0) {
-      navigation('quiz', {
+      navigation('/quiz', {
         state: {
           questions: DIAGNOSTIC_QUESTIONS,
           academicStatus: formData?.academicStatus as AcademicStatus,

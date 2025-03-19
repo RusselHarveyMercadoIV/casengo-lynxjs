@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router';
-import { account } from '../lib/appwrite.js';
+// import { account } from '../lib/appwrite.js';
 
 export default function AuthCallback() {
   const navigate = useNavigate();
