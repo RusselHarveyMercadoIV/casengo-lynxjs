@@ -1,17 +1,17 @@
 export type academicStatusesType = {
-  Freshman: number;
-  Sophomore: number;
-  Junior: number;
-  Senior: number;
-  'Recent Graduate': number;
+  Freshman: string;
+  Sophomore: string;
+  Junior: string;
+  Senior: string;
+  'Recent Graduate': string;
 };
 
 export type adNoticeType = {
-  'Google Search': number;
-  Facebook: number;
-  Youtube: number;
-  'Friends/family': number;
-  Others: number;
+  'Google Search': string;
+  Facebook: string;
+  Youtube: string;
+  'Friends/family': string;
+  Others: string;
 };
 
 export type comittmentsType = {

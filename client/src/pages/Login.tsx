@@ -3,7 +3,7 @@ import { useState, useCallback, useMemo } from 'react';
 import Button from '../components/Button/Button.jsx';
 import Separator from '../components/Separator.jsx';
 import icons from '../constants/icons.js';
-import { APPWRITE_CONFIG } from '../config/appwrite.js';
+import authService from '../services/authService.js';
 
 export default function Login() {
   const navigation = useNavigate();
@@ -33,21 +33,23 @@ export default function Login() {
 
   const handleGoogleLogin = useCallback(async () => {
     try {
-      const response = await fetch(
-        `${APPWRITE_CONFIG.endpoint}/v1/account/sessions/oauth2/google`,
-        {
-          method: 'GET',
-          headers: {
-            'X-Appwrite-Project': APPWRITE_CONFIG.projectId,
-          },
-        },
-      );
+      setIsLoading(true);
+      setError('');
 
-      const data = await response.json();
-      // console.log('data >>> ', data);
-      setError(JSON.stringify(data));
-    } catch (error) {
-      throw new Error('Failed to initiate Google login');
+      // Get the Google auth URL from our server
+      const response = await authService.loginWithGoogle();
+
+      if (!response?.authUrl) {
+        throw new Error('Invalid response from server');
+      }
+
+      // Open the Google auth URL in the mobile browser
+      // The browser will handle the OAuth flow and redirect back to our app
+      window.location.href = response.authUrl;
+    } catch (error: any) {
+      console.error('Google login error:', error);
+      setError(error.message || 'Google login failed. Please try again.');
+      setIsLoading(false);
     }
   }, []);
 
@@ -78,25 +80,7 @@ export default function Login() {
 
       setIsLoading(true);
       setError('');
-      // const response = await loginByEmail(email, password);
-
-      const response = await fetch(
-        `${APPWRITE_CONFIG.endpoint}/v1/account/sessions/email`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-Appwrite-Project': APPWRITE_CONFIG.projectId,
-          },
-          body: JSON.stringify({ email, password }),
-        },
-      );
-
-      if (!response.ok) {
-        throw new Error('Login failed');
-      }
-
-      const session = await response.json();
+      const session = await authService.login(email, password);
 
       if (session && session.$id) {
         navigation('/');
@@ -109,7 +93,7 @@ export default function Login() {
     } finally {
       setIsLoading(false);
     }
-  }, [formData]);
+  }, [formData, navigation]);
 
   return (
     <view className="container mt-[25px] flex-col justify-start items-center h-full">
