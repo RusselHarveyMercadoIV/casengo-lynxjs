@@ -53,7 +53,7 @@ const STYLES = {
   actionText: 'text-md text-white',
   feedbackOverlay:
     'fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center z-50 bg-opacity-90',
-  feedbackText: 'text-4xl font-bold text-white feedback-scale',
+  feedbackText: 'text-5xl font-bold text-white feedback-scale',
   correctFeedback: 'bg-[#1dd75b]',
   incorrectFeedback: 'bg-[#de3b40]',
 } as const;
@@ -122,9 +122,19 @@ export default function Quiz() {
   // Handler for the Confirm button to check the sequence
   const handleConfirm = () => {
     if (currentItem && currentItem.type === 'sequencing') {
-      const currentTexts = sequenceOrder.map((item) => item.text);
+      // Convert current sequence order to array of letters (a, b, c, d, etc.)
+      const currentSequence = sequenceOrder.map((item, index) => {
+        // Find the original choice index that matches this item's text
+        const originalIndex = currentItem.choices.findIndex(
+          (choice) => choice === item.text,
+        );
+        // Convert index to letter (0=a, 1=b, etc.)
+        return String.fromCharCode(97 + originalIndex); // 97 is ASCII for 'a'
+      });
+
+      // Compare with the correct answer array
       const isCorrect =
-        JSON.stringify(currentTexts) === JSON.stringify(currentItem.answer);
+        JSON.stringify(currentSequence) === JSON.stringify(currentItem.answer);
       handleFinishQuestion(isCorrect);
     } else {
       handleFinishQuestion();
