@@ -25,19 +25,18 @@ const STYLES = {
   progressDot: 'w-[6px] h-[12px] rounded-full opacity-50',
   remainingCount: 'text-sm text-[#ed7d2d]',
   questionCard:
-    'flex flex-col bg-white justify-between py-8 border-x-2 border-[#dee1e6] items-center w-[370px] h-[665px] mt-7 mb-3 rounded-lg',
-  questionContainer: 'flex flex-col flex-1 px-8 w-[350px]',
+    'flex flex-col bg-white justify-between py-8 border-x-2 border-[#dee1e6] items-center w-[370px] h-[665px] mt-7 mb-3 rounded-lg transition-transform duration-300 ease-in-out',
+  questionContainer: 'flex flex-col flex-1 px-8 w-[350px] relative',
   questionText: 'text-2xl text-clip  mb-4  text-[#323842]',
   choicesContainer: 'h-[350px] grow justify-center ',
   choiceButton: 'py-6 px-4 rounded-xl w-full',
   choiceText: 'text-lg text-center text-[#565e6c]',
-  sequenceItem: 'p-[10px] my-[5px] rounded-[8px] flex flex-row items-center',
+  sequenceItem: 'py-6 px-4 my-[5px] rounded-[8px] flex flex-row items-center',
   sequenceText: 'text-lg text-[#565e6c] flex-1',
   sequenceControls: 'flex flex-row gap-2',
-  sequenceButton:
-    'w-8 h-8 flex items-center justify-center rounded-full bg-[#f0f0f0]',
+  sequenceButton: 'w-8 h-8 flex items-center justify-center rounded-full',
   activeSequenceItem: 'bg-[#fff3ea] border border-[#ed7d2d]',
-  inactiveSequenceItem: 'bg-[#f0f0f0]',
+  inactiveSequenceItem: 'border border-[#dee1e6] border-2',
   sequenceInstructions: 'text-sm text-gray-500 mt-2',
   buttonContainer: 'flex gap-10 flex-row mb-10',
   dontKnowButton: 'px-6 py-5 rounded-2xl bg-[#f3f4f6]',
@@ -50,13 +49,21 @@ const STYLES = {
   bottomBar: 'flex flex-row justify-around w-[350px] opacity-70',
   actionButton: 'px-5 py-3 rounded-2xl',
   actionText: 'text-md text-white',
+  feedbackOverlay:
+    'fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center z-50 bg-opacity-90',
+  feedbackText: 'text-4xl font-bold text-white feedback-scale',
+  correctFeedback: 'bg-[#1dd75b]',
+  incorrectFeedback: 'bg-[#de3b40]',
 } as const;
 
 export default function Quiz() {
   const [items, setItems] = useState<SelectedQuestion[]>([]);
-  // State to manage the current order of sequencing choices
   const [sequenceOrder, setSequenceOrder] = useState<SequenceItem[]>([]);
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [slideDirection, setSlideDirection] = useState<'right' | 'left' | null>(
+    null,
+  );
+  const [isAnimating, setIsAnimating] = useState(false);
 
   const navigation = useNavigate();
   const location = useLocation();
@@ -94,8 +101,16 @@ export default function Quiz() {
     psychiatricNursing: 'Psychiatric Nursing',
   } as const;
 
-  const handleFinishQuestion = () => {
-    setItems((prevItems) => prevItems.slice(1));
+  const handleFinishQuestion = (isCorrect: boolean = false) => {
+    setIsAnimating(true);
+    setSlideDirection(isCorrect ? 'right' : 'left');
+
+    // Wait for animation to complete before moving to next question
+    setTimeout(() => {
+      setItems((prevItems) => prevItems.slice(1));
+      setIsAnimating(false);
+      setSlideDirection(null);
+    }, 500); // Match this with the CSS transition duration
   };
 
   // Handler for the Confirm button to check the sequence
@@ -104,9 +119,43 @@ export default function Quiz() {
       const currentTexts = sequenceOrder.map((item) => item.text);
       const isCorrect =
         JSON.stringify(currentTexts) === JSON.stringify(currentItem.answer);
-      console.log(isCorrect ? 'Correct' : 'Incorrect'); // Replace with your scoring logic
+      handleFinishQuestion(isCorrect);
+    } else {
+      handleFinishQuestion();
     }
-    handleFinishQuestion();
+  };
+
+  // Handler for checking if a multiple choice answer is correct
+  const handleChoiceSelection = (choice: string, index: number) => {
+    if (currentItem) {
+      // Handle different answer types (string or string[])
+      if (Array.isArray(currentItem.answer)) {
+        // For SATA or other multiple answer questions
+        // Not implemented in this version - just move to next question
+        handleFinishQuestion(false);
+        return;
+      }
+
+      // Now we know currentItem.answer is a string
+      const answer = currentItem.answer as string;
+
+      // Check if the answer is a letter (A, B, C, D, etc.)
+      const isLetterAnswer = /^[A-Za-z]$/.test(answer);
+
+      let isCorrect = false;
+      if (isLetterAnswer) {
+        // If answer is a letter, convert index to corresponding letter (0=A, 1=B, etc.)
+        const answerLetter = String.fromCharCode(65 + index); // 65 is ASCII for 'A'
+        isCorrect = answerLetter === answer.toUpperCase();
+      } else {
+        // Direct text comparison if answer is the full text
+        isCorrect = choice === answer;
+      }
+
+      handleFinishQuestion(isCorrect);
+    } else {
+      handleFinishQuestion(false);
+    }
   };
 
   // Functions to move items up and down in the sequence
@@ -117,7 +166,6 @@ export default function Quiz() {
       newOrder[index] = newOrder[index - 1];
       newOrder[index - 1] = temp;
       setSequenceOrder(newOrder);
-      setSelectedIndex(index - 1);
     }
   };
 
@@ -128,7 +176,6 @@ export default function Quiz() {
       newOrder[index] = newOrder[index + 1];
       newOrder[index + 1] = temp;
       setSequenceOrder(newOrder);
-      setSelectedIndex(index + 1);
     }
   };
 
@@ -179,7 +226,7 @@ export default function Quiz() {
         }),
       );
       setSequenceOrder(initialSequence);
-      setSelectedIndex(null);
+      setSelectedId(null);
     }
   }, [currentItem]);
 
@@ -228,51 +275,65 @@ export default function Quiz() {
             : '#ed7d2d'
         }
       />
-
+      {isAnimating && (
+        <view
+          className={`${STYLES.feedbackOverlay} ${
+            slideDirection === 'right'
+              ? STYLES.correctFeedback
+              : STYLES.incorrectFeedback
+          }`}
+        >
+          <text className={STYLES.feedbackText}>
+            {slideDirection === 'right' ? 'Correct!' : 'Incorrect'}
+          </text>
+        </view>
+      )}
       {/* Question Display */}
       {items.length > 0 && currentItem && (
-        <view className={STYLES.questionCard}>
+        <view
+          className={`${STYLES.questionCard} relative overflow-hidden ${
+            isAnimating && 'translate-x-full'
+          }`}
+        >
           <view className={STYLES.questionContainer}>
             <text className={STYLES.questionText}>{currentItem.question}</text>
             <view className={STYLES.choicesContainer}>
               {currentItem.type === 'sequencing' ? (
-                <view>
-                  <view className="flex flex-col w-full">
+                <view className="flex flex-col h-full justify-center">
+                  <scroll-view
+                    scroll-orientation="vertical"
+                    className="flex flex-col h-[350px]"
+                    style={{ gap: '10px' }}
+                    scroll-bar-enable={true}
+                  >
                     {sequenceOrder.map((item, index) => (
                       <view
-                        item-key={item.id}
                         key={item.id}
                         className={`${STYLES.sequenceItem} ${
-                          selectedIndex === index
+                          selectedId === item.id
                             ? STYLES.activeSequenceItem
                             : STYLES.inactiveSequenceItem
                         }`}
-                        bindtap={() => setSelectedIndex(index)}
+                        bindtap={() => setSelectedId(item.id)}
                       >
                         <text className={STYLES.sequenceText}>{item.text}</text>
                         <view className={STYLES.sequenceControls}>
                           <view
                             className={STYLES.sequenceButton}
-                            bindtap={(e) => {
-                              e.stopPropagation();
-                              moveItemUp(index);
-                            }}
+                            bindtap={() => moveItemUp(index)}
                           >
                             <text>↑</text>
                           </view>
                           <view
                             className={STYLES.sequenceButton}
-                            bindtap={(e) => {
-                              e.stopPropagation();
-                              moveItemDown(index);
-                            }}
+                            bindtap={() => moveItemDown(index)}
                           >
                             <text>↓</text>
                           </view>
                         </view>
                       </view>
                     ))}
-                  </view>
+                  </scroll-view>
                   <text className={STYLES.sequenceInstructions}>
                     (Arrange these steps in the correct order)
                   </text>
@@ -293,7 +354,7 @@ export default function Quiz() {
                           className={STYLES.choiceButton + ' my-2'}
                           variant="plain"
                           text={choice}
-                          onTap={handleFinishQuestion}
+                          onTap={() => handleChoiceSelection(choice, index)}
                         />
                       ),
                     )}
@@ -302,6 +363,7 @@ export default function Quiz() {
               )}
             </view>
           </view>
+
           <view className="flex flex-col items-center w-[300px] flex-none pt-4">
             {currentItem.type !== 'multipleChoices' && (
               <view className={STYLES.buttonContainer}>

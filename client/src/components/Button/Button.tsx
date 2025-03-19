@@ -13,6 +13,7 @@ type ButtonType = {
   className?: string;
   key?: number | string;
   disabled?: boolean;
+  bold?: boolean;
 };
 
 export default function Button({
@@ -27,6 +28,7 @@ export default function Button({
   className,
   key,
   disabled,
+  bold,
 }: ButtonType) {
   let buttonVariantCss = styles.plain;
   if (variant === 'orange') buttonVariantCss = styles.orange;
@@ -49,7 +51,7 @@ export default function Button({
         <>
           <view className="flex flex-col gap-5">
             <text
-              className={`text-xl ${variant === 'orange' ? 'text-white' : variant === 'white' ? 'text-[#ed7d2d]' : 'text-[#323842]'} font-bold`}
+              className={`text-xl ${variant === 'orange' ? 'text-white' : variant === 'white' ? 'text-[#ed7d2d]' : 'text-[#323842]'} ${bold ? 'font-bold' : ''}`}
             >
               {text}
             </text>

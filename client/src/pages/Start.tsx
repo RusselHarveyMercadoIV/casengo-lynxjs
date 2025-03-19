@@ -27,6 +27,7 @@ export default function Start() {
           <Button
             text={'SIGN IN'}
             variant="orange"
+            bold={true}
             className={commonButtonCss}
             onTap={handleSignIn}
           />
@@ -39,6 +40,7 @@ export default function Start() {
           <Button
             text={'GET STARTED'}
             variant="white"
+            bold={true}
             onTap={handleGetStarted}
             className={commonButtonCss}
           />
