@@ -66,10 +66,11 @@ export default function Profiling() {
     value: profilingDataType[keyof profilingDataType],
   ) => {
     if (type === 'academicStatus') {
-      const isDisabled =
-        !PNLE_ELIGIBLE_STATUSES.includes(
+      const isDisabled = !(
+        PNLE_ELIGIBLE_STATUSES.includes(
           value as (typeof PNLE_ELIGIBLE_STATUSES)[number],
-        ) && formData.goal === 'Prepare for PNLE';
+        ) && formData.goal === 'Prepare for PNLE'
+      );
       if (isDisabled) {
         setFormData((prevData) => ({ ...prevData, goal: '' }));
       }
@@ -242,7 +243,7 @@ export default function Profiling() {
               isHighlighted={formData.goal === goal && !isDisabled}
               disabled={isDisabled}
               onTap={
-                formData.goal === goal
+                formData?.goal === goal
                   ? () => handleDataChange('goal', '')
                   : () => handleDataChange('goal', goal)
               }
