@@ -108,7 +108,7 @@ export default function Profiling() {
         }
       }
       setAnimating(false);
-    }, 300);
+    }, 150);
   };
 
   const renderCountryExamStep = useMemo(
