@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import Button from '../components/Button/Button.jsx';
 import Separator from '../components/Separator.jsx';
+import StepsIndicator, { type Step } from '../components/StepsIndicator.jsx';
 
 import icons from '../constants/icons.js';
 import type {
@@ -12,7 +13,6 @@ import type {
 } from '../types/types.js';
 import { useNavigate } from 'react-router';
 import { DIAGNOSTIC_QUESTIONS } from '../constants/question-bank.js';
-import Steps from '../components/Steps.jsx';
 import { headers } from '../constants/start.js';
 
 const profilingData: profilingDataType = {
@@ -28,7 +28,7 @@ const profilingData: profilingDataType = {
 const STYLES = {
   container: 'container mt-[25px] flex-col justify-start items-center h-full',
   contentContainer:
-    'flex-col flex gap-14 mb-14 grow justify-center items-center',
+    'flex-col flex gap-14 mb-14 h-[500px] justify-start items-center',
   buttonBase: 'flex-row gap-5 py-4 px-8 justify-start items-center w-[350px]',
   buttonLarge: 'flex-row gap-5 py-6 px-8 justify-start items-center w-[350px]',
   buttonCommon: 'min-w-[350px] min-h-[60px]',
@@ -58,7 +58,7 @@ const COMMITMENTS: comittmentsType = {
 
 export default function Profiling() {
   const [formData, setFormData] = useState<profilingDataType>(profilingData);
-  const [currentStep, setCurrentStep] = useState<number>(1);
+  const [currentStep, setCurrentStep] = useState<number>(0);
   const navigation = useNavigate();
 
   const handleDataChange = (
@@ -78,7 +78,7 @@ export default function Profiling() {
   };
 
   const handleStepChange = (step: number) => {
-    if (currentStep === 6 && step > 0) {
+    if (currentStep === 5 && step > 0) {
       navigation('/quiz', {
         state: {
           questions: DIAGNOSTIC_QUESTIONS,
@@ -310,17 +310,17 @@ export default function Profiling() {
 
   const content = useMemo(() => {
     switch (currentStep) {
-      case 1:
+      case 0:
         return renderCountryExamStep;
-      case 2:
+      case 1:
         return renderAdNoticeStep;
-      case 3:
+      case 2:
         return renderAcademicStatusStep;
-      case 4:
+      case 3:
         return renderGoalStep;
-      case 5:
+      case 4:
         return renderCommitmentStep;
-      case 6:
+      case 5:
         return renderStartStep;
       default:
         return null;
@@ -336,30 +336,47 @@ export default function Profiling() {
   ]);
 
   const steps = Object.keys(formData);
-  const current = formData[steps[currentStep - 1] as keyof profilingDataType];
+  const current = formData[steps[currentStep] as keyof profilingDataType];
   const isContinue = current === '';
+
+  // Create steps array for StepsIndicator
+  const profilingSteps = useMemo(() => {
+    const stepKeys = Object.keys(formData) as Array<keyof profilingDataType>;
+
+    return stepKeys.map((key, index) => ({
+      id: key,
+      label:
+        headers[index]?.header || key.charAt(0).toUpperCase() + key.slice(1),
+      completed: formData[key] !== '',
+      data: formData[key],
+    }));
+  }, [formData]);
 
   return (
     <view className={STYLES.container}>
-      {currentStep >= 1 && (
-        <Steps
-          header={headers[currentStep]?.header}
-          currentStep={currentStep}
-          formData={formData}
-          icon={icons.leftArrow}
-          onStepChange={() => handleStepChange(-1)}
-        />
-      )}
+      <StepsIndicator
+        steps={profilingSteps}
+        currentStep={currentStep}
+        showBackButton={true}
+        backIcon={icons.leftArrow}
+        onBackPress={() => handleStepChange(-1)}
+        showLabels={Boolean(headers[currentStep]?.header)}
+        activeColor="#ed7d2d"
+        styles={{
+          stepDot: 'w-6 h-6 rounded-full',
+          progressBar:
+            'flex flex-row justify-center items-center gap-4 bg-[#f8f9fa] w-[230px] h-[40px] rounded-full',
+          currentStepLabel: 'text-2xl w-[350px] my-10',
+        }}
+      />
       <view className={STYLES.contentContainer}>{content}</view>
-      {currentStep >= 1 && (
-        <Button
-          text="CONTINUE"
-          variant="orange"
-          disabled={isContinue}
-          onTap={() => handleStepChange(1)}
-          className={`mb-10 ${isContinue && STYLES.disabled} ${STYLES.buttonCommon}`}
-        />
-      )}
+      <Button
+        text="CONTINUE"
+        variant="orange"
+        disabled={isContinue}
+        onTap={() => handleStepChange(1)}
+        className={`mb-10 ${isContinue && STYLES.disabled} ${STYLES.buttonCommon}`}
+      />
     </view>
   );
 }

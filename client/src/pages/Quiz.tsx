@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useNavigate, useLocation } from 'react-router';
 import Button from '../components/Button/Button.jsx';
 import icons from '../constants/icons.js';
 import type { SelectedQuestion, SubjectColorsType } from '../types/types.js';
 import Separator from '../components/Separator.jsx';
+import StepsIndicator, { type Step } from '../components/StepsIndicator.jsx';
 
 const SHOWN_NODES = 30;
 
@@ -184,34 +185,49 @@ export default function Quiz() {
 
   const total = items.length - SHOWN_NODES;
 
+  // Create steps array for StepsIndicator from the items
+  const quizSteps = useMemo(() => {
+    return items.map((item, index) => ({
+      id: item.id || `item-${index}`,
+      label: `Question ${index + 1}`,
+      completed: false, // We don't track completion in the quiz flow
+      data: item,
+    }));
+  }, [items]);
+
+  // Create step colors mapping
+  const stepColorMap = useMemo(() => {
+    const colorMap: Record<string, string> = {};
+
+    items.forEach((item) => {
+      if (item.id) {
+        colorMap[item.id] =
+          SubjectColors[item.subject as keyof typeof SubjectColors];
+      }
+    });
+
+    return colorMap;
+  }, [items]);
+
   return (
     <view className={STYLES.container}>
-      {/* Header */}
-      <view className={STYLES.header}>
-        <view className={STYLES.backButton} bindtap={() => navigation(-1)}>
-          <image src={icons.closebtn} className="w-full h-full" />
-        </view>
-        <view className={STYLES.progressContainer}>
-          <image className={STYLES.cursor} src={icons.cursor} />
-          <view
-            className={`${STYLES.progressBar} ${
-              total > 0 ? 'border-r-[4px] border-[#ed7d2d]' : ''
-            }`}
-          >
-            {items.map((item, index) => (
-              <view
-                key={index}
-                className={STYLES.progressDot}
-                style={{
-                  backgroundColor:
-                    SubjectColors[item.subject as keyof typeof SubjectColors],
-                }}
-              />
-            ))}
-          </view>
-        </view>
-        {total > 0 && <text className={STYLES.remainingCount}> +{total}</text>}
-      </view>
+      {/* Header with StepsIndicator */}
+      <StepsIndicator
+        steps={quizSteps}
+        currentStep={0} // Always show first step as current in the quiz
+        maxVisibleSteps={SHOWN_NODES}
+        showBackButton={true}
+        backIcon={icons.closebtn}
+        onBackPress={() => navigation(-1)}
+        stepColors={stepColorMap}
+        showCursor={true}
+        showLabels={false}
+        activeColor={
+          items[0]?.subject
+            ? SubjectColors[items[0].subject as keyof typeof SubjectColors]
+            : '#ed7d2d'
+        }
+      />
 
       {/* Question Display */}
       {items.length > 0 && currentItem && (
