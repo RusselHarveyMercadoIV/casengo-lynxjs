@@ -86,8 +86,8 @@ export default function Profiling() {
         },
       });
     } else {
-      if (currentStep === 1 && step < 0) {
-        navigation(-1);
+      if (currentStep === 0 && step < 0) {
+        navigation('/');
       } else {
         setCurrentStep((prevStep) => prevStep + step);
       }
@@ -234,7 +234,9 @@ export default function Profiling() {
           return (
             <Button
               key={goal}
-              className={STYLES.buttonLarge}
+              className={
+                STYLES.buttonLarge + ` ${isDisabled && STYLES.disabled}`
+              }
               text={goal}
               variant="plain"
               isHighlighted={formData.goal === goal && !isDisabled}

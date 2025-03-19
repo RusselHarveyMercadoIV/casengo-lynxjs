@@ -42,10 +42,12 @@ export type StepsIndicatorProps = {
 };
 
 const defaultStyles: StepIndicatorStyles = {
-  container: 'flex  flex-row items-center justify-center w-[350px]',
-  progressBar: 'flex flex-row gap-1 items-center h-full w-full overflow-hidden',
+  container:
+    'flex  min-h-[20px] flex-row items-center justify-center w-[350px]',
+  progressBar:
+    'flex px-2 flex-row gap-1 items-center h-full w-full overflow-hidden',
   stepDot: 'w-[6px] h-[12px] rounded-full opacity-80',
-  activeDot: 'opacity-100',
+  activeDot: 'opacity-100 scale-125',
   completedDot: 'opacity-80',
   pendingDot: 'opacity-50',
   stepLabel: 'text-sm text-[#323842]',
@@ -92,7 +94,7 @@ export default function StepsIndicator({
     if (onBackPress) {
       onBackPress();
     } else if (onStepChange && currentStep > 0) {
-      onStepChange(currentStep - 1);
+      onStepChange(currentStep);
     }
   };
 

@@ -218,7 +218,7 @@ export default function Quiz() {
         maxVisibleSteps={SHOWN_NODES}
         showBackButton={true}
         backIcon={icons.closebtn}
-        onBackPress={() => navigation(-1)}
+        onBackPress={() => navigation('/profiling')}
         stepColors={stepColorMap}
         showCursor={true}
         showLabels={false}
