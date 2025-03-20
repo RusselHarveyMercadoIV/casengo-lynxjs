@@ -7,6 +7,7 @@ import Login from './pages/Login.jsx';
 import AuthCallback from './pages/AuthCallback.jsx';
 import Quiz from './pages/Quiz.jsx';
 import { ThemeProvider } from './context/ThemeContext.jsx';
+import DiagnosticResult from './pages/DiagnosticResult.jsx';
 
 root.render(
   <ThemeProvider>
@@ -16,6 +17,7 @@ root.render(
         <Route path="/profiling" element={<Profiling />} />
         <Route path="/login" element={<Login />} />
         <Route path="/quiz" element={<Quiz />} />
+        <Route path="/diagnostic-result" element={<DiagnosticResult />} />
         <Route path="/auth/callback" element={<AuthCallback />} />
       </Routes>
     </MemoryRouter>

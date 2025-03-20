@@ -100,6 +100,7 @@ export default function Profiling() {
           state: {
             questions: DIAGNOSTIC_QUESTIONS,
             academicStatus: formData?.academicStatus as AcademicStatus,
+            type: 'diagnostic',
           },
         });
       } else {

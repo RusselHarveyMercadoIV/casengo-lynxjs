@@ -72,9 +72,10 @@ export default function Quiz() {
 
   const navigation = useNavigate();
   const location = useLocation();
-  const { questions, academicStatus } = location.state as {
+  const { questions, academicStatus, type } = location.state as {
     questions: any;
     academicStatus: string;
+    type: string;
   };
 
   const SubjectColors = {
@@ -112,7 +113,14 @@ export default function Quiz() {
 
     // Wait for animation to complete before moving to next question
     setTimeout(() => {
-      setItems((prevItems) => prevItems.slice(1));
+      setItems((prevItems) => {
+        const remainingItems = prevItems.slice(1);
+        // If this was the last question and type is diagnostic, redirect to diagnostic result
+        if (remainingItems.length === 0 && type === 'diagnostic') {
+          navigation('/diagnostic-result');
+        }
+        return remainingItems;
+      });
       setIsAnimating(false);
       setSlideDirection(null);
       setSelectedChoiceIndex(null);
@@ -172,9 +180,9 @@ export default function Quiz() {
       }
 
       // Show feedback after a delay to give user time to see the highlighted selection
-      setTimeout(() => handleFinishQuestion(isCorrect), 100);
+      setTimeout(() => handleFinishQuestion(isCorrect), 50);
     } else {
-      setTimeout(() => handleFinishQuestion(false), 700);
+      setTimeout(() => handleFinishQuestion(false), 50);
     }
   };
 
