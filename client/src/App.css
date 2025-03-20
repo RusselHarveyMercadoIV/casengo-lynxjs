@@ -2,8 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  background-color: #fff;
+.dark {
+  background-color: #1a1a1a;
+  color: #ffffff;
 }
 
 .container {

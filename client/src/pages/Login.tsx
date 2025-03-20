@@ -4,9 +4,12 @@ import Button from '../components/Button/Button.jsx';
 import Separator from '../components/Separator.jsx';
 import icons from '../constants/icons.js';
 import authService from '../services/authService.js';
+import { useTheme } from '../context/ThemeContext.jsx';
+import styles from './Login.module.css';
 
 export default function Login() {
   const navigation = useNavigate();
+  const { theme } = useTheme();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -96,7 +99,9 @@ export default function Login() {
   }, [formData, navigation]);
 
   return (
-    <view className="container mt-[25px] flex-col justify-start items-center h-full">
+    <view
+      className={`container mt-[25px] flex-col justify-start items-center h-full ${theme === 'dark' ? 'bg-[#1a1a1a]' : 'bg-white'}`}
+    >
       <Button
         variant="plain"
         icon={<image src={icons.leftArrow} className="w-6 h-6" />}
@@ -105,7 +110,11 @@ export default function Login() {
       />
       <view className="justify-between items-center h-full py-14">
         <view className="flex-col relative flex gap-10 justify-center items-center">
-          <text className="text-2xl text-[#323842]">Welcome back!</text>
+          <text
+            className={`text-2xl ${theme === 'dark' ? 'text-white' : 'text-[#323842]'}`}
+          >
+            Welcome back!
+          </text>
           <Button
             text={'Continue with Google'}
             icon={<image src={icons.google} className="w-6 h-6" />}
@@ -116,7 +125,11 @@ export default function Login() {
         </view>
         {/* <Separator className="mt-16 mb-12" /> */}
         <view className="flex-col relative flex gap-6 justify-center items-center">
-          <text className="text-2xl text-[#323842]">Login with Email</text>
+          <text
+            className={`text-2xl ${theme === 'dark' ? 'text-white' : 'text-[#323842]'}`}
+          >
+            Login with Email
+          </text>
           {error && <text className={styles.error}>{error}</text>}
           <input
             type="email"
@@ -124,7 +137,7 @@ export default function Login() {
             placeholder="Email"
             value={formData.email}
             onChange={handleInputChange}
-            className={styles.input}
+            className={`${styles.input} ${theme === 'dark' ? 'bg-[#2a2a2a] text-white border-[#333333]' : ''}`}
           />
           <input
             type={showPassword ? 'text' : 'password'}
@@ -132,7 +145,7 @@ export default function Login() {
             placeholder="Password"
             value={formData.password}
             onChange={handleInputChange}
-            className={styles.input}
+            className={`${styles.input} ${theme === 'dark' ? 'bg-[#2a2a2a] text-white border-[#333333]' : ''}`}
           />
           <Button
             text={isLoading ? 'Logging in...' : 'Login'}

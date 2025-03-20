@@ -2,6 +2,7 @@ import { useState, useMemo, useEffect } from 'react';
 import Button from '../components/Button/Button.jsx';
 import Separator from '../components/Separator.jsx';
 import StepsIndicator, { type Step } from '../components/StepsIndicator.jsx';
+import { useTheme } from '../context/ThemeContext.jsx';
 
 import icons from '../constants/icons.js';
 import type {
@@ -37,7 +38,7 @@ const STYLES = {
   iconSmall: 'w-8 h-8',
   iconLarge: 'w-10 h-10 rounded-2xl',
   comingSoon: 'flex flex-col justify-center items-center gap-10 w-[350px]',
-  comingSoonText: 'text-2xl text-[#9095a0]',
+  comingSoonText: 'text-2xl',
   buttonList: 'flex flex-col gap-6',
   slideLeft: 'transform -translate-x-full opacity-0',
   slideRight: 'transform translate-x-full opacity-0',
@@ -61,6 +62,7 @@ const COMMITMENTS: comittmentsType = {
 };
 
 export default function Profiling() {
+  const { theme } = useTheme();
   const [formData, setFormData] = useState<profilingDataType>(profilingData);
   const [currentStep, setCurrentStep] = useState<number>(0);
   const [previousStep, setPreviousStep] = useState<number>(0);
@@ -117,7 +119,9 @@ export default function Profiling() {
         <Button
           key={'p1-1'}
           variant="plain"
-          className={STYLES.buttonBase}
+          className={`${STYLES.buttonBase} ${
+            theme === 'dark' ? 'bg-[#2a2a2a]' : 'bg-white'
+          }`}
           text="PNLE"
           isHighlighted={formData.countryExam === 'PNLE'}
           icon={<image src={icons.philippines} className={STYLES.iconLarge} />}
@@ -130,11 +134,17 @@ export default function Profiling() {
 
         <Separator className="mt-16 mb-12" />
         <view className={STYLES.comingSoon}>
-          <text className={STYLES.comingSoonText}>Coming soon...</text>
+          <text
+            className={`${STYLES.comingSoonText} ${theme === 'dark' ? 'text-gray-400' : 'text-[#9095a0]'}`}
+          >
+            Coming soon...
+          </text>
           <view className="flex flex-col gap-5">
             <Button
               key={'p1-2'}
-              className={`${STYLES.buttonBase} ${STYLES.disabled}`}
+              className={`${STYLES.buttonBase} ${STYLES.disabled} ${
+                theme === 'dark' ? 'bg-[#2a2a2a]' : 'bg-white'
+              }`}
               variant="plain"
               icon={<image src={icons.america} className={STYLES.iconLarge} />}
               disabled={true}
@@ -149,7 +159,9 @@ export default function Profiling() {
 
             <Button
               key={'p1-3'}
-              className={`${STYLES.buttonBase} ${STYLES.disabled}`}
+              className={`${STYLES.buttonBase} ${STYLES.disabled} ${
+                theme === 'dark' ? 'bg-[#2a2a2a]' : 'bg-white'
+              }`}
               disabled={true}
               text="NCLEX - PN"
               variant="plain"
@@ -165,7 +177,7 @@ export default function Profiling() {
         </view>
       </>
     ),
-    [formData.countryExam],
+    [formData.countryExam, theme],
   );
 
   const renderAdNoticeStep = useMemo(() => {
@@ -183,7 +195,9 @@ export default function Profiling() {
           (choice: keyof adNoticeType) => (
             <Button
               key={choice}
-              className={STYLES.buttonBase}
+              className={`${STYLES.buttonBase} ${
+                theme === 'dark' ? 'bg-[#2a2a2a]' : 'bg-white'
+              }`}
               text={choice}
               variant="plain"
               isHighlighted={formData.appNotice === choice}
@@ -218,7 +232,9 @@ export default function Profiling() {
         ).map((choice: keyof academicStatusesType) => (
           <Button
             key={choice}
-            className={STYLES.buttonBase}
+            className={`${STYLES.buttonBase} ${
+              theme === 'dark' ? 'bg-[#2a2a2a]' : 'bg-white'
+            }`}
             text={choice}
             variant="plain"
             isHighlighted={formData.academicStatus === choice}
@@ -252,7 +268,10 @@ export default function Profiling() {
             <Button
               key={goal}
               className={
-                STYLES.buttonLarge + ` ${isDisabled && STYLES.disabled}`
+                STYLES.buttonLarge +
+                ` ${isDisabled && STYLES.disabled} ${
+                  theme === 'dark' ? 'bg-[#2a2a2a]' : 'bg-white'
+                }`
               }
               text={goal}
               variant="plain"
@@ -278,7 +297,9 @@ export default function Profiling() {
           (comittment: keyof comittmentsType) => (
             <Button
               key={comittment}
-              className={STYLES.buttonLarge + ' justify-between'}
+              className={`${STYLES.buttonLarge} ${
+                theme === 'dark' ? 'bg-[#2a2a2a]' : 'bg-white'
+              } justify-between`}
               text={comittment}
               secondText={COMMITMENTS[comittment]}
               variant="plain"
@@ -301,7 +322,9 @@ export default function Profiling() {
       <view className={STYLES.buttonList}>
         <Button
           key={'p6-1'}
-          className={STYLES.buttonLarge}
+          className={`${STYLES.buttonLarge} ${
+            theme === 'dark' ? 'bg-[#2a2a2a]' : 'bg-white'
+          }`}
           text="Take the Assessment"
           sup="RECOMMENDED"
           sub="Let's make a personalized learning for you!"
@@ -315,7 +338,9 @@ export default function Profiling() {
         />
         <Button
           key={'p6-2'}
-          className={STYLES.buttonLarge}
+          className={`${STYLES.buttonLarge} ${
+            theme === 'dark' ? 'bg-[#2a2a2a]' : 'bg-white'
+          }`}
           text="Start from scratch!"
           sub="Good for people starting out."
           variant="plain"
@@ -382,7 +407,9 @@ export default function Profiling() {
   }, [formData]);
 
   return (
-    <view className={STYLES.container}>
+    <view
+      className={`${STYLES.container} ${theme === 'dark' ? 'bg-[#1a1a1a]' : 'bg-white'}`}
+    >
       <StepsIndicator
         steps={profilingSteps}
         currentStep={currentStep}
@@ -393,9 +420,12 @@ export default function Profiling() {
         activeColor="#ed7d2d"
         styles={{
           stepDot: 'w-6 h-6 rounded-full',
-          progressBar:
-            'flex flex-row justify-center items-center gap-4 bg-[#f8f9fa] w-[230px] h-[40px] rounded-full',
-          currentStepLabel: 'text-2xl w-[350px] my-10',
+          progressBar: `flex flex-row justify-center items-center gap-4 ${
+            theme === 'dark' ? 'bg-[#2a2a2a]' : 'bg-[#f8f9fa]'
+          } w-[230px] h-[40px] rounded-full`,
+          currentStepLabel: `text-2xl w-[350px] my-10 ${
+            theme === 'dark' ? 'text-white' : 'text-[#323842]'
+          }`,
         }}
       />
 

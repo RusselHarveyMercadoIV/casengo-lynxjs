@@ -19,3 +19,20 @@
   border-color: #ed7d2d;
   background-color: #fff3ea;
 }
+
+/* Dark mode styles */
+:global(.dark) .plain {
+  background-color: #2a2a2a;
+  border-color: #333333;
+}
+
+:global(.dark) .white {
+  background-color: #2a2a2a;
+  border-color: #333333;
+  box-shadow: 0px 6px #333333;
+}
+
+:global(.dark) .highlighted {
+  background-color: #3a3a3a;
+  border-color: #ed7d2d;
+}

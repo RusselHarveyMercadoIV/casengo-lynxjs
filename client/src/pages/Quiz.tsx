@@ -5,6 +5,7 @@ import icons from '../constants/icons.js';
 import type { SelectedQuestion, SubjectColorsType } from '../types/types.js';
 import Separator from '../components/Separator.jsx';
 import StepsIndicator, { type Step } from '../components/StepsIndicator.jsx';
+import { useTheme } from '../context/ThemeContext.jsx';
 
 const SHOWN_NODES = 16;
 
@@ -16,7 +17,7 @@ type SequenceItem = {
 
 // Styles
 const STYLES = {
-  container: 'flex flex-col items-center bg-white h-full mt-10',
+  container: 'flex flex-col items-center h-full mt-10',
   header: 'flex w-[340px] flex-row justify-center items-center',
   backButton: 'absolute left-0 w-[20px] h-[20px]',
   progressContainer: 'w-[270px] ml-10 h-[20px]',
@@ -25,29 +26,27 @@ const STYLES = {
   progressDot: 'w-[6px] h-[12px] rounded-full opacity-50',
   remainingCount: 'text-sm text-[#ed7d2d]',
   questionCard:
-    'flex flex-col bg-white justify-between py-8 pt-12 border-2 border-[#dee1e6] items-center w-[370px] h-[665px] mt-4 mb-3 rounded-[2rem] transition-transform duration-300 ease-in-out',
+    'flex flex-col justify-between py-8 pt-12 border-2 items-center w-[370px] h-[665px] mt-4 mb-3 rounded-[2rem] transition-transform duration-300 ease-in-out',
   questionContainer: 'flex flex-col flex-1 px-8 w-[350px] relative',
-  questionText: 'text-2xl text-clip  mb-4  text-[#323842]',
-  choicesContainer: 'h-[350px] grow justify-center ',
+  questionText: 'text-2xl text-clip mb-4',
+  choicesContainer: 'h-[350px] grow justify-center',
   choiceButton: 'py-6 px-4 rounded-xl w-full',
-  selectedChoiceButton:
-    'py-6 px-4 rounded-xl w-full bg-[#fff3ea] border border-[#ed7d2d]',
-  choiceText: 'text-lg text-center text-[#565e6c]',
+  selectedChoiceButton: 'py-6 px-4 rounded-xl w-full border',
+  choiceText: 'text-lg text-center',
   sequenceItem: 'py-6 px-4 my-[5px] rounded-[8px] flex flex-row items-center',
-  sequenceText: 'text-lg text-[#565e6c] flex-1',
+  sequenceText: 'text-lg flex-1',
   sequenceControls: 'flex flex-row gap-2',
   sequenceButton: 'w-8 h-8 flex items-center justify-center rounded-full',
-  activeSequenceItem: 'bg-[#fff3ea] border border-[#ed7d2d]',
-  inactiveSequenceItem: 'border border-[#dee1e6] border-2',
-  sequenceInstructions: 'text-sm text-gray-500 mt-2',
+  activeSequenceItem: 'border',
+  inactiveSequenceItem: 'border border-2',
+  sequenceInstructions: 'text-sm mt-2',
   buttonContainer: 'flex gap-10 flex-row mb-10',
-  dontKnowButton: 'px-6 py-5 rounded-2xl bg-[#f3f4f6]',
-  dontKnowText: 'text-xl text-[#565e6c]',
-  confirmButton: 'border border-1 border-[#ed7d2d] px-6 py-5 rounded-2xl',
-  confirmText: 'text-xl text-[#ed7d2d]',
-  footer:
-    'w-full flex flex-row justify-between items-center border-t border-[#bcc1ca] pt-2',
-  footerText: 'text-[#bcc1ca] text-sm',
+  dontKnowButton: 'px-6 py-5 rounded-2xl',
+  dontKnowText: 'text-xl',
+  confirmButton: 'border border-1 px-6 py-5 rounded-2xl',
+  confirmText: 'text-xl',
+  footer: 'w-full flex flex-row justify-between items-center border-t pt-2',
+  footerText: 'text-sm',
   bottomBar: 'flex flex-row justify-around w-[350px] opacity-70',
   actionButton: 'px-5 py-3 rounded-2xl',
   actionText: 'text-md text-white',
@@ -59,6 +58,7 @@ const STYLES = {
 } as const;
 
 export default function Quiz() {
+  const { theme, toggleTheme } = useTheme();
   const [items, setItems] = useState<SelectedQuestion[]>([]);
   const [sequenceOrder, setSequenceOrder] = useState<SequenceItem[]>([]);
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -277,7 +277,9 @@ export default function Quiz() {
   }, [items]);
 
   return (
-    <view className={STYLES.container}>
+    <view
+      className={`${STYLES.container} ${theme === 'dark' ? 'bg-[#1a1a1a]' : 'bg-white'}`}
+    >
       {/* Header with StepsIndicator */}
       <StepsIndicator
         steps={quizSteps}
@@ -312,12 +314,20 @@ export default function Quiz() {
       {/* Question Display */}
       {items.length > 0 && currentItem && (
         <view
-          className={`${STYLES.questionCard} relative overflow-hidden ${
-            isAnimating && 'translate-x-full'
-          }`}
+          className={`${STYLES.questionCard} ${
+            theme === 'dark'
+              ? 'bg-[#2a2a2a] border-[#333333]'
+              : 'bg-white border-[#dee1e6]'
+          } relative overflow-hidden ${isAnimating && 'translate-x-full'}`}
         >
           <view className={STYLES.questionContainer}>
-            <text className={STYLES.questionText}>{currentItem.question}</text>
+            <text
+              className={`${STYLES.questionText} ${
+                theme === 'dark' ? 'text-white' : 'text-[#323842]'
+              }`}
+            >
+              {currentItem.question}
+            </text>
             <view className={STYLES.choicesContainer}>
               {currentItem.type === 'sequencing' ? (
                 <view className="flex flex-col h-full justify-center">
@@ -332,35 +342,72 @@ export default function Quiz() {
                         key={item.id}
                         className={`${STYLES.sequenceItem} ${
                           selectedId === item.id
-                            ? STYLES.activeSequenceItem
-                            : STYLES.inactiveSequenceItem
+                            ? `${STYLES.activeSequenceItem} ${
+                                theme === 'dark'
+                                  ? 'bg-[#3a3a3a] border-[#ed7d2d]'
+                                  : 'bg-[#fff3ea] border-[#ed7d2d]'
+                              }`
+                            : `${STYLES.inactiveSequenceItem} ${
+                                theme === 'dark'
+                                  ? 'border-[#333333]'
+                                  : 'border-[#dee1e6]'
+                              }`
                         }`}
                         bindtap={() => setSelectedId(item.id)}
                       >
-                        <text className={STYLES.sequenceText}>{item.text}</text>
+                        <text
+                          className={`${STYLES.sequenceText} ${
+                            theme === 'dark' ? 'text-white' : 'text-[#565e6c]'
+                          }`}
+                        >
+                          {item.text}
+                        </text>
                         <view className={STYLES.sequenceControls}>
                           <view
-                            className={STYLES.sequenceButton}
+                            className={`${STYLES.sequenceButton} ${
+                              theme === 'dark' ? 'bg-[#3a3a3a]' : 'bg-[#f3f4f6]'
+                            }`}
                             bindtap={() => moveItemUp(index)}
                           >
-                            <text>↑</text>
+                            <text
+                              className={
+                                theme === 'dark'
+                                  ? 'text-white'
+                                  : 'text-[#565e6c]'
+                              }
+                            >
+                              ↑
+                            </text>
                           </view>
                           <view
-                            className={STYLES.sequenceButton}
+                            className={`${STYLES.sequenceButton} ${
+                              theme === 'dark' ? 'bg-[#3a3a3a]' : 'bg-[#f3f4f6]'
+                            }`}
                             bindtap={() => moveItemDown(index)}
                           >
-                            <text>↓</text>
+                            <text
+                              className={
+                                theme === 'dark'
+                                  ? 'text-white'
+                                  : 'text-[#565e6c]'
+                              }
+                            >
+                              ↓
+                            </text>
                           </view>
                         </view>
                       </view>
                     ))}
                   </scroll-view>
-                  <text className={STYLES.sequenceInstructions}>
+                  <text
+                    className={`${STYLES.sequenceInstructions} ${
+                      theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+                    }`}
+                  >
                     (Arrange these steps in the correct order)
                   </text>
                 </view>
               ) : (
-                // Multiple-choice or case-based UI
                 <view className="flex flex-col h-full justify-center">
                   <scroll-view
                     scroll-orientation="vertical"
@@ -372,11 +419,17 @@ export default function Quiz() {
                       (choice: string, index: number) => (
                         <Button
                           key={index}
-                          className={
+                          className={`${
                             selectedChoiceIndex === index
-                              ? STYLES.selectedChoiceButton + ' my-2'
-                              : STYLES.choiceButton + ' my-2'
-                          }
+                              ? `${STYLES.selectedChoiceButton} ${
+                                  theme === 'dark'
+                                    ? 'bg-[#3a3a3a] border-[#ed7d2d]'
+                                    : 'bg-[#fff3ea] border-[#ed7d2d]'
+                                }`
+                              : `${STYLES.choiceButton} ${
+                                  theme === 'dark' ? 'bg-[#2a2a2a]' : 'bg-white'
+                                }`
+                          } my-2`}
                           variant="plain"
                           text={choice}
                           onTap={() => handleChoiceSelection(choice, index)}
@@ -393,24 +446,40 @@ export default function Quiz() {
             {currentItem.type !== 'multipleChoices' && (
               <view className={STYLES.buttonContainer}>
                 <Button
-                  className={STYLES.dontKnowButton}
+                  className={`${STYLES.dontKnowButton} ${
+                    theme === 'dark' ? 'bg-[#3a3a3a]' : 'bg-[#f3f4f6]'
+                  }`}
                   variant="plain"
                   text="I don't know"
                   onTap={handleFinishQuestion}
                 />
                 <Button
-                  className={STYLES.confirmButton}
+                  className={`${STYLES.confirmButton} ${
+                    theme === 'dark' ? 'border-[#ed7d2d]' : 'border-[#ed7d2d]'
+                  }`}
                   variant="plain"
                   text="Confirm"
                   onTap={handleConfirm}
                 />
               </view>
             )}
-            <view className={STYLES.footer}>
-              <text className={STYLES.footerText}>
+            <view
+              className={`${STYLES.footer} ${
+                theme === 'dark' ? 'border-[#333333]' : 'border-[#bcc1ca]'
+              }`}
+            >
+              <text
+                className={`${STYLES.footerText} ${
+                  theme === 'dark' ? 'text-gray-400' : 'text-[#bcc1ca]'
+                }`}
+              >
                 {QuestionType[currentItem.type as keyof typeof QuestionType]}
               </text>
-              <text className={STYLES.footerText}>
+              <text
+                className={`${STYLES.footerText} ${
+                  theme === 'dark' ? 'text-gray-400' : 'text-[#bcc1ca]'
+                }`}
+              >
                 {
                   SubjectTitle[
                     currentItem.subject as keyof typeof SubjectColors
@@ -429,9 +498,12 @@ export default function Quiz() {
           text="Suggest"
         />
         <Button
-          className={`${STYLES.actionButton} bg-[#171a1f]`}
+          className={`${STYLES.actionButton} ${
+            theme === 'dark' ? 'bg-white' : 'bg-[#171a1f]'
+          }`}
           variant="plain"
-          text="night/day"
+          text={theme === 'dark' ? 'day' : 'night'}
+          onTap={toggleTheme}
         />
         <Button
           className={`${STYLES.actionButton} bg-[#171a1f]`}

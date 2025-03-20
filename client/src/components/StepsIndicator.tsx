@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import Button from './Button/Button.jsx';
+import { useTheme } from '../context/ThemeContext.jsx';
 
 // Types for step configurations
 export type Step = {
@@ -49,11 +50,11 @@ const defaultStyles: StepIndicatorStyles = {
   activeDot: 'opacity-100 scale-125 ',
   completedDot: 'opacity-80',
   pendingDot: 'opacity-50',
-  stepLabel: 'text-sm text-[#323842]',
-  currentStepLabel: 'text-sm font-bold text-[#323842]',
+  stepLabel: 'text-sm',
+  currentStepLabel: 'text-sm font-bold',
   backButton: 'absolute left-0 w-[20px] h-[20px]',
   progressContainer:
-    'flex flex-row justify-center items-center w-[260px] h-full rounded-full py-2 px-4 bg-[#f9f9fa]',
+    'flex flex-row justify-center items-center w-[260px] h-full rounded-full py-2 px-4',
   cursor: 'w-[10px] h-[10px] left-[-2.5px] top-[22px] absolute',
   remainingCount:
     'border-l-4 border-[#ed7d2d] w-[25px] h-[20px] flex items-center justify-center',
@@ -75,6 +76,7 @@ export default function StepsIndicator({
   activeColor = '#ed7d2d',
   styles = {},
 }: StepsIndicatorProps) {
+  const { theme } = useTheme();
   // Merge default styles with custom styles
   const mergedStyles = { ...defaultStyles, ...styles };
 
@@ -125,7 +127,9 @@ export default function StepsIndicator({
           </view>
         )}
 
-        <view className={mergedStyles.progressContainer}>
+        <view
+          className={`${mergedStyles.progressContainer} ${theme === 'dark' ? 'bg-[#2a2a2a]' : 'bg-[#f9f9fa]'}`}
+        >
           {showCursor && (
             <image className={mergedStyles.cursor} src="/cursor.png" />
           )}
@@ -158,7 +162,9 @@ export default function StepsIndicator({
         </view>
       </view>
       {showLabels && (
-        <text className={'text-2xl w-[350px] h-[50px] my-10 '}>
+        <text
+          className={`${mergedStyles.currentStepLabel} ${theme === 'dark' ? 'text-white' : 'text-[#323842]'}`}
+        >
           {visibleSteps[currentStep]?.label}
         </text>
       )}
