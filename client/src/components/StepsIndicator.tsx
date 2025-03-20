@@ -42,26 +42,27 @@ export type StepsIndicatorProps = {
 };
 
 const defaultStyles: StepIndicatorStyles = {
-  container:
-    'flex  min-h-[20px] flex-row items-center justify-center w-[350px]',
+  container: 'flex min-h-[20px] flex-row items-center justify-center w-[350px]',
   progressBar:
-    'flex px-2 flex-row gap-1 items-center h-full w-full overflow-hidden',
-  stepDot: 'w-[6px] h-[12px] rounded-full opacity-80',
-  activeDot: 'opacity-100 scale-125',
+    'flex px-2 flex-row gap-1 items-center h-full w-[210px] overflow-x-hidden flex-nowrap',
+  stepDot: 'w-[9px] h-[16px] rounded-full opacity-80 flex-shrink-0',
+  activeDot: 'opacity-100 scale-125 ',
   completedDot: 'opacity-80',
   pendingDot: 'opacity-50',
   stepLabel: 'text-sm text-[#323842]',
   currentStepLabel: 'text-sm font-bold text-[#323842]',
   backButton: 'absolute left-0 w-[20px] h-[20px]',
-  progressContainer: ' w-[270px] ml-10 h-full',
+  progressContainer:
+    'flex flex-row justify-center items-center w-[260px] h-full rounded-full py-2 px-4 bg-[#f9f9fa]',
   cursor: 'w-[10px] h-[10px] left-[-2.5px] top-[22px] absolute',
-  remainingCount: 'text-sm text-[#ed7d2d]',
+  remainingCount:
+    'border-l-4 border-[#ed7d2d] w-[25px] h-[20px] flex items-center justify-center',
 };
 
 export default function StepsIndicator({
   steps,
   currentStep,
-  maxVisibleSteps = 30,
+  maxVisibleSteps = 16,
   showLabels = false,
   showBackButton = false,
   backIcon,
@@ -129,11 +130,7 @@ export default function StepsIndicator({
             <image className={mergedStyles.cursor} src="/cursor.png" />
           )}
 
-          <view
-            className={`${mergedStyles.progressBar} ${
-              remainingSteps > 0 ? 'border-r-[4px] border-[#ed7d2d]' : ''
-            }`}
-          >
+          <view className={`${mergedStyles.progressBar} `}>
             {visibleSteps.map((step, index) => (
               <view
                 key={step.id}
@@ -151,17 +148,17 @@ export default function StepsIndicator({
               />
             ))}
           </view>
+          {remainingSteps > 0 && (
+            <view className={mergedStyles.remainingCount}>
+              <text className="flex items-center justify-center text-[#ed7d2d] text-xs font-bold">
+                +{totalSteps}
+              </text>
+            </view>
+          )}
         </view>
-
-        {!hideRemainingCount && remainingSteps > 0 && (
-          <text className={mergedStyles.remainingCount}>
-            {' '}
-            +{remainingSteps}
-          </text>
-        )}
       </view>
       {showLabels && (
-        <text className={'text-2xl w-[350px] h-[50px] my-10'}>
+        <text className={'text-2xl w-[350px] h-[50px] my-10 '}>
           {visibleSteps[currentStep]?.label}
         </text>
       )}

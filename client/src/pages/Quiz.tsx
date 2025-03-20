@@ -6,7 +6,7 @@ import type { SelectedQuestion, SubjectColorsType } from '../types/types.js';
 import Separator from '../components/Separator.jsx';
 import StepsIndicator, { type Step } from '../components/StepsIndicator.jsx';
 
-const SHOWN_NODES = 30;
+const SHOWN_NODES = 16;
 
 // Define a type for sequence items
 type SequenceItem = {
@@ -25,7 +25,7 @@ const STYLES = {
   progressDot: 'w-[6px] h-[12px] rounded-full opacity-50',
   remainingCount: 'text-sm text-[#ed7d2d]',
   questionCard:
-    'flex flex-col bg-white justify-between py-8 border-x-2 border-[#dee1e6] items-center w-[370px] h-[665px] mt-7 mb-3 rounded-lg transition-transform duration-300 ease-in-out',
+    'flex flex-col bg-white justify-between py-8 pt-12 border-2 border-[#dee1e6] items-center w-[370px] h-[665px] mt-4 mb-3 rounded-[2rem] transition-transform duration-300 ease-in-out',
   questionContainer: 'flex flex-col flex-1 px-8 w-[350px] relative',
   questionText: 'text-2xl text-clip  mb-4  text-[#323842]',
   choicesContainer: 'h-[350px] grow justify-center ',
@@ -295,6 +295,7 @@ export default function Quiz() {
             : '#ed7d2d'
         }
       />
+
       {isAnimating && (
         <view
           className={`${STYLES.feedbackOverlay} ${
