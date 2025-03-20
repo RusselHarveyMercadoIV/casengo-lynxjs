@@ -444,6 +444,25 @@ export default function Quiz() {
                         />
                       ),
                     )}
+                    <Button
+                      className={`${STYLES.choiceButton} ${
+                        selectedChoiceIndex === currentItem.choices.length
+                          ? `${STYLES.selectedChoiceButton} ${
+                              theme === 'dark'
+                                ? 'bg-[#3a3a3a] border-[#ed7d2d]'
+                                : 'bg-[#fff3ea] border-[#ed7d2d]'
+                            }`
+                          : `${theme === 'dark' ? 'bg-[#2a2a2a]' : 'bg-white'}`
+                      } my-2`}
+                      variant="plain"
+                      text="I don't know"
+                      onTap={() =>
+                        handleChoiceSelection(
+                          "I don't know",
+                          currentItem.choices.length,
+                        )
+                      }
+                    />
                   </scroll-view>
                 </view>
               )}
@@ -451,26 +470,27 @@ export default function Quiz() {
           </view>
 
           <view className="flex flex-col items-center w-[300px] flex-none pt-4">
-            {currentItem.type !== 'multipleChoices' && (
-              <view className={STYLES.buttonContainer}>
-                <Button
-                  className={`${STYLES.dontKnowButton} ${
-                    theme === 'dark' ? 'bg-[#3a3a3a]' : 'bg-[#f3f4f6]'
-                  }`}
-                  variant="plain"
-                  text="I don't know"
-                  onTap={handleFinishQuestion}
-                />
-                <Button
-                  className={`${STYLES.confirmButton} ${
-                    theme === 'dark' ? 'bg-[#ed7d2d]' : 'border-[#ed7d2d]'
-                  }`}
-                  variant="plain"
-                  text="Confirm"
-                  onTap={handleConfirm}
-                />
-              </view>
-            )}
+            {currentItem.type !== 'multipleChoices' &&
+              currentItem.type !== 'caseBased' && (
+                <view className={STYLES.buttonContainer}>
+                  <Button
+                    className={`${STYLES.dontKnowButton} ${
+                      theme === 'dark' ? 'bg-[#3a3a3a]' : 'bg-[#f3f4f6]'
+                    }`}
+                    variant="plain"
+                    text="I don't know"
+                    onTap={handleFinishQuestion}
+                  />
+                  <Button
+                    className={`${STYLES.confirmButton} ${
+                      theme === 'dark' ? 'bg-[#ed7d2d]' : 'border-[#ed7d2d]'
+                    }`}
+                    variant="plain"
+                    text="Confirm"
+                    onTap={handleConfirm}
+                  />
+                </view>
+              )}
             <view
               className={`${STYLES.footer} ${
                 theme === 'dark' ? 'border-[#333333]' : 'border-[#bcc1ca]'
