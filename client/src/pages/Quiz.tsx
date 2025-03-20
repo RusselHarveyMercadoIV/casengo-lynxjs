@@ -287,7 +287,7 @@ export default function Quiz() {
         maxVisibleSteps={SHOWN_NODES}
         showBackButton={true}
         backIcon={icons.closebtn}
-        onBackPress={() => navigation('/profiling')}
+        onBackPress={() => navigation(-1)}
         stepColors={stepColorMap}
         showCursor={true}
         showLabels={false}
@@ -455,7 +455,7 @@ export default function Quiz() {
                 />
                 <Button
                   className={`${STYLES.confirmButton} ${
-                    theme === 'dark' ? 'border-[#ed7d2d]' : 'border-[#ed7d2d]'
+                    theme === 'dark' ? 'bg-[#ed7d2d]' : 'border-[#ed7d2d]'
                   }`}
                   variant="plain"
                   text="Confirm"
