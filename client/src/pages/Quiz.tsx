@@ -17,7 +17,7 @@ type SequenceItem = {
 
 // Styles
 const STYLES = {
-  container: 'flex flex-col items-center h-full mt-10',
+  container: 'flex flex-col items-center h-full pt-10',
   header: 'flex w-[340px] flex-row justify-center items-center',
   backButton: 'absolute left-0 w-[20px] h-[20px]',
   progressContainer: 'w-[270px] ml-10 h-[20px]',

@@ -27,7 +27,7 @@ const profilingData: profilingDataType = {
 
 // Common styles
 const STYLES = {
-  container: 'container mt-[25px] flex-col justify-start items-center h-full',
+  container: 'container  flex-col justify-start items-center h-full',
   contentWrapper: 'relative w-full h-[500px] mb-14 overflow-hidden',
   contentContainer:
     'flex-col flex gap-14 justify-start items-center absolute top-0 left-0 w-full h-full transition-all duration-300 ease-in-out',
