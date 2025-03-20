@@ -39,7 +39,7 @@ const STYLES = {
   sequenceButton: 'w-8 h-8 flex items-center justify-center rounded-full',
   activeSequenceItem: 'border',
   inactiveSequenceItem: 'border border-2',
-  sequenceInstructions: 'text-sm mt-2',
+  sequenceInstructions: 'text-sm mb-2',
   buttonContainer: 'flex gap-10 flex-row mb-10',
   dontKnowButton: 'px-6 py-5 rounded-2xl',
   dontKnowText: 'text-xl',
@@ -339,6 +339,13 @@ export default function Quiz() {
             <view className={STYLES.choicesContainer}>
               {currentItem.type === 'sequencing' ? (
                 <view className="flex flex-col h-full justify-center">
+                  <text
+                    className={`${STYLES.sequenceInstructions} ${
+                      theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+                    }`}
+                  >
+                    (Arrange these steps in the correct order)
+                  </text>
                   <scroll-view
                     scroll-orientation="vertical"
                     className="flex flex-col h-[350px]"
@@ -407,19 +414,12 @@ export default function Quiz() {
                       </view>
                     ))}
                   </scroll-view>
-                  <text
-                    className={`${STYLES.sequenceInstructions} ${
-                      theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
-                    }`}
-                  >
-                    (Arrange these steps in the correct order)
-                  </text>
                 </view>
               ) : (
                 <view className="flex flex-col h-full justify-center">
                   <scroll-view
                     scroll-orientation="vertical"
-                    className="flex flex-col h-[350px]"
+                    className="flex flex-col h-[370px]"
                     style={{ gap: '10px' }}
                     scroll-bar-enable={true}
                   >
