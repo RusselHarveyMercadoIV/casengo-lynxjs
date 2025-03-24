@@ -27,7 +27,7 @@ const profilingData: profilingDataType = {
 
 // Common styles
 const STYLES = {
-  container: 'container  flex-col justify-start items-center h-full',
+  container: 'container  flex-col items-center  h-full',
   contentWrapper: 'relative w-full h-[500px] mb-14 overflow-hidden',
   contentContainer:
     'flex-col flex gap-14 justify-start items-center absolute top-0 left-0 w-full h-full transition-all duration-300 ease-in-out',
@@ -454,7 +454,7 @@ export default function Profiling() {
         bold={true}
         disabled={isContinue}
         onTap={() => handleStepChange(1)}
-        className={`mb-10 ${isContinue && STYLES.disabled} ${STYLES.buttonCommon} justify-center`}
+        className={`absolute bottom-0 mb-10 ${isContinue && STYLES.disabled} ${STYLES.buttonCommon} justify-center`}
       />
     </view>
   );

@@ -332,7 +332,7 @@ export default function Quiz() {
 
   return (
     <view
-      className={`${STYLES.container} ${theme === 'dark' ? 'bg-[#1a1a1a]' : 'bg-white'}`}
+      className={`${STYLES.container} ${theme === 'dark' ? 'bg-[#1a1a1a]' : 'bg-neutral-100'}`}
     >
       {/* Header with StepsIndicator */}
       <StepsIndicator
@@ -624,7 +624,7 @@ const STYLES = {
   progressDot: 'w-[6px] h-[12px] rounded-full opacity-50',
   remainingCount: 'text-sm text-[#ed7d2d]',
   questionCard:
-    'flex flex-col justify-between py-8 pt-12 border-2 items-center w-[370px] h-[675px] mt-4 mb-3 rounded-[2rem] transition-transform duration-300 ease-in-out',
+    'flex flex-col justify-between py-8 pt-12 border-2 items-center  w-[370px] h-[675px] mt-4 mb-3 rounded-[2rem] transition-transform duration-300 ease-in-out',
   questionContainer: 'flex flex-col flex-1 px-8 w-[350px] relative',
   questionText: 'text-3xl text-clip mb-4 font-semibold',
   choicesContainer: 'h-[350px] grow justify-center',

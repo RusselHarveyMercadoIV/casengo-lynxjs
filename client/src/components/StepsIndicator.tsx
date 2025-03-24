@@ -46,7 +46,7 @@ const defaultStyles: StepIndicatorStyles = {
   container: 'flex min-h-[20px] flex-row items-center justify-center w-[350px]',
   progressBar:
     'flex px-2 flex-row gap-1 items-center h-full w-[210px] overflow-x-hidden flex-nowrap',
-  stepDot: 'w-[9px] h-[16px] rounded-full opacity-80 flex-shrink-0',
+  stepDot: 'w-[10px] h-[17px] rounded-full opacity-80 flex-shrink-0',
   activeDot: 'opacity-100 scale-125 ',
   completedDot: 'opacity-80',
   pendingDot: 'opacity-50',
@@ -54,7 +54,7 @@ const defaultStyles: StepIndicatorStyles = {
   currentStepLabel: 'text-sm font-bold',
   backButton: 'absolute left-0 w-[20px] h-[20px]',
   progressContainer:
-    'flex flex-row justify-center items-center w-[260px] h-full rounded-full py-2 px-4',
+    'flex flex-row justify-center items-center w-[260px] h-[40px] rounded-full py-2 px-4',
   cursor: 'w-[10px] h-[10px] left-[-2.5px] top-[22px] absolute',
   remainingCount:
     'border-l-4 border-[#ed7d2d] w-[25px] h-[20px] flex items-center justify-center',
@@ -128,7 +128,7 @@ export default function StepsIndicator({
         )}
 
         <view
-          className={`${mergedStyles.progressContainer} ${theme === 'dark' ? 'bg-[#2a2a2a]' : 'bg-[#f9f9fa]'}`}
+          className={`${mergedStyles.progressContainer} ${theme === 'dark' ? 'bg-[#2a2a2a]' : 'bg-white'}`}
         >
           {showCursor && (
             <image className={mergedStyles.cursor} src="/cursor.png" />
