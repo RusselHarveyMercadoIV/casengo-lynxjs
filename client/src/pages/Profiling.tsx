@@ -411,24 +411,26 @@ export default function Profiling() {
     <view
       className={`${STYLES.container} ${theme === 'dark' ? 'bg-[#1a1a1a]' : 'bg-white'}`}
     >
-      <StepsIndicator
-        steps={profilingSteps}
-        currentStep={currentStep}
-        showBackButton={true}
-        backIcon={icons.leftArrow}
-        onBackPress={() => handleStepChange(-1)}
-        showLabels={Boolean(headers[currentStep]?.header)}
-        activeColor="#ed7d2d"
-        styles={{
-          stepDot: 'w-6 h-6 rounded-full',
-          progressBar: `flex flex-row justify-center items-center gap-4 ${
-            theme === 'dark' ? 'bg-[#2a2a2a]' : 'bg-[#f8f9fa]'
-          } w-[230px] h-[40px] rounded-full`,
-          currentStepLabel: `text-2xl w-[350px] my-10 ${
-            theme === 'dark' ? 'text-white' : 'text-[#323842]'
-          }`,
-        }}
-      />
+      <view className="mt-6">
+        <StepsIndicator
+          steps={profilingSteps}
+          currentStep={currentStep}
+          showBackButton={true}
+          backIcon={icons.leftArrow}
+          onBackPress={() => handleStepChange(-1)}
+          showLabels={Boolean(headers[currentStep]?.header)}
+          activeColor="#ed7d2d"
+          styles={{
+            stepDot: 'w-6 h-6 rounded-full',
+            progressBar: `flex flex-row justify-center items-center gap-4 ${
+              theme === 'dark' ? 'bg-[#2a2a2a]' : 'bg-[#f8f9fa]'
+            } w-[230px] h-[40px] rounded-full`,
+            currentStepLabel: `text-2xl w-[350px] my-10 ${
+              theme === 'dark' ? 'text-white' : 'text-[#323842]'
+            }`,
+          }}
+        />
+      </view>
 
       <view className={STYLES.contentWrapper}>
         {/* Exiting Content */}
