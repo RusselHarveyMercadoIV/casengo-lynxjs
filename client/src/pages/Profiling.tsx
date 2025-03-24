@@ -121,7 +121,7 @@ export default function Profiling() {
           key={'p1-1'}
           variant="plain"
           className={`${STYLES.buttonBase} ${
-            theme === 'dark' ? 'bg-[#2a2a2a]' : 'bg-white'
+            theme === 'dark' && 'bg-[#2a2a2a]'
           }`}
           text="PNLE"
           isHighlighted={formData.countryExam === 'PNLE'}
@@ -144,7 +144,7 @@ export default function Profiling() {
             <Button
               key={'p1-2'}
               className={`${STYLES.buttonBase} ${STYLES.disabled} ${
-                theme === 'dark' ? 'bg-[#2a2a2a]' : 'bg-white'
+                theme === 'dark' && 'bg-[#2a2a2a]'
               }`}
               variant="plain"
               icon={<image src={icons.america} className={STYLES.iconLarge} />}
@@ -161,7 +161,7 @@ export default function Profiling() {
             <Button
               key={'p1-3'}
               className={`${STYLES.buttonBase} ${STYLES.disabled} ${
-                theme === 'dark' ? 'bg-[#2a2a2a]' : 'bg-white'
+                theme === 'dark' && 'bg-[#2a2a2a]'
               }`}
               disabled={true}
               text="NCLEX - PN"
@@ -197,7 +197,7 @@ export default function Profiling() {
             <Button
               key={choice}
               className={`${STYLES.buttonBase} ${
-                theme === 'dark' ? 'bg-[#2a2a2a]' : 'bg-white'
+                theme === 'dark' && 'bg-[#2a2a2a]'
               }`}
               text={choice}
               variant="plain"
@@ -234,7 +234,7 @@ export default function Profiling() {
           <Button
             key={choice}
             className={`${STYLES.buttonBase} ${
-              theme === 'dark' ? 'bg-[#2a2a2a]' : 'bg-white'
+              theme === 'dark' && 'bg-[#2a2a2a]'
             }`}
             text={choice}
             variant="plain"
@@ -271,7 +271,7 @@ export default function Profiling() {
               className={
                 STYLES.buttonLarge +
                 ` ${isDisabled && STYLES.disabled} ${
-                  theme === 'dark' ? 'bg-[#2a2a2a]' : 'bg-white'
+                  theme === 'dark' && 'bg-[#2a2a2a]'
                 }`
               }
               text={goal}
@@ -299,7 +299,7 @@ export default function Profiling() {
             <Button
               key={comittment}
               className={`${STYLES.buttonLarge} ${
-                theme === 'dark' ? 'bg-[#2a2a2a]' : 'bg-white'
+                theme === 'dark' && 'bg-[#2a2a2a]'
               } justify-between`}
               text={comittment}
               secondText={COMMITMENTS[comittment]}
@@ -324,7 +324,7 @@ export default function Profiling() {
         <Button
           key={'p6-1'}
           className={`${STYLES.buttonLarge} ${
-            theme === 'dark' ? 'bg-[#2a2a2a]' : 'bg-white'
+            theme === 'dark' && 'bg-[#2a2a2a]'
           }`}
           text="Take the Assessment"
           sup="RECOMMENDED"
@@ -340,7 +340,7 @@ export default function Profiling() {
         <Button
           key={'p6-2'}
           className={`${STYLES.buttonLarge} ${
-            theme === 'dark' ? 'bg-[#2a2a2a]' : 'bg-white'
+            theme === 'dark' && 'bg-[#2a2a2a]'
           }`}
           text="Start from scratch!"
           sub="Good for people starting out."

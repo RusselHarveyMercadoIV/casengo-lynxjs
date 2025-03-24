@@ -5,8 +5,14 @@ export default function DiagnosticResult() {
   const { theme } = useTheme();
 
   return (
-    <view className={STYLES.container}>
-      <text class="absolute top-28 font-bold text-2xl">Amazing!</text>
+    <view
+      className={`${STYLES.container} ${theme === 'dark' ? 'bg-[#1a1a1a]' : 'bg-white'}`}
+    >
+      <text
+        class={`absolute top-28 font-bold text-2xl ${theme === 'dark' ? 'text-white' : ''}`}
+      >
+        Amazing!
+      </text>
       <view className={STYLES.buttonList}>
         <Button
           key={'p6-1'}
@@ -57,8 +63,7 @@ export default function DiagnosticResult() {
 }
 
 const STYLES = {
-  container:
-    'mx-auto w-[350px] flex flex-col items-center justify-center h-full',
+  container: 'mx-auto  flex flex-col items-center justify-center h-full',
   buttonList: 'flex h-[400px] flex-col gap-6',
   buttonLarge: 'flex-row gap-5 py-6 px-8 justify-start items-center w-[350px]',
 };
