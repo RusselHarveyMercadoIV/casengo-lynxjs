@@ -5,8 +5,17 @@ const lynxPreset = require('@lynx-js/tailwind-preset');
 export default {
   presets: [lynxPreset], // Use the preset
   content: ['./src/**/*.{html,js,ts,jsx,tsx}'],
+  darkMode: 'class',
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        dark: {
+          bg: '#1a1a1a',
+          text: '#ffffff',
+          border: '#333333',
+        },
+      },
+    },
   },
   plugins: [],
 };

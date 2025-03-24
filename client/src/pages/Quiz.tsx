@@ -1,9 +1,8 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router';
 import Button from '../components/Button/Button.jsx';
 import icons from '../constants/icons.js';
-import type { SelectedQuestion, SubjectColorsType } from '../types/types.js';
-import Separator from '../components/Separator.jsx';
+import type { SelectedQuestion } from '../types/types.js';
 import StepsIndicator, { type Step } from '../components/StepsIndicator.jsx';
 import { useTheme } from '../context/ThemeContext.jsx';
 
@@ -14,48 +13,6 @@ type SequenceItem = {
   id: string;
   text: string;
 };
-
-// Styles
-const STYLES = {
-  container: 'flex flex-col items-center h-full pt-10',
-  header: 'flex w-[340px] flex-row justify-center items-center',
-  backButton: 'absolute left-0 w-[20px] h-[20px]',
-  progressContainer: 'w-[270px] ml-10 h-[20px]',
-  cursor: 'w-[10px] h-[10px] left-[-2.5px] top-[22px] absolute',
-  progressBar: 'flex flex-row gap-1 items-center h-full w-full overflow-hidden',
-  progressDot: 'w-[6px] h-[12px] rounded-full opacity-50',
-  remainingCount: 'text-sm text-[#ed7d2d]',
-  questionCard:
-    'flex flex-col justify-between py-8 pt-12 border-2 items-center w-[370px] h-[665px] mt-4 mb-3 rounded-[2rem] transition-transform duration-300 ease-in-out',
-  questionContainer: 'flex flex-col flex-1 px-8 w-[350px] relative',
-  questionText: 'text-2xl text-clip mb-4',
-  choicesContainer: 'h-[350px] grow justify-center',
-  choiceButton: 'py-6 px-4 rounded-xl w-full',
-  selectedChoiceButton: 'py-6 px-4 rounded-xl w-full border',
-  choiceText: 'text-lg text-center',
-  sequenceItem: 'py-6 px-4 my-[5px] rounded-[8px] flex flex-row items-center',
-  sequenceText: 'text-lg flex-1',
-  sequenceControls: 'flex flex-row gap-2',
-  sequenceButton: 'w-8 h-8 flex items-center justify-center rounded-full',
-  activeSequenceItem: 'border',
-  inactiveSequenceItem: 'border border-2',
-  sequenceInstructions: 'text-sm mb-2',
-  buttonContainer: 'flex gap-10 flex-row mb-10',
-  dontKnowButton: 'px-6 py-5 rounded-2xl',
-  dontKnowText: 'text-xl',
-  confirmButton: 'border border-1 px-6 py-5 rounded-2xl',
-  confirmText: 'text-xl',
-  footer: 'w-full flex flex-row justify-between items-center border-t pt-2',
-  footerText: 'text-sm',
-  bottomBar: 'flex flex-row justify-around w-[350px] opacity-70',
-  actionButton: 'px-5 py-3 rounded-2xl',
-  actionText: 'text-md text-white',
-  feedbackOverlay:
-    'fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center z-50 bg-opacity-90',
-  feedbackText: 'text-5xl font-bold text-white feedback-scale',
-  correctFeedback: 'bg-[#1dd75b]',
-  incorrectFeedback: 'bg-[#de3b40]',
-} as const;
 
 export default function Quiz() {
   const { theme, toggleTheme } = useTheme();
@@ -72,11 +29,17 @@ export default function Quiz() {
 
   const navigation = useNavigate();
   const location = useLocation();
+
+  //state
   const { questions, academicStatus, type } = location.state as {
     questions: any;
     academicStatus: string;
     type: string;
   };
+
+  const [userAnswers, setUserAnswers] = useState<
+    { question: SelectedQuestion; userAnswer: any; isCorrect: boolean }[]
+  >([]);
 
   const SubjectColors = {
     anatomyAndPhysiology: '#ed7d2d',
@@ -107,82 +70,165 @@ export default function Quiz() {
     psychiatricNursing: 'Psychiatric Nursing',
   } as const;
 
-  const handleFinishQuestion = (isCorrect: boolean = false) => {
+  // const handleFinishQuestion = (isCorrect: boolean = false) => {
+  //   setIsAnimating(true);
+  //   setSlideDirection(isCorrect ? 'right' : 'left');
+
+  //   // Wait for animation to complete before moving to next question
+  //   setTimeout(() => {
+  //     setItems((prevItems) => {
+  //       const remainingItems = prevItems.slice(1);
+  //       // If this was the last question and type is diagnostic, redirect to diagnostic result
+  //       if (remainingItems.length === 0 && type === 'diagnostic') {
+  //         navigation('/diagnostic-result');
+  //       }
+  //       return remainingItems;
+  //     });
+  //     setIsAnimating(false);
+  //     setSlideDirection(null);
+  //     setSelectedChoiceIndex(null);
+  //   }, 500); // Match this with the CSS transition duration
+  // };
+
+  // // Handler for the Confirm button to check the sequence
+  // const handleConfirm = () => {
+  //   if (currentItem && currentItem.type === 'sequencing') {
+  //     // Convert current sequence order to array of letters (a, b, c, d, etc.)
+  //     const currentSequence = sequenceOrder.map((item, index) => {
+  //       // Find the original choice index that matches this item's text
+  //       const originalIndex = currentItem.choices.findIndex(
+  //         (choice) => choice === item.text,
+  //       );
+  //       // Convert index to letter (0=a, 1=b, etc.)
+  //       return String.fromCharCode(97 + originalIndex); // 97 is ASCII for 'a'
+  //     });
+
+  //     // Compare with the correct answer array
+  //     const isCorrect =
+  //       JSON.stringify(currentSequence) === JSON.stringify(currentItem.answer);
+  //     handleFinishQuestion(isCorrect);
+  //   } else {
+  //     handleFinishQuestion();
+  //   }
+  // };
+
+  // // Handler for checking if a multiple choice answer is correct
+  // const handleChoiceSelection = (choice: string, index: number) => {
+  //   if (currentItem) {
+  //     // Highlight the selected choice first
+  //     setSelectedChoiceIndex(index);
+
+  //     // Handle different answer types (string or string[])
+  //     if (Array.isArray(currentItem.answer)) {
+  //       // For SATA or other multiple answer questions
+  //       // Not implemented in this version - just move to next question
+  //       setTimeout(() => {
+  //         handleFinishQuestion(false);
+  //       }, 700);
+  //       return;
+  //     }
+
+  //     // Now we know currentItem.answer is a string
+  //     const answer = currentItem.answer as string;
+
+  //     // Check if the answer is a letter (A, B, C, D, etc.)
+  //     const isLetterAnswer = /^[A-Za-z]$/.test(answer);
+
+  //     let isCorrect = false;
+  //     if (isLetterAnswer) {
+  //       // If answer is a letter, convert index to corresponding letter (0=A, 1=B, etc.)
+  //       const answerLetter = String.fromCharCode(65 + index); // 65 is ASCII for 'A'
+  //       isCorrect = answerLetter === answer.toUpperCase();
+  //     } else {
+  //       // Direct text comparison if answer is the full text
+  //       isCorrect = choice === answer;
+  //     }
+
+  //     // Show feedback after a delay to give user time to see the highlighted selection
+  //     setTimeout(() => {
+  //       handleFinishQuestion(isCorrect);
+  //     }, 50);
+  //   } else {
+  //     setTimeout(() => {
+  //       handleFinishQuestion(false);
+  //     }, 50);
+  //   }
+  // };
+
+  const handleFinishQuestion = (isCorrect: boolean, userAnswer: any) => {
+    if (currentItem) {
+      setUserAnswers((prev) => [
+        ...prev,
+        { question: currentItem, userAnswer, isCorrect },
+      ]);
+    }
+
     setIsAnimating(true);
     setSlideDirection(isCorrect ? 'right' : 'left');
 
-    // Wait for animation to complete before moving to next question
     setTimeout(() => {
       setItems((prevItems) => {
         const remainingItems = prevItems.slice(1);
-        // If this was the last question and type is diagnostic, redirect to diagnostic result
         if (remainingItems.length === 0 && type === 'diagnostic') {
-          navigation('/diagnostic-result');
+          navigation('/diagnostic-result', { state: { userAnswers } });
         }
         return remainingItems;
       });
       setIsAnimating(false);
       setSlideDirection(null);
       setSelectedChoiceIndex(null);
-    }, 500); // Match this with the CSS transition duration
+    }, 500);
   };
 
-  // Handler for the Confirm button to check the sequence
-  const handleConfirm = () => {
-    if (currentItem && currentItem.type === 'sequencing') {
-      // Convert current sequence order to array of letters (a, b, c, d, etc.)
-      const currentSequence = sequenceOrder.map((item, index) => {
-        // Find the original choice index that matches this item's text
-        const originalIndex = currentItem.choices.findIndex(
-          (choice) => choice === item.text,
-        );
-        // Convert index to letter (0=a, 1=b, etc.)
-        return String.fromCharCode(97 + originalIndex); // 97 is ASCII for 'a'
-      });
-
-      // Compare with the correct answer array
-      const isCorrect =
-        JSON.stringify(currentSequence) === JSON.stringify(currentItem.answer);
-      handleFinishQuestion(isCorrect);
-    } else {
-      handleFinishQuestion();
-    }
-  };
-
-  // Handler for checking if a multiple choice answer is correct
   const handleChoiceSelection = (choice: string, index: number) => {
     if (currentItem) {
-      // Highlight the selected choice first
       setSelectedChoiceIndex(index);
 
-      // Handle different answer types (string or string[])
       if (Array.isArray(currentItem.answer)) {
-        // For SATA or other multiple answer questions
-        // Not implemented in this version - just move to next question
-        setTimeout(() => handleFinishQuestion(false), 700);
+        setTimeout(() => {
+          handleFinishQuestion(false, null);
+        }, 700);
         return;
       }
 
-      // Now we know currentItem.answer is a string
       const answer = currentItem.answer as string;
-
-      // Check if the answer is a letter (A, B, C, D, etc.)
       const isLetterAnswer = /^[A-Za-z]$/.test(answer);
 
       let isCorrect = false;
-      if (isLetterAnswer) {
-        // If answer is a letter, convert index to corresponding letter (0=A, 1=B, etc.)
-        const answerLetter = String.fromCharCode(65 + index); // 65 is ASCII for 'A'
-        isCorrect = answerLetter === answer.toUpperCase();
+      let userAnswer: string;
+
+      if (choice === "I don't know") {
+        isCorrect = false;
+        userAnswer = "I don't know";
+      } else if (isLetterAnswer) {
+        userAnswer = String.fromCharCode(65 + index);
+        isCorrect = userAnswer === answer.toUpperCase();
       } else {
-        // Direct text comparison if answer is the full text
+        userAnswer = choice;
         isCorrect = choice === answer;
       }
 
-      // Show feedback after a delay to give user time to see the highlighted selection
-      setTimeout(() => handleFinishQuestion(isCorrect), 50);
+      setTimeout(() => {
+        handleFinishQuestion(isCorrect, userAnswer);
+      }, 50);
+    }
+  };
+
+  const handleConfirm = () => {
+    if (currentItem && currentItem.type === 'sequencing') {
+      const currentSequence = sequenceOrder.map((item) => {
+        const originalIndex = currentItem.choices.findIndex(
+          (choice) => choice === item.text,
+        );
+        return String.fromCharCode(97 + originalIndex);
+      });
+
+      const isCorrect =
+        JSON.stringify(currentSequence) === JSON.stringify(currentItem.answer);
+
+      handleFinishQuestion(isCorrect, currentSequence);
     } else {
-      setTimeout(() => handleFinishQuestion(false), 50);
+      handleFinishQuestion(false, null);
     }
   };
 
@@ -329,9 +375,16 @@ export default function Quiz() {
           } relative overflow-hidden ${isAnimating && 'translate-x-full'}`}
         >
           <view className={STYLES.questionContainer}>
+            <view
+              className={
+                'absolute top-[-30px] right-2 bg-[#eefdf3] py-2 px-6 rounded-full'
+              }
+            >
+              <text className=" text-[#117b34]">{currentItem.difficulty}</text>
+            </view>
             <text
               className={`${STYLES.questionText} ${
-                theme === 'dark' ? 'text-white' : 'text-[#323842]'
+                theme === 'dark' ? 'text-white' : 'text-[#9095a0]'
               }`}
             >
               {currentItem.question}
@@ -427,6 +480,7 @@ export default function Quiz() {
                       (choice: string, index: number) => (
                         <Button
                           key={index}
+                          textStyle="text-[#9095a0]"
                           className={`${
                             selectedChoiceIndex === index
                               ? `${STYLES.selectedChoiceButton} ${
@@ -454,6 +508,7 @@ export default function Quiz() {
                             }`
                           : `${theme === 'dark' ? 'bg-[#2a2a2a]' : 'bg-white'}`
                       } my-2`}
+                      textStyle="text-[#9095a0]"
                       variant="plain"
                       text="I don't know"
                       onTap={() =>
@@ -479,7 +534,7 @@ export default function Quiz() {
                     }`}
                     variant="plain"
                     text="I don't know"
-                    onTap={handleFinishQuestion}
+                    onTap={() => handleFinishQuestion(false, "I don't know")}
                   />
                   <Button
                     className={`${STYLES.confirmButton} ${
@@ -521,11 +576,13 @@ export default function Quiz() {
       {/* Footer */}
       <view className={STYLES.bottomBar}>
         <Button
+          textStyle={` ${theme === 'dark' ? 'text-black' : 'text-white'}`}
           className={`${STYLES.actionButton} bg-[#ed7d2d]`}
           variant="plain"
           text="Suggest"
         />
         <Button
+          textStyle={` ${theme === 'dark' ? 'text-black' : 'text-white'}`}
           className={`${STYLES.actionButton} ${
             theme === 'dark' ? 'bg-white' : 'bg-[#171a1f]'
           }`}
@@ -534,6 +591,7 @@ export default function Quiz() {
           onTap={toggleTheme}
         />
         <Button
+          textStyle={` text-white`}
           className={`${STYLES.actionButton} bg-[#171a1f]`}
           variant="plain"
           text="Report"
@@ -542,3 +600,45 @@ export default function Quiz() {
     </view>
   );
 }
+
+// Styles
+const STYLES = {
+  container: 'flex flex-col items-center h-full pt-10',
+  header: 'flex w-[340px] flex-row justify-center items-center',
+  backButton: 'absolute left-0 w-[20px] h-[20px]',
+  progressContainer: 'w-[270px] ml-10 h-[20px]',
+  cursor: 'w-[10px] h-[10px] left-[-2.5px] top-[22px] absolute',
+  progressBar: 'flex flex-row gap-1 items-center h-full w-full overflow-hidden',
+  progressDot: 'w-[6px] h-[12px] rounded-full opacity-50',
+  remainingCount: 'text-sm text-[#ed7d2d]',
+  questionCard:
+    'flex flex-col justify-between py-8 pt-12 border-2 items-center w-[370px] h-[665px] mt-4 mb-3 rounded-[2rem] transition-transform duration-300 ease-in-out',
+  questionContainer: 'flex flex-col flex-1 px-8 w-[350px] relative',
+  questionText: 'text-3xl text-clip mb-4 font-semibold',
+  choicesContainer: 'h-[350px] grow justify-center',
+  choiceButton: 'py-6 px-4 rounded-xl w-full ',
+  selectedChoiceButton: 'py-6 px-4 rounded-xl w-full border',
+  choiceText: 'text-lg text-center ',
+  sequenceItem: 'py-6 px-4 my-[5px] rounded-[8px] flex flex-row items-center',
+  sequenceText: 'text-lg flex-1 text-[#9095a0]',
+  sequenceControls: 'flex flex-row gap-2',
+  sequenceButton: 'w-8 h-8 flex items-center justify-center rounded-full',
+  activeSequenceItem: 'border',
+  inactiveSequenceItem: 'border border-2',
+  sequenceInstructions: 'text-sm mb-2',
+  buttonContainer: 'flex gap-10 flex-row mb-10',
+  dontKnowButton: 'px-6 py-5 rounded-2xl',
+  dontKnowText: 'text-xl',
+  confirmButton: 'border border-1 px-6 py-5 rounded-2xl',
+  confirmText: 'text-xl',
+  footer: 'w-full flex flex-row justify-between items-center border-t pt-2',
+  footerText: 'text-sm',
+  bottomBar: 'flex flex-row justify-around w-[350px] opacity-90',
+  actionButton: 'px-5 py-3 rounded-2xl',
+  actionText: 'text-md text-white',
+  feedbackOverlay:
+    'fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center z-50 bg-opacity-90',
+  feedbackText: 'text-5xl font-bold text-white feedback-scale',
+  correctFeedback: 'bg-[#1dd75b]',
+  incorrectFeedback: 'bg-[#de3b40]',
+} as const;

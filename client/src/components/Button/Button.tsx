@@ -4,6 +4,7 @@ import { useTheme } from '../../context/ThemeContext.jsx';
 
 type ButtonType = {
   text?: string;
+  textStyle?: string;
   sup?: string;
   sub?: string;
   secondText?: string;
@@ -19,6 +20,7 @@ type ButtonType = {
 
 export default function Button({
   text,
+  textStyle,
   sup,
   sub,
   secondText,
@@ -66,13 +68,13 @@ export default function Button({
                       : theme === 'dark'
                         ? 'text-white'
                         : 'text-[#323842]'
-              } ${bold ? 'font-bold' : ''}`}
+              } ${isHighlighted && 'text-[#ed7d2d]'} ${bold ? 'font-bold' : ''} ${textStyle}`}
             >
               {text}
             </text>
             {sub && (
               <text
-                className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-[#9095a0]'}`}
+                className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-[#9095a0]'} ${isHighlighted && 'text-[#ed7d2d]'}`}
               >
                 {sub}
               </text>
@@ -81,7 +83,7 @@ export default function Button({
 
           {secondText && (
             <text
-              className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-[#9095a0]'}`}
+              className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-[#9095a0]'}  ${isHighlighted && 'text-[#ed7d2d]'}`}
             >
               {secondText}
             </text>

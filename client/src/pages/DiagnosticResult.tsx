@@ -1,7 +1,16 @@
+import Button from '../components/Button/Button.jsx';
+
 export default function DiagnosticResult() {
   return (
     <view className={STYLES.container}>
       <text>Hello</text>
+      <Button
+        text="CONTINUE"
+        variant="orange"
+        bold={true}
+        // onTap={() => handleStepChange(1)}
+        className={`mb-10 justify-center`}
+      />
     </view>
   );
 }
