@@ -163,7 +163,7 @@ export default function StepsIndicator({
       </view>
       {showLabels && (
         <text
-          className={`${mergedStyles.currentStepLabel} ${theme === 'dark' ? 'text-white' : 'text-[#323842'}`}
+          className={`${mergedStyles.currentStepLabel} ${theme === 'dark' ? 'text-white' : 'text-[#323842]'}`}
         >
           {visibleSteps[currentStep]?.label}
         </text>

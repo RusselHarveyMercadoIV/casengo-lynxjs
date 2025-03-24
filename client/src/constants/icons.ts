@@ -31,6 +31,7 @@ import swim from '../assets/icons/swim.png';
 import wifi from '../assets/icons/wifi.png';
 import location from '../assets/icons/location.png';
 import edit from '../assets/icons/edit.png';
+import edit2 from '../assets/icons/edit2.png';
 import challenge from '../assets/icons/challenge.png';
 import trophy from '../assets/icons/trophy.png';
 import facebook from '../assets/icons/facebook.png';
@@ -48,6 +49,10 @@ import nurse from '../assets/icons/nurse.png';
 import note from '../assets/icons/note.png';
 import closebtn from '../assets/icons/closebtn.png';
 import cursor from '../assets/icons/cursor.png';
+import day from '../assets/icons/day.png';
+import night from '../assets/icons/night-mode.png';
+import bug from '../assets/icons/bug.png';
+import book from '../assets/icons/book.png';
 
 export default {
   note,
@@ -86,6 +91,7 @@ export default {
   wifi,
   location,
   edit,
+  edit2,
   challenge,
   trophy,
   facebook,
@@ -100,4 +106,8 @@ export default {
   nursecap,
   closebtn,
   cursor,
+  night,
+  day,
+  bug,
+  book,
 };

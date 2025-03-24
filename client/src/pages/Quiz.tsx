@@ -577,24 +577,33 @@ export default function Quiz() {
       <view className={STYLES.bottomBar}>
         <Button
           textStyle={` ${theme === 'dark' ? 'text-black' : 'text-white'}`}
-          className={`${STYLES.actionButton} bg-[#ed7d2d]`}
+          className={`${STYLES.actionButton}`}
+          icon={<image src={icons.edit2} className="w-5 h-5" />}
           variant="plain"
-          text="Suggest"
+        />
+        <Button
+          textStyle={` text-white`}
+          className={`${STYLES.actionButton} `}
+          icon={<image src={icons.bug} className="w-5 h-5" />}
+          variant="plain"
         />
         <Button
           textStyle={` ${theme === 'dark' ? 'text-black' : 'text-white'}`}
-          className={`${STYLES.actionButton} ${
-            theme === 'dark' ? 'bg-white' : 'bg-[#171a1f]'
-          }`}
+          className={`${STYLES.actionButton} ${'bg-white'}`}
           variant="plain"
-          text={theme === 'dark' ? 'day' : 'night'}
+          icon={
+            <image
+              src={theme === 'dark' ? icons.day : icons.night}
+              className="w-5 h-5"
+            />
+          }
           onTap={toggleTheme}
         />
         <Button
           textStyle={` text-white`}
-          className={`${STYLES.actionButton} bg-[#171a1f]`}
+          className={`${STYLES.actionButton} `}
+          icon={<image src={icons.book} className="w-5 h-5" />}
           variant="plain"
-          text="Report"
         />
       </view>
     </view>
@@ -612,7 +621,7 @@ const STYLES = {
   progressDot: 'w-[6px] h-[12px] rounded-full opacity-50',
   remainingCount: 'text-sm text-[#ed7d2d]',
   questionCard:
-    'flex flex-col justify-between py-8 pt-12 border-2 items-center w-[370px] h-[665px] mt-4 mb-3 rounded-[2rem] transition-transform duration-300 ease-in-out',
+    'flex flex-col justify-between py-8 pt-12 border-2 items-center w-[370px] h-[675px] mt-4 mb-3 rounded-[2rem] transition-transform duration-300 ease-in-out',
   questionContainer: 'flex flex-col flex-1 px-8 w-[350px] relative',
   questionText: 'text-3xl text-clip mb-4 font-semibold',
   choicesContainer: 'h-[350px] grow justify-center',
