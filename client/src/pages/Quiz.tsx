@@ -577,14 +577,16 @@ export default function Quiz() {
       <view className={STYLES.bottomBar}>
         <Button
           textStyle={` ${theme === 'dark' ? 'text-black' : 'text-white'}`}
-          className={`${STYLES.actionButton}`}
+          className={`${STYLES.actionButton} opacity-30`}
+          disabled={true}
           icon={<image src={icons.edit2} className="w-5 h-5" />}
           variant="plain"
         />
         <Button
           textStyle={` text-white`}
-          className={`${STYLES.actionButton} `}
+          className={`${STYLES.actionButton} opacity-30`}
           icon={<image src={icons.bug} className="w-5 h-5" />}
+          disabled={true}
           variant="plain"
         />
         <Button
@@ -601,7 +603,8 @@ export default function Quiz() {
         />
         <Button
           textStyle={` text-white`}
-          className={`${STYLES.actionButton} `}
+          className={`${STYLES.actionButton} opacity-30`}
+          disabled={true}
           icon={<image src={icons.book} className="w-5 h-5" />}
           variant="plain"
         />
