@@ -1,7 +1,9 @@
+import { useNavigate } from 'react-router';
 import Button from '../components/Button/Button.jsx';
 import { useTheme } from '../context/ThemeContext.jsx';
 
 export default function DiagnosticResult() {
+  const navigation = useNavigate();
   const { theme } = useTheme();
 
   return (
@@ -9,7 +11,7 @@ export default function DiagnosticResult() {
       className={`${STYLES.container} ${theme === 'dark' ? 'bg-[#1a1a1a]' : 'bg-white'}`}
     >
       <text
-        class={`absolute top-28 font-bold text-2xl ${theme === 'dark' ? 'text-white' : ''}`}
+        class={`absolute top-28 font-bold text-3xl ${theme === 'dark' ? 'text-white' : ''}`}
       >
         Amazing!
       </text>
@@ -54,7 +56,7 @@ export default function DiagnosticResult() {
           text="CONTINUE"
           variant="orange"
           bold={true}
-          // onTap={() => handleStepChange(1)}
+          onTap={() => navigation('/home')}
           className={` mb-10 justify-center min-w-[350px] min-h-[60px]`}
         />
       </view>

@@ -8,6 +8,9 @@ import AuthCallback from './pages/AuthCallback.jsx';
 import Quiz from './pages/Quiz.jsx';
 import { ThemeProvider } from './context/ThemeContext.jsx';
 import DiagnosticResult from './pages/DiagnosticResult.jsx';
+import Home from './pages/Home.jsx';
+import Layout from './components/Layout.jsx';
+import Profile from './pages/Profile.jsx';
 
 root.render(
   <ThemeProvider>
@@ -19,6 +22,10 @@ root.render(
         <Route path="/quiz" element={<Quiz />} />
         <Route path="/diagnostic-result" element={<DiagnosticResult />} />
         <Route path="/auth/callback" element={<AuthCallback />} />
+        <Route path="/" element={<Layout />}>
+          <Route path="home" element={<Home />} />
+          <Route path="profile" element={<Profile />} />
+        </Route>
       </Routes>
     </MemoryRouter>
   </ThemeProvider>,

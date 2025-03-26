@@ -53,6 +53,8 @@ import day from '../assets/icons/day.png';
 import night from '../assets/icons/night-mode.png';
 import bug from '../assets/icons/bug.png';
 import book from '../assets/icons/book.png';
+import session from '../assets/icons/session.png';
+import profile from '../assets/icons/profile.png';
 
 export default {
   note,
@@ -110,4 +112,6 @@ export default {
   day,
   bug,
   book,
+  session,
+  profile,
 };
