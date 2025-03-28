@@ -13,6 +13,10 @@ export const DIAGNOSTIC_QUESTIONS = {
               d: 'To filter waste',
             },
             answer: 'b',
+            rationale: {
+              paragraph: '', // the actual rationale content is here
+              keyPoints: ['point1', 'point2', 'etc...'], // put the key points here ( eg. Check Vital Signs, Monitor health, etc. ), extracted from the actual rationale content
+            },
           },
           {
             id: '2',
