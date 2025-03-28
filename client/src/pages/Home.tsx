@@ -90,7 +90,11 @@ export default function Home() {
                 item-key={item.id}
                 key={item.id}
                 className="mr-6"
-                bindtap={() => navigation(`/${item.path}`)}
+                bindtap={() =>
+                  navigation(`/${item.path}`, {
+                    state: { chosenSubject: item.title },
+                  })
+                }
               >
                 <Card title={item.title}>
                   <image src={item.icon} className="w-16 h-16" />

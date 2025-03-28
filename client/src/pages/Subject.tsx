@@ -56,7 +56,7 @@ export default function Subject() {
   };
 
   useEffect(() => {
-    const foundSubject = subjects.find((item) => item.title === chosenSubject);
+    const foundSubject = subjects.find((item) => item?.title === chosenSubject);
     setCurrentSubject(foundSubject);
   }, [chosenSubject]);
 
