@@ -55,6 +55,10 @@ import bug from '../assets/icons/bug.png';
 import book from '../assets/icons/book.png';
 import session from '../assets/icons/session.png';
 import profile from '../assets/icons/profile.png';
+import checklist from '../assets/icons/checklist.png';
+import books from '../assets/icons/books.png';
+import magnifying from '../assets/icons/magnifying.png';
+import theory from '../assets/icons/theory.png';
 
 export default {
   note,
@@ -114,4 +118,8 @@ export default {
   book,
   session,
   profile,
+  checklist,
+  books,
+  magnifying,
+  theory,
 };

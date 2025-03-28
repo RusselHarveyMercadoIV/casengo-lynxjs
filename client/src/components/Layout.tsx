@@ -6,18 +6,18 @@ export default function Layout() {
   const navigation = useNavigate();
 
   return (
-    <view className="flex flex-col h-full justify-between">
+    <view className="bg-white flex flex-col h-full justify-between">
       {/* This is where nested components will render */}
       <Outlet />
 
-      <view className=" flex flex-row w-full px-4 py-6 justify-around items-center border-t border-[#dee1e6]">
+      <view className="flex flex-row w-full px-4 py-6 justify-around items-center">
         {/* Your navigation button(s) or links */}
         <view bindtap={() => navigation('/home')}>
           <image src={icons.home} className="w-8 h-8" />
         </view>
 
         <view
-          className="bg-[#ed7d2d] rounded-full p-2"
+          className="bg-[#ed7d2d] rounded-full px-14 py-3"
           bindtap={() =>
             navigation('/quiz', {
               state: {
