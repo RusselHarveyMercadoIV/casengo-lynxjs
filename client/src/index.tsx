@@ -9,8 +9,9 @@ import Quiz from './pages/Quiz.jsx';
 import { ThemeProvider } from './context/ThemeContext.jsx';
 import DiagnosticResult from './pages/DiagnosticResult.jsx';
 import Home from './pages/Home.jsx';
-import Layout from './components/Layout.jsx';
+import Layout from './shared/Layout.jsx';
 import Profile from './pages/Profile.jsx';
+import Subject from './pages/Subject.jsx';
 
 root.render(
   <ThemeProvider>
@@ -25,6 +26,7 @@ root.render(
         <Route path="/" element={<Layout />}>
           <Route path="home" element={<Home />} />
           <Route path="profile" element={<Profile />} />
+          <Route path="subject" element={<Subject />} />
         </Route>
       </Routes>
     </MemoryRouter>

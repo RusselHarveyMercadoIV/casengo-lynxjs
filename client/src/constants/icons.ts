@@ -59,6 +59,10 @@ import checklist from '../assets/icons/checklist.png';
 import books from '../assets/icons/books.png';
 import magnifying from '../assets/icons/magnifying.png';
 import theory from '../assets/icons/theory.png';
+import lungs from '../assets/icons/lungs.png';
+import microscope from '../assets/icons/microscope.png';
+import pill from '../assets/icons/pill.png';
+import diagram from '../assets/icons/diagram.png';
 
 export default {
   note,
@@ -122,4 +126,8 @@ export default {
   books,
   magnifying,
   theory,
+  lungs,
+  microscope,
+  pill,
+  diagram,
 };

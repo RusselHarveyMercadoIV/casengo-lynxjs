@@ -6,11 +6,11 @@ export default function Layout() {
   const navigation = useNavigate();
 
   return (
-    <view className="bg-white flex flex-col h-full justify-between">
+    <view className="bg-white flex flex-col h-full ">
       {/* This is where nested components will render */}
       <Outlet />
 
-      <view className="flex flex-row w-full px-4 py-6 justify-around items-center">
+      <view className="fixed bg-white bottom-0 flex flex-row w-full px-4 py-6 justify-around items-center">
         {/* Your navigation button(s) or links */}
         <view bindtap={() => navigation('/home')}>
           <image src={icons.home} className="w-8 h-8" />

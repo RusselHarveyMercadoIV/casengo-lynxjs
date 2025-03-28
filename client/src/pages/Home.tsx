@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router';
 import Button from '../components/Button/Button.jsx';
 import Card from '../components/Card.jsx';
 import icons from '../constants/icons.js';
@@ -8,36 +9,42 @@ const cardNavigations = [
     title: 'Fundamentals',
     icon: icons.checklist,
     sub: 'Patient safety and communication',
+    path: 'subject',
   },
   {
     id: '2',
     title: 'Core',
     icon: icons.books,
     sub: 'Patient safety and communication',
+    path: 'subject',
   },
   {
     id: '3',
     title: 'Case Studies',
     icon: icons.magnifying,
     sub: 'Patient safety and communication',
+    path: 'subject',
   },
   {
     id: '4',
     title: 'Theory',
     icon: icons.theory,
     sub: 'Patient safety and communication',
+    path: 'subject',
   },
 ];
 
 export default function Home() {
+  const navigation = useNavigate();
+
   return (
-    <view className="flex flex-col  h-full justify-center items-center">
+    <view className="flex  flex-col h-full justify-center items-center">
       <view className="fixed top-10 right-5 bg-yellow-500 rounded-full">
         <image src={icons.trophy} className="p-2 w-16 h-16" />
       </view>
 
       <scroll-view
-        className="flex flex-col items-center pt-16 h-full w-full"
+        className="flex flex-col items-center  pt-16 h-full w-full"
         scroll-orientation="vertical"
       >
         <view className="flex flex-col w-[350px] mb-10">
@@ -79,7 +86,12 @@ export default function Home() {
             custom-list-name="list-container"
           >
             {cardNavigations.map((item) => (
-              <list-item item-key={item.id} key={item.id} className="mr-6">
+              <list-item
+                item-key={item.id}
+                key={item.id}
+                className="mr-6"
+                bindtap={() => navigation(`/${item.path}`)}
+              >
                 <Card title={item.title}>
                   <image src={item.icon} className="w-16 h-16" />
                 </Card>
@@ -97,7 +109,15 @@ export default function Home() {
             custom-list-name="list-container"
           >
             {cardNavigations.map((item) => (
-              <list-item item-key={item.id} key={item.id}>
+              <list-item
+                item-key={item.id}
+                key={item.id}
+                bindtap={() =>
+                  navigation(`/${item.path}`, {
+                    state: { chosenSubject: item.title },
+                  })
+                }
+              >
                 <Card title={item.title}>
                   <image src={item.icon} className="w-16 h-16" />
                 </Card>
