@@ -23,6 +23,7 @@ export default function Quiz() {
     null,
   );
   const [isAnimating, setIsAnimating] = useState(false);
+  const [showBackCard, setShowBackCard] = useState(false);
   const [selectedChoiceIndex, setSelectedChoiceIndex] = useState<number | null>(
     null,
   );
@@ -57,6 +58,7 @@ export default function Quiz() {
     caseBased: 'Case based',
     sata: 'SATA',
     sequencing: 'Sequencing',
+    fillInTheBlank: 'Fill in the blank',
   } as const;
 
   const SubjectTitle = {
@@ -70,91 +72,6 @@ export default function Quiz() {
     psychiatricNursing: 'Psychiatric Nursing',
   } as const;
 
-  // const handleFinishQuestion = (isCorrect: boolean = false) => {
-  //   setIsAnimating(true);
-  //   setSlideDirection(isCorrect ? 'right' : 'left');
-
-  //   // Wait for animation to complete before moving to next question
-  //   setTimeout(() => {
-  //     setItems((prevItems) => {
-  //       const remainingItems = prevItems.slice(1);
-  //       // If this was the last question and type is diagnostic, redirect to diagnostic result
-  //       if (remainingItems.length === 0 && type === 'diagnostic') {
-  //         navigation('/diagnostic-result');
-  //       }
-  //       return remainingItems;
-  //     });
-  //     setIsAnimating(false);
-  //     setSlideDirection(null);
-  //     setSelectedChoiceIndex(null);
-  //   }, 500); // Match this with the CSS transition duration
-  // };
-
-  // // Handler for the Confirm button to check the sequence
-  // const handleConfirm = () => {
-  //   if (currentItem && currentItem.type === 'sequencing') {
-  //     // Convert current sequence order to array of letters (a, b, c, d, etc.)
-  //     const currentSequence = sequenceOrder.map((item, index) => {
-  //       // Find the original choice index that matches this item's text
-  //       const originalIndex = currentItem.choices.findIndex(
-  //         (choice) => choice === item.text,
-  //       );
-  //       // Convert index to letter (0=a, 1=b, etc.)
-  //       return String.fromCharCode(97 + originalIndex); // 97 is ASCII for 'a'
-  //     });
-
-  //     // Compare with the correct answer array
-  //     const isCorrect =
-  //       JSON.stringify(currentSequence) === JSON.stringify(currentItem.answer);
-  //     handleFinishQuestion(isCorrect);
-  //   } else {
-  //     handleFinishQuestion();
-  //   }
-  // };
-
-  // // Handler for checking if a multiple choice answer is correct
-  // const handleChoiceSelection = (choice: string, index: number) => {
-  //   if (currentItem) {
-  //     // Highlight the selected choice first
-  //     setSelectedChoiceIndex(index);
-
-  //     // Handle different answer types (string or string[])
-  //     if (Array.isArray(currentItem.answer)) {
-  //       // For SATA or other multiple answer questions
-  //       // Not implemented in this version - just move to next question
-  //       setTimeout(() => {
-  //         handleFinishQuestion(false);
-  //       }, 700);
-  //       return;
-  //     }
-
-  //     // Now we know currentItem.answer is a string
-  //     const answer = currentItem.answer as string;
-
-  //     // Check if the answer is a letter (A, B, C, D, etc.)
-  //     const isLetterAnswer = /^[A-Za-z]$/.test(answer);
-
-  //     let isCorrect = false;
-  //     if (isLetterAnswer) {
-  //       // If answer is a letter, convert index to corresponding letter (0=A, 1=B, etc.)
-  //       const answerLetter = String.fromCharCode(65 + index); // 65 is ASCII for 'A'
-  //       isCorrect = answerLetter === answer.toUpperCase();
-  //     } else {
-  //       // Direct text comparison if answer is the full text
-  //       isCorrect = choice === answer;
-  //     }
-
-  //     // Show feedback after a delay to give user time to see the highlighted selection
-  //     setTimeout(() => {
-  //       handleFinishQuestion(isCorrect);
-  //     }, 50);
-  //   } else {
-  //     setTimeout(() => {
-  //       handleFinishQuestion(false);
-  //     }, 50);
-  //   }
-  // };
-
   const handleFinishQuestion = (isCorrect: boolean, userAnswer: any) => {
     if (currentItem) {
       setUserAnswers((prev) => [
@@ -163,21 +80,32 @@ export default function Quiz() {
       ]);
     }
 
+    setShowBackCard(true);
     setIsAnimating(true);
     setSlideDirection(isCorrect ? 'right' : 'left');
 
     setTimeout(() => {
-      setItems((prevItems) => {
-        const remainingItems = prevItems.slice(1);
-        if (remainingItems.length === 0 && type === 'diagnostic') {
-          navigation('/diagnostic-result', { state: { userAnswers } });
-        }
-        return remainingItems;
-      });
+      // setItems((prevItems) => {
+      //   const remainingItems = prevItems.slice(1);
+      //   // if (remainingItems.length === 0 && type === 'diagnostic') {
+      //   //   navigation('/diagnostic-result', { state: { userAnswers } });
+      //   // }
+      //   return remainingItems;
+      // });
       setIsAnimating(false);
       setSlideDirection(null);
       setSelectedChoiceIndex(null);
     }, 500);
+  };
+
+  const handleCardPress = () => {
+    setItems((prevItems) => {
+      const remainingItems = prevItems.slice(1);
+      if (remainingItems.length === 0 && type === 'diagnostic') {
+        navigation('/diagnostic-result', { state: { userAnswers } });
+      }
+      return remainingItems;
+    });
   };
 
   const handleChoiceSelection = (choice: string, index: number) => {
@@ -191,7 +119,11 @@ export default function Quiz() {
         return;
       }
 
-      const answer = currentItem.answer as string;
+      let answer = '';
+      if (currentItem.answer.length === 1) {
+        answer = currentItem.answer[0] as string;
+      }
+
       const isLetterAnswer = /^[A-Za-z]$/.test(answer);
 
       let isCorrect = false;
@@ -215,12 +147,16 @@ export default function Quiz() {
   };
 
   const handleConfirm = () => {
-    if (currentItem && currentItem.type === 'sequencing') {
+    if (
+      currentItem &&
+      currentItem.type === 'sequencing' &&
+      currentItem.choices !== null
+    ) {
       const currentSequence = sequenceOrder.map((item) => {
-        const originalIndex = currentItem.choices.findIndex(
+        const originalIndex = currentItem?.choices?.findIndex(
           (choice) => choice === item.text,
         );
-        return String.fromCharCode(97 + originalIndex);
+        return String.fromCharCode(97 + originalIndex!);
       });
 
       const isCorrect =
@@ -265,17 +201,21 @@ export default function Quiz() {
           const questionsArray = currentDifficulty[category];
           if (questionsArray && Array.isArray(questionsArray)) {
             questionsArray.forEach((question) => {
-              const choicesArray = Object.values(question.choices);
+              const choicesArray =
+                question?.choices && Object.values(question?.choices);
               allQuestions.push({
                 id: question.id,
                 question: question.question,
-                choices: choicesArray as string[],
+                choices: (choicesArray as string[]) ?? null,
                 answer: question.answer,
+                rationale: question.rationale,
+                keyPhrases: question.keyPhrases,
                 type: category as
                   | 'multipleChoices'
                   | 'sata'
                   | 'caseBased'
-                  | 'sequencing',
+                  | 'sequencing'
+                  | 'fillInTheBlank',
                 subject,
                 difficulty: diff as 'easy' | 'medium' | 'hard',
               });
@@ -292,19 +232,21 @@ export default function Quiz() {
 
   // Initialize sequenceOrder when a new sequencing question is displayed
   useEffect(() => {
-    if (currentItem && currentItem.type === 'sequencing') {
-      const initialSequence = currentItem.choices.map(
+    if (
+      currentItem &&
+      currentItem.type === 'sequencing' &&
+      currentItem.choices !== null
+    ) {
+      const initialSequence = currentItem?.choices?.map(
         (choice: string, index: number) => ({
           id: `${currentItem.id}-${index}`,
           text: choice,
         }),
       );
-      setSequenceOrder(initialSequence);
+      setSequenceOrder(initialSequence!);
       setSelectedId(null);
     }
   }, [currentItem]);
-
-  const total = items.length - SHOWN_NODES;
 
   // Create steps array for StepsIndicator from the items
   const quizSteps = useMemo(() => {
@@ -347,7 +289,7 @@ export default function Quiz() {
         showLabels={false}
         activeColor={
           items[0]?.subject
-            ? SubjectColors[items[0].subject as keyof typeof SubjectColors]
+            ? SubjectColors[items[0]?.subject as keyof typeof SubjectColors]
             : '#ed7d2d'
         }
       />
@@ -374,203 +316,254 @@ export default function Quiz() {
               : 'bg-white border-[#dee1e6]'
           } relative overflow-hidden ${isAnimating && 'translate-x-full'}`}
         >
-          <view className={STYLES.questionContainer}>
-            <view
-              className={
-                'absolute top-[-30px] right-2 bg-[#eefdf3] py-2 px-6 rounded-full'
-              }
-            >
-              <text className=" text-[#117b34]">{currentItem.difficulty}</text>
-            </view>
-            <text
-              className={`${STYLES.questionText} ${
-                theme === 'dark' ? 'text-white' : 'text-[#9095a0]'
-              }`}
-            >
-              {currentItem.question}
-            </text>
-            <view className={STYLES.choicesContainer}>
-              {currentItem.type === 'sequencing' ? (
-                <view className="flex flex-col h-full justify-center">
-                  <text
-                    className={`${STYLES.sequenceInstructions} ${
-                      theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
-                    }`}
-                  >
-                    (Arrange these steps in the correct order)
+          {!showBackCard ? (
+            <>
+              <view className={STYLES.questionContainer}>
+                <view
+                  className={
+                    'absolute top-[-30px] right-2 bg-[#eefdf3] py-2 px-6 rounded-full'
+                  }
+                >
+                  <text className=" text-[#117b34]">
+                    {currentItem.difficulty}
                   </text>
-                  <scroll-view
-                    scroll-orientation="vertical"
-                    className="flex flex-col h-[350px]"
-                    style={{ gap: '10px' }}
-                    scroll-bar-enable={true}
-                  >
-                    {sequenceOrder.map((item, index) => (
-                      <view
-                        key={item.id}
-                        className={`${STYLES.sequenceItem} ${
-                          selectedId === item.id
-                            ? `${STYLES.activeSequenceItem} ${
-                                theme === 'dark'
-                                  ? 'bg-[#3a3a3a] border-[#ed7d2d]'
-                                  : 'bg-[#fff3ea] border-[#ed7d2d]'
-                              }`
-                            : `${STYLES.inactiveSequenceItem} ${
-                                theme === 'dark'
-                                  ? 'border-[#333333]'
-                                  : 'border-[#dee1e6]'
-                              }`
-                        }`}
-                        bindtap={() => setSelectedId(item.id)}
-                      >
-                        <text
-                          className={`${STYLES.sequenceText} ${
-                            theme === 'dark' ? 'text-white' : 'text-[#565e6c]'
-                          }`}
-                        >
-                          {item.text}
-                        </text>
-                        <view className={STYLES.sequenceControls}>
-                          <view
-                            className={`${STYLES.sequenceButton} ${
-                              theme === 'dark' ? 'bg-[#3a3a3a]' : 'bg-[#f3f4f6]'
-                            }`}
-                            bindtap={() => moveItemUp(index)}
-                          >
-                            <text
-                              className={
-                                theme === 'dark'
-                                  ? 'text-white'
-                                  : 'text-[#565e6c]'
-                              }
-                            >
-                              ↑
-                            </text>
-                          </view>
-                          <view
-                            className={`${STYLES.sequenceButton} ${
-                              theme === 'dark' ? 'bg-[#3a3a3a]' : 'bg-[#f3f4f6]'
-                            }`}
-                            bindtap={() => moveItemDown(index)}
-                          >
-                            <text
-                              className={
-                                theme === 'dark'
-                                  ? 'text-white'
-                                  : 'text-[#565e6c]'
-                              }
-                            >
-                              ↓
-                            </text>
-                          </view>
-                        </view>
-                      </view>
-                    ))}
-                  </scroll-view>
                 </view>
-              ) : (
-                <view className="flex flex-col h-full justify-center">
-                  <scroll-view
-                    scroll-orientation="vertical"
-                    className="flex flex-col h-[370px]"
-                    style={{ gap: '10px' }}
-                    scroll-bar-enable={true}
-                  >
-                    {currentItem.choices.map(
-                      (choice: string, index: number) => (
+                <text
+                  className={`${STYLES.questionText} ${
+                    theme === 'dark' ? 'text-white' : 'text-[#9095a0]'
+                  }`}
+                >
+                  {currentItem.question}
+                </text>
+                <view className={STYLES.choicesContainer}>
+                  {currentItem.type === 'sequencing' ? (
+                    <view className="flex flex-col h-full justify-center">
+                      <text
+                        className={`${STYLES.sequenceInstructions} ${
+                          theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+                        }`}
+                      >
+                        (Arrange these steps in the correct order)
+                      </text>
+                      <scroll-view
+                        scroll-orientation="vertical"
+                        className="flex flex-col h-[350px]"
+                        style={{ gap: '10px' }}
+                        scroll-bar-enable={true}
+                      >
+                        {sequenceOrder.map((item, index) => (
+                          <view
+                            key={item.id}
+                            className={`${STYLES.sequenceItem} ${
+                              selectedId === item.id
+                                ? `${STYLES.activeSequenceItem} ${
+                                    theme === 'dark'
+                                      ? 'bg-[#3a3a3a] border-[#ed7d2d]'
+                                      : 'bg-[#fff3ea] border-[#ed7d2d]'
+                                  }`
+                                : `${STYLES.inactiveSequenceItem} ${
+                                    theme === 'dark'
+                                      ? 'border-[#333333]'
+                                      : 'border-[#dee1e6]'
+                                  }`
+                            }`}
+                            bindtap={() => setSelectedId(item.id)}
+                          >
+                            <text
+                              className={`${STYLES.sequenceText} ${
+                                theme === 'dark'
+                                  ? 'text-white'
+                                  : 'text-[#565e6c]'
+                              }`}
+                            >
+                              {item.text}
+                            </text>
+                            <view className={STYLES.sequenceControls}>
+                              <view
+                                className={`${STYLES.sequenceButton} ${
+                                  theme === 'dark'
+                                    ? 'bg-[#3a3a3a]'
+                                    : 'bg-[#f3f4f6]'
+                                }`}
+                                bindtap={() => moveItemUp(index)}
+                              >
+                                <text
+                                  className={
+                                    theme === 'dark'
+                                      ? 'text-white'
+                                      : 'text-[#565e6c]'
+                                  }
+                                >
+                                  ↑
+                                </text>
+                              </view>
+                              <view
+                                className={`${STYLES.sequenceButton} ${
+                                  theme === 'dark'
+                                    ? 'bg-[#3a3a3a]'
+                                    : 'bg-[#f3f4f6]'
+                                }`}
+                                bindtap={() => moveItemDown(index)}
+                              >
+                                <text
+                                  className={
+                                    theme === 'dark'
+                                      ? 'text-white'
+                                      : 'text-[#565e6c]'
+                                  }
+                                >
+                                  ↓
+                                </text>
+                              </view>
+                            </view>
+                          </view>
+                        ))}
+                      </scroll-view>
+                    </view>
+                  ) : currentItem.type === 'fillInTheBlank' ? (
+                    <view className="flex flex-col h-full justify-center"></view>
+                  ) : (
+                    <view className="flex flex-col h-full justify-center">
+                      <scroll-view
+                        scroll-orientation="vertical"
+                        className="flex flex-col h-[370px]"
+                        style={{ gap: '10px' }}
+                        scroll-bar-enable={true}
+                      >
+                        {currentItem?.choices?.map(
+                          (choice: string, index: number) => (
+                            <Button
+                              key={index}
+                              textStyle="text-[#9095a0]"
+                              className={`${
+                                selectedChoiceIndex === index
+                                  ? `${STYLES.selectedChoiceButton} ${
+                                      theme === 'dark'
+                                        ? 'bg-[#3a3a3a] border-[#ed7d2d]'
+                                        : 'bg-[#fff3ea] border-[#ed7d2d]'
+                                    }`
+                                  : `${STYLES.choiceButton} ${
+                                      theme === 'dark'
+                                        ? 'bg-[#2a2a2a]'
+                                        : 'bg-white'
+                                    }`
+                              } my-2`}
+                              variant="plain"
+                              text={choice}
+                              onTap={() => handleChoiceSelection(choice, index)}
+                            />
+                          ),
+                        )}
                         <Button
-                          key={index}
-                          textStyle="text-[#9095a0]"
-                          className={`${
-                            selectedChoiceIndex === index
+                          className={`${STYLES.choiceButton} ${
+                            selectedChoiceIndex === currentItem?.choices?.length
                               ? `${STYLES.selectedChoiceButton} ${
                                   theme === 'dark'
                                     ? 'bg-[#3a3a3a] border-[#ed7d2d]'
                                     : 'bg-[#fff3ea] border-[#ed7d2d]'
                                 }`
-                              : `${STYLES.choiceButton} ${
-                                  theme === 'dark' ? 'bg-[#2a2a2a]' : 'bg-white'
-                                }`
+                              : `${theme === 'dark' ? 'bg-[#2a2a2a]' : 'bg-white'}`
                           } my-2`}
+                          textStyle="text-[#9095a0]"
                           variant="plain"
-                          text={choice}
-                          onTap={() => handleChoiceSelection(choice, index)}
+                          text="I don't know"
+                          onTap={() =>
+                            handleChoiceSelection(
+                              "I don't know",
+                              currentItem?.choices?.length!,
+                            )
+                          }
                         />
-                      ),
-                    )}
-                    <Button
-                      className={`${STYLES.choiceButton} ${
-                        selectedChoiceIndex === currentItem.choices.length
-                          ? `${STYLES.selectedChoiceButton} ${
-                              theme === 'dark'
-                                ? 'bg-[#3a3a3a] border-[#ed7d2d]'
-                                : 'bg-[#fff3ea] border-[#ed7d2d]'
-                            }`
-                          : `${theme === 'dark' ? 'bg-[#2a2a2a]' : 'bg-white'}`
-                      } my-2`}
-                      textStyle="text-[#9095a0]"
-                      variant="plain"
-                      text="I don't know"
-                      onTap={() =>
-                        handleChoiceSelection(
-                          "I don't know",
-                          currentItem.choices.length,
-                        )
-                      }
-                    />
-                  </scroll-view>
+                      </scroll-view>
+                    </view>
+                  )}
                 </view>
-              )}
-            </view>
-          </view>
+              </view>
 
-          <view className="flex flex-col items-center w-[300px] flex-none pt-4">
-            {currentItem.type !== 'multipleChoices' &&
-              currentItem.type !== 'caseBased' && (
-                <view className={STYLES.buttonContainer}>
-                  <Button
-                    className={`${STYLES.dontKnowButton} ${
-                      theme === 'dark' ? 'bg-[#3a3a3a]' : 'bg-[#f3f4f6]'
+              <view className="flex flex-col items-center w-[300px] flex-none pt-4">
+                {currentItem.type !== 'multipleChoices' &&
+                  currentItem.type !== 'caseBased' && (
+                    <view className={STYLES.buttonContainer}>
+                      <Button
+                        className={`${STYLES.dontKnowButton} ${
+                          theme === 'dark' ? 'bg-[#3a3a3a]' : 'bg-[#f3f4f6]'
+                        }`}
+                        variant="plain"
+                        text="I don't know"
+                        onTap={() =>
+                          handleFinishQuestion(false, "I don't know")
+                        }
+                      />
+                      <Button
+                        className={`${STYLES.confirmButton} ${
+                          theme === 'dark' ? 'bg-[#ed7d2d]' : 'border-[#ed7d2d]'
+                        }`}
+                        variant="plain"
+                        text="Confirm"
+                        onTap={handleConfirm}
+                      />
+                    </view>
+                  )}
+                <view
+                  className={`${STYLES.footer} ${
+                    theme === 'dark' ? 'border-[#333333]' : 'border-[#bcc1ca]'
+                  }`}
+                >
+                  <text
+                    className={`${STYLES.footerText} ${
+                      theme === 'dark' ? 'text-gray-400' : 'text-[#bcc1ca]'
                     }`}
-                    variant="plain"
-                    text="I don't know"
-                    onTap={() => handleFinishQuestion(false, "I don't know")}
-                  />
-                  <Button
-                    className={`${STYLES.confirmButton} ${
-                      theme === 'dark' ? 'bg-[#ed7d2d]' : 'border-[#ed7d2d]'
+                  >
+                    {
+                      QuestionType[
+                        currentItem.type as keyof typeof QuestionType
+                      ]
+                    }
+                  </text>
+                  <text
+                    className={`${STYLES.footerText} ${
+                      theme === 'dark' ? 'text-gray-400' : 'text-[#bcc1ca]'
                     }`}
-                    variant="plain"
-                    text="Confirm"
-                    onTap={handleConfirm}
-                  />
+                  >
+                    {
+                      SubjectTitle[
+                        currentItem.subject as keyof typeof SubjectColors
+                      ]
+                    }
+                  </text>
                 </view>
-              )}
+              </view>
+            </>
+          ) : (
             <view
-              className={`${STYLES.footer} ${
-                theme === 'dark' ? 'border-[#333333]' : 'border-[#bcc1ca]'
-              }`}
+              className="flex flex-col h-full items-center justify-between px-8"
+              bindtap={handleCardPress}
             >
+              <view className="flex flex-col gap-5">
+                <text
+                  className={`text-2xl text-clip font-bold ${
+                    theme === 'dark' ? 'text-white' : 'text-black'
+                  }`}
+                >
+                  Rationale
+                </text>
+                <text
+                  className={`text-xl ${
+                    theme === 'dark' ? 'text-white' : 'text-[#9095a0]'
+                  }`}
+                >
+                  {currentItem.rationale}
+                </text>
+              </view>
               <text
-                className={`${STYLES.footerText} ${
-                  theme === 'dark' ? 'text-gray-400' : 'text-[#bcc1ca]'
+                className={` ${
+                  theme === 'dark' ? 'text-[#ffffff7e]' : 'text-[#0000002f]'
                 }`}
               >
-                {QuestionType[currentItem.type as keyof typeof QuestionType]}
-              </text>
-              <text
-                className={`${STYLES.footerText} ${
-                  theme === 'dark' ? 'text-gray-400' : 'text-[#bcc1ca]'
-                }`}
-              >
-                {
-                  SubjectTitle[
-                    currentItem.subject as keyof typeof SubjectColors
-                  ]
-                }
+                tap to continue
               </text>
             </view>
-          </view>
+          )}
         </view>
       )}
       {/* Footer */}

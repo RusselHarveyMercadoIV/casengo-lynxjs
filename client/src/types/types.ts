@@ -83,9 +83,16 @@ export type difficultyLevel = 'easy' | 'medium' | 'hard';
 export type SelectedQuestion = {
   id: string;
   question: string;
-  choices: string[]; // Array of choice texts (e.g., ["To pump blood", "To exchange gases", ...])
+  choices?: string[]; // Array of choice texts (e.g., ["To pump blood", "To exchange gases", ...])
   answer: string | string[]; // String for multiple-choice/case-based, array for sequencing
-  type: 'multipleChoices' | 'sata' | 'caseBased' | 'sequencing'; // Question category
+  rationale: string;
+  keyPhrases: string[];
+  type:
+    | 'multipleChoices'
+    | 'sata'
+    | 'caseBased'
+    | 'sequencing'
+    | 'fillInTheBlank'; // Question category
   subject: string; // e.g., "anatomyAndPhysiology"
   difficulty: 'easy' | 'medium' | 'hard';
 };
