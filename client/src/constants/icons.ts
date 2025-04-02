@@ -63,6 +63,8 @@ import lungs from '../assets/icons/lungs.png';
 import microscope from '../assets/icons/microscope.png';
 import pill from '../assets/icons/pill.png';
 import diagram from '../assets/icons/diagram.png';
+import streak from '../assets/icons/streak.png';
+import energy from '../assets/icons/energy.png';
 
 export default {
   note,
@@ -130,4 +132,6 @@ export default {
   microscope,
   pill,
   diagram,
+  streak,
+  energy,
 };

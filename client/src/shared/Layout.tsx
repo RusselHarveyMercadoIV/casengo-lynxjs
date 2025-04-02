@@ -7,17 +7,32 @@ export default function Layout() {
 
   return (
     <view className="bg-white flex flex-col h-full ">
-      {/* This is where nested components will render */}
+      <view className="flex flex-row justify-between items-center mt-8 px-6 py-4">
+        <view className="flex flex-row gap-1 items-center">
+          <image src={icons.streak} className="w-6 h-6" />
+          <text className="text-md font-semibold text-[#ed7d2d]">7</text>
+        </view>
+        <view className="flex flex-row gap-1 items-center">
+          <image src={icons.energy} className="w-6 h-6" />
+          <text className="text-md font-semibold text-[#E0D100]">5</text>
+        </view>
+        <view className="flex flex-row gap-1 items-center">
+          <image src={icons.heart} className="w-6 h-6" />
+          <text className="text-md font-semibold text-[#e05858]">5</text>
+        </view>
+      </view>
       <Outlet />
 
-      <view className="fixed bg-white bottom-0 flex flex-row w-full px-4 py-6 justify-around items-center">
-        {/* Your navigation button(s) or links */}
-        <view bindtap={() => navigation('/home')}>
+      <view className="fixed bg-white bottom-0 flex flex-row w-full justify-around items-center h-14">
+        <view
+          className=" h-full grow flex justify-center items-center"
+          bindtap={() => navigation('/home')}
+        >
           <image src={icons.home} className="w-8 h-8" />
         </view>
 
         <view
-          className="bg-[#ed7d2d] rounded-full px-14 py-3"
+          className="bg-[#ed7d2d] rounded-full grow px-14 py-3 w-16 flex justify-center items-center"
           bindtap={() =>
             navigation('/quiz', {
               state: {
@@ -34,7 +49,10 @@ export default function Layout() {
             // style={{ fill: '#fff' }}
           />
         </view>
-        <view bindtap={() => navigation('/profile')}>
+        <view
+          className=" h-full grow flex justify-center items-center"
+          bindtap={() => navigation('/profile')}
+        >
           <image src={icons.profile} className="w-8 h-8" />
         </view>
       </view>

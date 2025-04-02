@@ -20,74 +20,77 @@ type ButtonType = {
 
 export default function Button({
   text,
-  textStyle,
+  textStyle = '',
   sup,
   sub,
   secondText,
   variant,
   onTap,
-  isHighlighted,
+  isHighlighted = false,
   icon,
-  className,
+  className = '',
   key,
-  disabled,
-  bold,
+  disabled = false,
+  bold = false,
 }: ButtonType) {
   const { theme } = useTheme();
-  let buttonVariantCss = styles.plain;
-  if (variant === 'orange') buttonVariantCss = styles.orange;
-  if (variant === 'white') buttonVariantCss = styles.white;
 
-  // Check if the button has a white background in dark mode
-  const hasWhiteBg = className?.includes('bg-white') && theme === 'dark';
+  // Determine background context
+  const hasWhiteBg = className.includes('bg-white') && theme === 'dark';
+
+  // Compute text colors
+  const mainTextColor = isHighlighted
+    ? 'text-[#ed7d2d]'
+    : variant === 'orange'
+      ? 'text-white'
+      : variant === 'white'
+        ? 'text-[#ed7d2d]'
+        : hasWhiteBg
+          ? 'text-[#323842]'
+          : theme === 'dark'
+            ? 'text-white'
+            : 'text-[#323842]';
+
+  const subTextColor = isHighlighted
+    ? 'text-[#ed7d2d]'
+    : theme === 'dark'
+      ? 'text-gray-400'
+      : 'text-[#9095a0]';
+
+  // Compute variant-specific styling
+  const buttonVariantCss =
+    variant === 'orange'
+      ? styles.orange
+      : variant === 'white'
+        ? styles.white
+        : styles.plain;
+
+  const borderClass = variant === 'plain' ? 'border-2' : 'border-4';
+
+  // Assemble class names
+  const buttonClass = `flex items-center border ${borderClass} rounded-2xl ${buttonVariantCss} ${className} ${isHighlighted ? styles.highlighted : ''}`;
+  const mainTextClass = `text-xl ${mainTextColor} ${bold ? 'font-bold' : ''} ${textStyle}`;
+  const subTextClass = `text-sm ${subTextColor}`;
 
   return (
     <view
       key={key}
-      className={`flex items-center border ${variant === 'plain' ? 'border-2' : 'border-4'} rounded-2xl ${buttonVariantCss} ${className} ${isHighlighted && styles.highlighted}`}
-      bindtap={!disabled ? onTap : () => {}}
+      className={buttonClass}
+      bindtap={!disabled ? onTap : undefined}
     >
       {sup && (
         <text className="absolute text-xs font-bold top-0 right-0 bg-[#1ac052] text-white py-2 px-3 rounded-lg">
           {sup}
         </text>
       )}
-
       {icon && icon}
       {text && (
         <>
           <view className="flex flex-col gap-5">
-            <text
-              className={`text-xl ${
-                variant === 'orange'
-                  ? 'text-white'
-                  : variant === 'white'
-                    ? 'text-[#ed7d2d]'
-                    : hasWhiteBg
-                      ? 'text-[#323842]'
-                      : theme === 'dark'
-                        ? 'text-white'
-                        : 'text-[#323842]'
-              } ${isHighlighted && 'text-[#ed7d2d]'} ${bold ? 'font-bold' : ''} ${textStyle}`}
-            >
-              {text}
-            </text>
-            {sub && (
-              <text
-                className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-[#9095a0]'} ${isHighlighted && 'text-[#ed7d2d]'}`}
-              >
-                {sub}
-              </text>
-            )}
+            <text className={mainTextClass}>{text}</text>
+            {sub && <text className={subTextClass}>{sub}</text>}
           </view>
-
-          {secondText && (
-            <text
-              className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-[#9095a0]'}  ${isHighlighted && 'text-[#ed7d2d]'}`}
-            >
-              {secondText}
-            </text>
-          )}
+          {secondText && <text className={subTextClass}>{secondText}</text>}
         </>
       )}
     </view>

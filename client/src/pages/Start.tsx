@@ -14,7 +14,7 @@ export default function Start() {
   };
 
   const handleGetStarted = () => {
-    navigation('/profiling');
+    navigation('/home');
   };
 
   return (

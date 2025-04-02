@@ -64,8 +64,10 @@ export default function Subject() {
     setCurrentSubject(subject);
   };
 
+  const handleChosenTopic = () => {};
+
   return (
-    <view className="flex flex-col gap-10 pt-16 justify-center items-center">
+    <view className="flex flex-col gap-10 justify-center items-center">
       <scroll-view
         className={'w-[350px] flex justify-between items-center'}
         scroll-orientation="horizontal"
@@ -99,6 +101,7 @@ export default function Subject() {
             textStyle="text-[#9095a0] font-semibold"
             text={subject?.title}
             icon={<image src={subject?.icon} className="w-12 h-12" />}
+            onTap={handleChosenTopic}
           />
         ))}
       </scroll-view>
