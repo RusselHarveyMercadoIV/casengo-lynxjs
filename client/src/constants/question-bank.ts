@@ -22,6 +22,25 @@ export const DIAGNOSTIC_QUESTIONS = {
               "Broca's area",
             ],
           },
+          {
+            id: 'sample2',
+            question:
+              'A patient has difficulty producing speech but can understand language after a stroke. Which area of the brain is likely affected?',
+            choices: {
+              a: "Broca's area",
+              b: "Wernicke's area",
+              c: 'Motor cortex',
+              d: 'Sensory cortex',
+            },
+            answer: 'a',
+            rationale:
+              "2 The patient's difficulty in producing speech while retaining language comprehension suggests damage to Broca's area, which is responsible for speech production.",
+            keyPhrases: [
+              'Difficulty producing speech',
+              'Understands language',
+              "Broca's area",
+            ],
+          },
         ],
         sata: [],
         caseBased: [],

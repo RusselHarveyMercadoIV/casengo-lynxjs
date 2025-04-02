@@ -106,6 +106,7 @@ export default function Quiz() {
       }
       return remainingItems;
     });
+    setShowBackCard(false);
   };
 
   const handleChoiceSelection = (choice: string, index: number) => {
