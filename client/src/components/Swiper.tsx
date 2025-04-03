@@ -16,11 +16,11 @@ export function Swiper({
   const { handleTouchStart, handleTouchMove, handleTouchEnd } = useOffset({
     onOffsetUpdate: updateSwiperStyle,
     onIndexUpdate: setCurrent,
-    itemWidth,
+    itemWidth: itemWidth,
   });
 
   return (
-    <view className="w-full h-full">
+    <view className="flex-1 w-full h-full">
       <view
         className="rounded-xl h-full w-full"
         style={{

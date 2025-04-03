@@ -1,6 +1,6 @@
 .indicator {
   position: absolute;
-  bottom: 140px;
+  bottom: -20px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -11,10 +11,10 @@
     height: 10px;
     border-radius: 50%;
     margin: 0 5px;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: #fff3ea;
   }
 
   .indicator-item.active {
-    background-color: #ff6740;
+    background-color: #ed7d2d;
   }
 }
