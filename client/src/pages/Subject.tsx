@@ -7,8 +7,13 @@ const subjects = [
   {
     title: 'Fundamentals',
     name: 'Fundamentals',
-    description: 'Master the core subjects essential in nursing',
-    subjects: [{ title: 'Patient care' }],
+    description: 'Master the fundamentals of nursing',
+    subjects: [
+      { title: 'Theories and Practice', icon: icons.bulb },
+      { title: 'Communication', icon: icons.communication },
+      { title: 'Healthcare Delivery Systems', icon: icons.delivery },
+      { title: 'Community-Based Health Care', icon: icons.community },
+    ],
   },
   {
     title: 'Core',
@@ -67,7 +72,7 @@ export default function Subject() {
   const handleChosenTopic = () => {};
 
   return (
-    <view className="flex flex-col gap-10 justify-center items-center">
+    <view className="flex h-full flex-col gap-10 justify-start items-center">
       <scroll-view
         className={'w-[350px] flex justify-between items-center'}
         scroll-orientation="horizontal"

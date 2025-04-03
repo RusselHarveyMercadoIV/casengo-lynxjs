@@ -14,6 +14,7 @@ const cardNavigations = [
     icon: icons.checklist,
     sub: 'Patient safety and communication',
     path: 'subject',
+    size: 'w-12 h-14',
   },
   {
     id: '2',
@@ -21,6 +22,7 @@ const cardNavigations = [
     icon: icons.books,
     sub: 'Patient safety and communication',
     path: 'subject',
+    size: 'w-12 h-14',
   },
   {
     id: '3',
@@ -28,6 +30,7 @@ const cardNavigations = [
     icon: icons.magnifying,
     sub: 'Patient safety and communication',
     path: 'subject',
+    size: 'w-14 h-14',
   },
   {
     id: '4',
@@ -35,6 +38,7 @@ const cardNavigations = [
     icon: icons.theory,
     sub: 'Patient safety and communication',
     path: 'subject',
+    size: 'w-14 h-14',
   },
   {
     id: '5',
@@ -42,6 +46,7 @@ const cardNavigations = [
     icon: icons.chat,
     sub: 'Patient safety and communication',
     path: 'subject',
+    size: 'w-14 h-14',
   },
 ];
 
@@ -73,89 +78,31 @@ export default function Home() {
         scroll-orientation="vertical"
       >
         <view className="flex flex-col w-[350px] mb-10">
-          <view className=" flex flex-col gap-4">
-            <list
-              // ref={galleryRef}
-              className="list"
-              list-type="waterfall"
-              column-count={1}
-              scroll-orientation="horizontal"
-              custom-list-name="list-container"
-              style={{ borderRadius: '16px' }}
-            >
-              <list-item item-key={'1'} key={'1'} className="rounded-xl">
-                <view className="flex flex-col justify-center items-start w-[350px] h-[220px] bg-[#ed7d2d] rounded-xl mr-4">
-                  <image
-                    src={BANNER}
-                    className="w-full h-full object-cover rounded-xl"
-                  />
+          <view className="flex flex-col justify-center items-start w-[350px] h-[220px] bg-[#ed7d2d] rounded-xl mr-4">
+            <image
+              src={BANNER}
+              className="w-full h-full object-cover rounded-xl"
+            />
 
-                  <text className="absolute right-4 bottom-2 text-sm text-white">
-                    read blog
-                  </text>
-                </view>
-              </list-item>
-              <list-item item-key={'2'} key={'2'}>
-                <view className="flex flex-col justify-center items-center w-[350px] h-[220px] bg-white rounded-xl border border-[#dee1e6]">
-                  <text className="text-3xl text-[#9095a0]">
-                    The science of learning
-                  </text>
-
-                  <text className="absolute right-4 bottom-2 text-sm ">
-                    read blog
-                  </text>
-                </view>
-              </list-item>
-            </list>
+            <text className="absolute right-4 bottom-2 text-sm text-white">
+              read blog
+            </text>
           </view>
         </view>
-        {/* <view className="flex h-fit flex-col gap-8">
-          <text className="font-semibold">Recent Activities</text>
-          <list
-            className="flex justify-between w-[350px]"
-            list-type="waterfall"
-            scroll-orientation="horizontal"
-            custom-list-name="list-container"
-          >
-            {cardNavigations.map((item) => (
-              <list-item
-                item-key={item.id}
-                key={item.id}
-                className="mr-6"
-                bindtap={() =>
-                  navigation(`/${item.path}`, {
-                    state: { chosenSubject: item.title },
-                  })
-                }
-              >
-                <Card title={item.title}>
-                  <image src={item.icon} className="w-16 h-16" />
-                </Card>
-              </list-item>
-            ))}
-          </list>
-        </view> */}
         <view className=" flex flex-col gap-8">
           <text className="font-semibold">Daily Case</text>
-
           <Button
-            className="w-[350px] h-[100px] px-5 gap-6 "
+            className="w-[350px] h-[100px] px-5 gap-6 bg-[#fff3ea] border-none"
             variant="plain"
             textStyle=" font-semibold"
             text="How to handle a patient with a broken leg?"
           />
         </view>
-        <view className=" flex flex-col mt-10 gap-8">
+        <view className=" flex flex-col mt-10 mb-20 gap-8">
           <text className="font-semibold">Browse</text>
-          <list
-            className="flex justify-between w-[350px] "
-            list-type="waterfall"
-            scroll-orientation="vertical"
-            column-count={3}
-            custom-list-name="list-container"
-          >
+          <view className="w-[350px] grid grid-cols-3 gap-4 ">
             {cardNavigations.map((item) => (
-              <list-item
+              <view
                 item-key={item.id}
                 key={item.id}
                 bindtap={() =>
@@ -163,13 +110,14 @@ export default function Home() {
                     state: { chosenSubject: item.title },
                   })
                 }
+                className="items-center"
               >
                 <Card title={item.title}>
-                  <image src={item.icon} className="w-10 h-10" />
+                  <image src={item.icon} className={item.size} />
                 </Card>
-              </list-item>
+              </view>
             ))}
-          </list>
+          </view>
         </view>
       </scroll-view>
     </view>

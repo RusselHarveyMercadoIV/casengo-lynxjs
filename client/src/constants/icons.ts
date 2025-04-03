@@ -65,6 +65,11 @@ import pill from '../assets/icons/pill.png';
 import diagram from '../assets/icons/diagram.png';
 import streak from '../assets/icons/streak.png';
 import energy from '../assets/icons/energy.png';
+import potion from '../assets/icons/potion.png';
+import bulb from '../assets/icons/bulb.png';
+import communication from '../assets/icons/communicationn.png';
+import delivery from '../assets/icons/delivery.png';
+import community from '../assets/icons/community.png';
 
 export default {
   note,
@@ -134,4 +139,9 @@ export default {
   diagram,
   streak,
   energy,
+  potion,
+  bulb,
+  communication,
+  delivery,
+  community,
 };
