@@ -1,6 +1,8 @@
-import { useRef } from '@lynx-js/react';
-import type { NodesRef, TouchEvent } from '@lynx-js/types';
+import { useState } from '@lynx-js/react';
 import SwiperItem from './SwiperItem.jsx';
+import { useUpdateSwiperStyle } from '../hooks/useUpdateSwiperStyle.jsx';
+import { useOffset } from '../hooks/useOffset.jsx';
+import Indicator from './Indicator/index.jsx';
 
 export function Swiper({
   data,
@@ -9,50 +11,32 @@ export function Swiper({
   data: string[];
   itemWidth?: number;
 }) {
-  const containerRef = useRef<NodesRef>(null);
-  const currentOffsetRef = useRef<number>(0);
-  const touchStartXRef = useRef<number>(0);
-  const touchStartCurrentOffsetRef = useRef<number>(0);
-
-  function updateSwiperOffset(offset: number) {
-    currentOffsetRef.current = offset;
-    containerRef.current
-      ?.setNativeProps({
-        transform: `translateX(${offset}px)`,
-      })
-      .exec();
-  }
-
-  function handleTouchStart(e: TouchEvent) {
-    touchStartXRef.current = e.touches[0].clientX;
-    touchStartCurrentOffsetRef.current = currentOffsetRef.current;
-  }
-
-  function handleTouchMove(e: TouchEvent) {
-    const delta = e.touches[0].clientX - touchStartXRef.current;
-    const offset = touchStartCurrentOffsetRef.current + delta;
-
-    updateSwiperOffset(offset);
-  }
-
-  function handleTouchEnd(e: TouchEvent) {
-    touchStartXRef.current = 0;
-    touchStartCurrentOffsetRef.current = 0;
-  }
+  const [current, setCurrent] = useState(0);
+  const { containerRef, updateSwiperStyle } = useUpdateSwiperStyle();
+  const { handleTouchStart, handleTouchMove, handleTouchEnd } = useOffset({
+    onOffsetUpdate: updateSwiperStyle,
+    onIndexUpdate: setCurrent,
+    itemWidth,
+  });
 
   return (
-    <view class="swiper-wrapper">
+    <view className="w-full h-full">
       <view
-        class="swiper-container"
-        ref={containerRef}
-        bindtouchstart={handleTouchStart}
-        bindtouchmove={handleTouchMove}
-        bindtouchend={handleTouchEnd}
+        className="rounded-xl h-full w-full"
+        style={{
+          display: `linear`,
+          linearOrientation: 'horizontal',
+        }}
+        main-thread:ref={containerRef}
+        main-thread:bindtouchstart={handleTouchStart}
+        main-thread:bindtouchmove={handleTouchMove}
+        main-thread:bindtouchend={handleTouchEnd}
       >
         {data.map((pic) => (
           <SwiperItem pic={pic} itemWidth={itemWidth} />
         ))}
       </view>
+      <Indicator total={data.length} current={current} />
     </view>
   );
 }

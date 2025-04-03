@@ -6,6 +6,7 @@ import icons from '../constants/icons.js';
 import BANNER from '../assets/cover/casengo_banner.png';
 import { useEffect, useRef } from 'react';
 import type { NodesRef } from '@lynx-js/types';
+import { Swiper } from '../components/Swiper.jsx';
 
 const cardNavigations = [
   {
@@ -34,7 +35,7 @@ const cardNavigations = [
   },
   {
     id: '4',
-    title: 'Theory',
+    title: 'Theories',
     icon: icons.theory,
     sub: 'Patient safety and communication',
     path: 'subject',
@@ -77,17 +78,8 @@ export default function Home() {
         className="flex flex-col items-center pt-2 h-full w-full"
         scroll-orientation="vertical"
       >
-        <view className="flex flex-col w-[350px] mb-10">
-          <view className="flex flex-col justify-center items-start w-[350px] h-[220px] bg-[#ed7d2d] rounded-xl mr-4">
-            <image
-              src={BANNER}
-              className="w-full h-full object-cover rounded-xl"
-            />
-
-            <text className="absolute right-4 bottom-2 text-sm text-white">
-              read blog
-            </text>
-          </view>
+        <view className="flex flex-col w-[350px] h-[220px] mb-10 rounded-xl">
+          <Swiper data={[BANNER, icons.america]} itemWidth={350} />
         </view>
         <view className=" flex flex-col gap-8">
           <text className="font-semibold">Daily Case</text>

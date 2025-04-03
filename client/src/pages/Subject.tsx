@@ -39,7 +39,7 @@ const subjects = [
     ],
   },
   {
-    title: 'Case study',
+    title: 'Case Studies',
     name: 'Case study',
     description: 'Master the core subjects essential in nursing',
     subjects: [{}],

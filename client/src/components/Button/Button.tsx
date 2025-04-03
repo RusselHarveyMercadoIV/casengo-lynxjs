@@ -79,7 +79,7 @@ export default function Button({
       bindtap={!disabled ? onTap : undefined}
     >
       {sup && (
-        <text className="absolute text-xs font-bold top-0 right-0 bg-[#1ac052] text-white py-2 px-3 rounded-lg">
+        <text className="absolute text-xs font-bold top-0 right-0 bg-[#1ac052]  text-white py-2 px-3 rounded-lg">
           {sup}
         </text>
       )}
