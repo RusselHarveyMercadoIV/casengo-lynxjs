@@ -13,11 +13,12 @@ export function Swiper({
 }) {
   const [current, setCurrent] = useState(0);
   const { containerRef, updateSwiperStyle } = useUpdateSwiperStyle();
-  const { handleTouchStart, handleTouchMove, handleTouchEnd } = useOffset({
-    onOffsetUpdate: updateSwiperStyle,
-    onIndexUpdate: setCurrent,
-    itemWidth: itemWidth,
-  });
+  const { handleTouchStart, handleTouchMove, handleTouchEnd, updateIndex } =
+    useOffset({
+      onOffsetUpdate: updateSwiperStyle,
+      onIndexUpdate: setCurrent,
+      itemWidth: itemWidth,
+    });
 
   return (
     <view className="flex-1 w-full h-full">
@@ -36,7 +37,11 @@ export function Swiper({
           <SwiperItem pic={pic} itemWidth={itemWidth} />
         ))}
       </view>
-      <Indicator total={data.length} current={current} />
+      <Indicator
+        total={data.length}
+        current={current}
+        onItemClick={updateIndex}
+      />
     </view>
   );
 }

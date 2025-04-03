@@ -1,4 +1,8 @@
-import { runOnBackground, useMainThreadRef } from '@lynx-js/react';
+import {
+  runOnBackground,
+  runOnMainThread,
+  useMainThreadRef,
+} from '@lynx-js/react';
 import type { MainThread } from '@lynx-js/types';
 
 export function useOffset({
@@ -15,6 +19,11 @@ export function useOffset({
   const currentOffsetRef = useMainThreadRef<number>(0);
   const currentIndexRef = useMainThreadRef<number>(0);
 
+  function updateIndex(index: number) {
+    const offset = -index * itemWidth;
+    runOnMainThread(updateOffset)(offset);
+  }
+
   function updateOffset(offset: number) {
     'main thread';
     currentOffsetRef.current = offset;
@@ -22,7 +31,6 @@ export function useOffset({
     const index = Math.round(-offset / itemWidth);
     if (currentIndexRef.current !== index) {
       currentIndexRef.current = index;
-      console.log('index', index);
       runOnBackground(onIndexUpdate)(index);
     }
   }
@@ -50,5 +58,6 @@ export function useOffset({
     handleTouchStart,
     handleTouchMove,
     handleTouchEnd,
+    updateIndex,
   };
 }

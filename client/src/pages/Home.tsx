@@ -79,7 +79,7 @@ export default function Home() {
         scroll-orientation="vertical"
       >
         <view className="flex flex-col w-[350px] h-[220px] mb-10 rounded-xl">
-          <Swiper data={[BANNER, icons.america]} itemWidth={350} />
+          <Swiper data={[BANNER]} itemWidth={350} />
         </view>
         <view className=" flex flex-col gap-8">
           <text className="font-semibold">Daily Case</text>
