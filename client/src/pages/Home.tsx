@@ -82,13 +82,29 @@ export default function Home() {
           <Swiper data={[BANNER]} itemWidth={350} />
         </view>
         <view className=" flex flex-col gap-8">
-          <text className="font-semibold">Daily Case</text>
-          <Button
-            className="w-[350px] h-[100px] px-5 gap-6 bg-[#fff3ea] border-none"
-            variant="plain"
-            textStyle=" font-semibold"
-            text="How to handle a patient with a broken leg?"
-          />
+          <text className="font-semibold">Continue learning</text>
+          <view className="flex flex-col justify-center items-start w-[350px] h-[120px] bg-[#ed7d2d] rounded-xl px-4 py-2">
+            <view className="flex flex-row justify-between items-center w-full">
+              <view>
+                <text className="text-sm text-[#ed7d2d] px-4 py-1 bg-[#fff3ea] w-fit rounded-full">
+                  Anatomy & Physiology
+                </text>
+                <text className="text-white text-xl font-bold mb-2">
+                  An Introduction to the Human Body
+                </text>
+                <text className="text-white text-sm">
+                  Continue where you left off{' -> '}
+                </text>
+              </view>
+            </view>
+
+            <view className="w-full bg-white rounded-full h-5 relative mt-2">
+              <view
+                className="bg-orange-300 h-5 rounded-full transition-all"
+                style={{ width: '70%' }}
+              ></view>
+            </view>
+          </view>
         </view>
         <view className=" flex flex-col mt-10 mb-20 gap-8">
           <text className="font-semibold">Browse</text>
