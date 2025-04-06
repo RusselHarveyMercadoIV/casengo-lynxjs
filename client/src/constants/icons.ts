@@ -70,6 +70,11 @@ import bulb from '../assets/icons/bulb.png';
 import communication from '../assets/icons/communicationn.png';
 import delivery from '../assets/icons/delivery.png';
 import community from '../assets/icons/community.png';
+import line from '../assets/icons/line.png';
+import human from '../assets/icons/human.png';
+import molecule from '../assets/icons/molecule.png';
+import cell from '../assets/icons/cell.png';
+import muscle from '../assets/icons/muscle.png';
 
 export default {
   note,
@@ -144,4 +149,9 @@ export default {
   communication,
   delivery,
   community,
+  line,
+  human,
+  molecule,
+  cell,
+  muscle,
 };

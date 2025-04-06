@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import Button from '../components/Button/Button.jsx';
 import icons from '../constants/icons.js';
 
@@ -9,59 +9,118 @@ const subjects = [
     name: 'Fundamentals',
     description: 'Master the fundamentals of nursing',
     subjects: [
-      { title: 'Theories and Practice', icon: icons.bulb },
-      { title: 'Communication', icon: icons.communication },
-      { title: 'Healthcare Delivery Systems', icon: icons.delivery },
-      { title: 'Community-Based Health Care', icon: icons.community },
+      {
+        title: 'Theories and Practice',
+        icon: icons.bulb,
+        totalNodes: 10,
+        completedNodes: 0,
+        isCompleted: false,
+      },
+      {
+        title: 'Communication',
+        icon: icons.communication,
+        totalNodes: 10,
+        completedNodes: 0,
+        isCompleted: false,
+      },
+      {
+        title: 'Healthcare Delivery Systems',
+        icon: icons.delivery,
+        totalNodes: 10,
+        completedNodes: 0,
+        isCompleted: false,
+      },
+      {
+        title: 'Community-Based Health Care',
+        icon: icons.community,
+        totalNodes: 10,
+        completedNodes: 0,
+        isCompleted: false,
+      },
     ],
   },
   {
-    title: 'Core',
-    name: 'Core Subjects',
-    description: 'Master the core subjects essential in nursing',
+    title: 'Anatomy/Physiology',
+    name: 'Anatomy & Physiology',
+    description: 'Master the Anatomy & Physiology subject essential in nursing',
     subjects: [
       {
-        title: 'Anatomy & Physiology',
-        icon: icons.lungs,
+        chapter: 1,
+        title: 'An Introduction to the Human Body',
+        icon: icons.human,
+        totalNodes: 10,
+        completedNodes: 0,
+        isCompleted: false,
       },
       {
-        title: 'Microbiology',
-        icon: icons.microscope,
+        chapter: 2,
+        title: 'The Chemical Level of Organization',
+        icon: icons.molecule,
+        totalNodes: 10,
+        completedNodes: 0,
+        isCompleted: false,
       },
       {
-        title: 'Pharmacology',
-        icon: icons.pill,
+        chapter: 3,
+        title: 'The Cellular Level of Organization',
+        icon: icons.cell,
+        totalNodes: 10,
+        completedNodes: 0,
+        isCompleted: false,
       },
       {
-        title: 'Pathophysiology',
-        icon: icons.diagram,
+        chapter: 4,
+        title: 'The Tissue Level of Organization',
+        icon: icons.muscle,
+        totalNodes: 10,
+        completedNodes: 0,
+        isCompleted: false,
       },
     ],
+  },
+  {
+    title: 'Microbiology',
+    name: 'Microbiology',
+    description: 'Master the Microbiology subject essential in nursing',
+    subjects: [],
+  },
+  {
+    title: 'Pharmacology',
+    name: 'Pharmacology',
+    description: 'Master the Pharmacology subject essential in nursing',
+    subjects: [],
+  },
+  {
+    title: 'Pathophysiology',
+    name: 'Pathophysiology',
+    description: 'Master the Pathophysiology subject essential in nursing',
+    subjects: [],
   },
   {
     title: 'Case Studies',
-    name: 'Case study',
+    name: 'Case Studies',
     description: 'Master the core subjects essential in nursing',
-    subjects: [{}],
+    subjects: [],
   },
   {
     title: 'Theories',
     name: 'Theories',
     description: 'Master the core subjects essential in nursing',
-    subjects: [{}],
+    subjects: [],
   },
 ];
 
 export default function Subject() {
   const [currentSubject, setCurrentSubject] = useState<any>();
   const location = useLocation();
+  const navigation = useNavigate();
 
   const { chosenSubject } = location.state as {
     chosenSubject: string;
   };
 
   useEffect(() => {
-    const foundSubject = subjects.find((item) => item?.title === chosenSubject);
+    const foundSubject = subjects.find((item) => item?.name === chosenSubject);
     setCurrentSubject(foundSubject);
   }, [chosenSubject]);
 
@@ -69,7 +128,14 @@ export default function Subject() {
     setCurrentSubject(subject);
   };
 
-  const handleChosenTopic = () => {};
+  const handleChosenTopic = (chapter: number) => {
+    navigation('/path', {
+      state: {
+        chosenSubject: currentSubject?.name,
+        chosenChapter: chapter,
+      },
+    });
+  };
 
   return (
     <view className="flex h-full flex-col gap-10 justify-start items-center">
@@ -80,7 +146,7 @@ export default function Subject() {
         {subjects.map((subject, index) => (
           <text
             key={index}
-            className={`text-lg py-1  ${currentSubject?.title === subject?.title ? 'text-[#ed7d2d] font-bold border-b-4 border-[#ed7d2d]' : 'text-[#9095a0]'}`}
+            className={`text-lg py-1  ${currentSubject?.name === subject?.name ? 'text-[#ed7d2d] font-bold border-b-4 border-[#ed7d2d]' : 'text-[#9095a0]'} mr-4`}
             bindtap={() => handleSubjectChange(subject)}
           >
             {subject?.title}
@@ -106,7 +172,7 @@ export default function Subject() {
             textStyle="text-[#9095a0] font-semibold"
             text={subject?.title}
             icon={<image src={subject?.icon} className="w-12 h-12" />}
-            onTap={handleChosenTopic}
+            onTap={() => handleChosenTopic(subject?.chapter)}
           />
         ))}
       </scroll-view>

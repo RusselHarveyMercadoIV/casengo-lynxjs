@@ -12,6 +12,7 @@ import Home from './pages/Home.jsx';
 import Layout from './shared/Layout.jsx';
 import Profile from './pages/Profile.jsx';
 import Subject from './pages/Subject.jsx';
+import Path from './pages/Path.jsx';
 
 root.render(
   <ThemeProvider>
@@ -27,6 +28,7 @@ root.render(
           <Route path="home" element={<Home />} />
           <Route path="profile" element={<Profile />} />
           <Route path="subject" element={<Subject />} />
+          <Route path="path" element={<Path />} />
         </Route>
       </Routes>
     </MemoryRouter>

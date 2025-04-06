@@ -1,5 +1,6 @@
 export const SUBJECT_PATHS = [
   {
+    id: '1',
     subject: 'Anatomy & Physiology',
     chapters: [
       {
@@ -7,21 +8,21 @@ export const SUBJECT_PATHS = [
         attribution:
           'https://openstax.org/books/anatomy-and-physiology-2e/pages/1-introduction',
         data: [
-          {
-            id: '-1',
-            sub: '1.0',
-            title: '',
-            objectives: [],
-            figures: [
-              {
-                id: '1.2a',
-                caption: 'Gross and Microscopic Anatomy',
-                description: 'Photo A shows an entire human brain...',
-                image: '',
-              },
-            ],
-            paragraph: [],
-          },
+          // {
+          //   id: '-1',
+          //   sub: '1.0',
+          //   title: '',
+          //   objectives: [],
+          //   figures: [
+          //     {
+          //       id: '1.2a',
+          //       caption: 'Gross and Microscopic Anatomy',
+          //       description: 'Photo A shows an entire human brain...',
+          //       image: '',
+          //     },
+          //   ],
+          //   paragraph: [],
+          // },
           {
             id: '0',
             sub: '1.0',
