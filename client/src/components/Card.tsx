@@ -12,8 +12,9 @@ export default function Card({
   if (title) {
     return (
       <view
+        flatten={false}
         className={
-          'flex flex-col gap-4 justify-center items-center min-w-28 min-h-28 rounded-xl bg-white ' +
+          'flex flex-col gap-4 justify-center items-center min-w-28 min-h-28 bg-white ' +
           className
         }
       >
@@ -24,8 +25,9 @@ export default function Card({
   }
   return (
     <view
+      flatten={false}
       className={
-        'flex justify-center items-center min-w-28 min-h-28 rounded-xl bg-white ' +
+        'flex justify-center items-center min-w-28 min-h-28  bg-white ' +
         className
       }
     >
