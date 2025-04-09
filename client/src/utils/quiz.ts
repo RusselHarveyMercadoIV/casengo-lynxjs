@@ -1,5 +1,7 @@
 // src/utils/quiz.ts
 
+import type { AcademicStatus } from '../types/types.js';
+
 interface Questions {
   [academicStatus: string]: {
     [subject: string]: {
@@ -30,7 +32,7 @@ interface FlattenedQuestion {
 
 export function flattenQuestions(
   questions: Questions,
-  academicStatus: string,
+  academicStatus: AcademicStatus,
 ): FlattenedQuestion[] {
   const level = questions[academicStatus];
   const allQuestions: FlattenedQuestion[] = [];

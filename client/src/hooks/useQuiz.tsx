@@ -3,19 +3,20 @@ import { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router';
 import { flattenQuestions, swap } from '../utils/quiz.js';
 import type {
+  AcademicStatus,
   AnswerRecord,
   SelectedQuestion,
   SequenceItem,
 } from '../types/types.js';
 
 export function useQuiz({
-  questions,
+  content,
   academicStatus,
   type,
 }: {
-  questions: any;
-  academicStatus: string;
-  type: string;
+  content: any;
+  academicStatus: AcademicStatus;
+  type: 'quiz' | 'discussion';
 }) {
   const navigate = useNavigate();
 
@@ -31,9 +32,11 @@ export function useQuiz({
 
   // Flatten questions on mount
   useEffect(() => {
-    const all: any[] = flattenQuestions(questions, academicStatus);
-    setItems(all);
-  }, [questions, academicStatus]);
+    if (type === 'quiz') {
+      const all: any[] = flattenQuestions(content, academicStatus);
+      setItems(all);
+    }
+  }, [content, academicStatus]);
 
   const current = items[0] ?? null;
 
@@ -58,14 +61,6 @@ export function useQuiz({
       setTimeout(() => {
         setAnim({ direction: null, showingBack: true });
         setSelectedChoice(null);
-        // advance
-        // setItems((qs) => {
-        //   const rest = qs.slice(1);
-        //   if (!rest.length && type === 'diagnostic') {
-        //     navigate('/diagnostic-result', { state: { userAnswers } });
-        //   }
-        //   return rest;
-        // });
       }, 500);
     }
   };
@@ -128,7 +123,7 @@ export function useQuiz({
   const handleCardPress = () => {
     setItems((prevItems) => {
       const remainingItems = prevItems.slice(1);
-      if (remainingItems.length === 0 && type === 'diagnostic') {
+      if (remainingItems.length === 0 && type === 'quiz') {
         navigate('/diagnostic-result', { state: { userAnswers } });
       }
       return remainingItems;

@@ -40,9 +40,9 @@ export default function Layout() {
           bindtap={() =>
             navigation('/quiz', {
               state: {
-                questions: DIAGNOSTIC_QUESTIONS,
+                content: DIAGNOSTIC_QUESTIONS,
                 academicStatus: 'Freshman',
-                type: 'diagnostic',
+                type: 'quiz',
               },
             })
           }

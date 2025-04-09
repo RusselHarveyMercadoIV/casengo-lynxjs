@@ -45,7 +45,7 @@ export const SUBJECT_PATHS = [
               'Use appropriate anatomical terminology to identify key body structures, body regions, and directions in the body',
               'Compare and contrast at least four medical imaging techniques in terms of their function and use in medicine',
             ],
-            paragrah: [
+            paragraph: [
               {
                 title: null,
                 text: `Though you may approach a course in anatomy and physiology strictly as a requirement for your field of study, the knowledge you gain in this course will serve you well in many aspects of your life. An understanding of anatomy and physiology is not only fundamental to any career in the health professions, but it can also benefit your own health. Familiarity with the human body can help you make healthful choices and prompt you to take appropriate action when signs of illness arise. Your knowledge in this field will help you understand news about nutrition, medications, medical devices, and procedures and help you understand genetic or infectious diseases. At some point, everyone will have a problem with some aspect of their body and your knowledge can help you to be a better parent, spouse, partner, friend, colleague, or caregiver.

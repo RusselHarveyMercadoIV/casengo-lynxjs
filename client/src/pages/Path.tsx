@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 
 import { SUBJECT_PATHS } from '../constants/path.js';
 import { useEffect, useState } from 'react';
@@ -7,7 +7,10 @@ import PathNode from '../components/PathNode/index.jsx';
 import Card from '../components/Card.jsx';
 
 export default function Path() {
-  const [chapter, setChapter] = useState<any>();
+  const [chapter, setChapter] = useState<{ parent: any; data: any } | null>(
+    null,
+  );
+  const navigation = useNavigate();
   const location = useLocation();
 
   const { chosenSubject, chosenChapter } = location.state as {
@@ -30,7 +33,7 @@ export default function Path() {
       console.error('Chapter not found:', chosenChapter);
       return;
     }
-    setChapter(foundChapter);
+    setChapter({ parent: foundSubject, data: foundChapter });
   }, [chosenSubject]);
 
   return (
@@ -42,18 +45,20 @@ export default function Path() {
         <Card className="sticky top-0 bg-white px-4 py-6 flex flex-col gap-5 w-[350px] border-2 rounded-2xl border-[#bcc1ca] mb-5 z-10">
           <view className="flex flex-row  w-full">
             <text className="text-[#9095a0] w-fit text-bold text-xl">
-              {chapter?.title}
+              {chapter?.data?.title}
             </text>
           </view>
           <view className="flex flex-row w-full gap-5">
-            <text className="text-[#9095a0] ">Nodes {chapter?.totalNodes}</text>
+            <text className="text-[#9095a0] ">
+              Nodes {chapter?.data?.totalNodes}
+            </text>
             <text className="text-[#9095a0]">
-              Completed {chapter?.completedNodes}
+              Completed {chapter?.data?.completedNodes}
             </text>
           </view>
         </Card>
 
-        {chapter?.subChapters.map((item: any, index: number) => (
+        {chapter?.data?.subChapters.map((item: any, index: number) => (
           <view
             key={item.id}
             className="flex flex-col justify-center items-center relative w-full"
@@ -68,7 +73,19 @@ export default function Path() {
               <view className="w-14 h-14 flex justify-center items-center rounded-full bg-[#bcc1ca]"></view>
             )}
             {index > 0 && <view className="w-[2px] h-16 bg-[#bcc1ca]" />}
-            <PathNode>
+            <PathNode
+              onTap={() =>
+                navigation('/quiz', {
+                  state: {
+                    content: item,
+                    attribution: chapter?.data?.attribution,
+                    parent: chapter.parent,
+                    academicStatus: 'Freshman',
+                    type: 'discussion',
+                  },
+                })
+              }
+            >
               <text className="text-lg font-semibold text-[#9095a0]">
                 {item.title}
               </text>
