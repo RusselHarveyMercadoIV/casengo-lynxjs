@@ -139,3 +139,14 @@ export type SubjectColorsType = {
   medicalSurgicalNursing: '#00bdd6';
   psychiatricNursing: '#efb034';
 };
+
+export type SequenceItem = {
+  id: string;
+  text: string;
+};
+
+export type AnswerRecord = {
+  question: SelectedQuestion;
+  userAnswer: any;
+  isCorrect: boolean;
+};
