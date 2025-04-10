@@ -11,7 +11,7 @@ import Layout from './shared/Layout.jsx';
 import Profile from './pages/Profile.jsx';
 import Subject from './pages/Subject.jsx';
 import Path from './pages/Path.jsx';
-import Quiz from './pages/Quiz/index.jsx';
+import Content from './pages/Content/index.jsx';
 
 root.render(
   <ThemeProvider>
@@ -20,7 +20,7 @@ root.render(
         <Route path="/" element={<App />} />
         <Route path="/profiling" element={<Profiling />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/quiz" element={<Quiz />} />
+        <Route path="/content" element={<Content />} />
         <Route path="/diagnostic-result" element={<DiagnosticResult />} />
         <Route path="/auth/callback" element={<AuthCallback />} />
         <Route path="/" element={<Layout />}>

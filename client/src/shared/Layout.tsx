@@ -38,7 +38,7 @@ export default function Layout() {
         <view
           className="bg-[#ed7d2d] rounded-full grow px-14 py-3 w-16 flex justify-center items-center"
           bindtap={() =>
-            navigation('/quiz', {
+            navigation('/content', {
               state: {
                 content: DIAGNOSTIC_QUESTIONS,
                 academicStatus: 'Freshman',

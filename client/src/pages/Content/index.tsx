@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from 'react-router';
 import { useQuiz } from '../../hooks/useQuiz.jsx';
 import { useTheme } from '../../context/ThemeContext.jsx';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import {
   QuestionType,
   SHOWN_NODES,
@@ -34,7 +34,7 @@ export default function Quiz() {
   const {
     current,
     sequence,
-    steps,
+    // steps,
     anim,
     selectedChoice,
     items,
@@ -54,15 +54,36 @@ export default function Quiz() {
   const stepColorMap = useMemo(() => {
     const colorMap: Record<string, string> = {};
 
-    items.forEach((item) => {
-      if (item.id) {
-        colorMap[item.id] =
-          SubjectColors[item.subject as keyof typeof SubjectColors];
-      }
+    content.paragraph.map((item: any) => {
+      colorMap[item.id] =
+        SubjectColors[parent?.sub as keyof typeof SubjectColors];
     });
 
+    // console.log(colorMap);
+
     return colorMap;
-  }, [items]);
+  }, [content, parent]);
+
+  const steps = useMemo(
+    () =>
+      content.paragraph.map((q: any, i: any) => ({
+        id: q.id,
+        label: `Q${i + 1}`,
+        data: q,
+      })),
+    [items],
+  );
+
+  const [currentPage, setCurrentPage] = useState(0);
+  const totalSteps = steps.length;
+
+  const handleNextPage = () => {
+    if (currentPage < totalSteps - 1) {
+      setCurrentPage((prevPage) => prevPage + 1);
+    } else {
+      // navigation(-1);
+    }
+  };
 
   return (
     <view
@@ -378,15 +399,23 @@ export default function Quiz() {
                   theme === 'dark' ? 'text-white' : 'text-[#9095a0]'
                 }`}
               >
-                {content?.paragraph[0].text}
+                {content?.paragraph[currentPage].text}
               </text>
+              <view className="rounded-lg">
+                {content?.paragraph[currentPage]?.figure?.map((image: any) => (
+                  <image
+                    src={`data:image/png;base64,${image}`}
+                    className="rounded-lg mt-5 w-full h-[150px]"
+                  />
+                ))}
+              </view>
               <Button
                 className={`self-end mt-10 w-1/2 ${STYLES.confirmButton} ${
                   theme === 'dark' ? 'bg-[#ed7d2d]' : 'border-[#ed7d2d]'
                 }`}
                 variant="plain"
                 text="Continue"
-                onTap={confirmSequence}
+                onTap={handleNextPage}
               />
             </scroll-view>
             <text

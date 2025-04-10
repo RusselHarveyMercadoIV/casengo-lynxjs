@@ -136,16 +136,16 @@ export function useQuiz({
   const moveUp = (i: number) => swap(sequence, i, i - 1, setSequence);
   const moveDown = (i: number) => swap(sequence, i, i + 1, setSequence);
 
-  const steps = useMemo(
-    () => items.map((q, i) => ({ id: q.id, label: `Q${i + 1}`, data: q })),
-    [items],
-  );
+  // const steps = useMemo(
+  //   () => items.map((q, i) => ({ id: q.id, label: `Q${i + 1}`, data: q })),
+  //   [items],
+  // );
 
   return {
     items,
     current,
     sequence,
-    steps,
+    // steps,
     anim,
     selectedChoice,
     selectedId,

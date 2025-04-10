@@ -75,7 +75,7 @@ export default function Path() {
             {index > 0 && <view className="w-[2px] h-16 bg-[#bcc1ca]" />}
             <PathNode
               onTap={() =>
-                navigation('/quiz', {
+                navigation('/content', {
                   state: {
                     content: item,
                     attribution: chapter?.data?.attribution,

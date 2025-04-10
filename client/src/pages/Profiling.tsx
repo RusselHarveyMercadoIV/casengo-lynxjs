@@ -96,7 +96,7 @@ export default function Profiling() {
 
     setTimeout(() => {
       if (currentStep === 5 && step > 0) {
-        navigation('/quiz', {
+        navigation('/content', {
           state: {
             questions: DIAGNOSTIC_QUESTIONS,
             academicStatus: formData?.academicStatus as AcademicStatus,
