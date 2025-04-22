@@ -14,7 +14,7 @@ import { STYLES } from './styles.js';
 import Button from '../../components/Button/Button.jsx';
 import type { AcademicStatus } from '../../types/types.js';
 
-export default function Quiz() {
+export default function Content() {
   const { theme, toggleTheme } = useTheme();
   const location = useLocation();
   const {
@@ -26,7 +26,7 @@ export default function Quiz() {
   }: {
     content: any;
     academicStatus: AcademicStatus;
-    type: 'quiz' | 'discussion';
+    type: 'quiz' | 'lesson';
     attribution?: string;
     parent?: any;
   } = location.state;
@@ -34,7 +34,7 @@ export default function Quiz() {
   const {
     current,
     sequence,
-    // steps,
+    steps,
     anim,
     selectedChoice,
     items,
@@ -50,38 +50,48 @@ export default function Quiz() {
 
   const navigation = useNavigate();
 
+  const [currentParagraphs, setCurrentParagraphs] = useState<any[]>([
+    ...content?.paragraph,
+  ]);
+
   // Create step colors mapping
   const stepColorMap = useMemo(() => {
     const colorMap: Record<string, string> = {};
-
-    content.paragraph.map((item: any) => {
-      colorMap[item.id] =
-        SubjectColors[parent?.sub as keyof typeof SubjectColors];
-    });
-
-    // console.log(colorMap);
-
+    if (type === 'lesson') {
+      currentParagraphs.forEach((item: any) => {
+        colorMap[item.id] =
+          SubjectColors[parent?.sub as keyof typeof SubjectColors];
+      });
+    } else {
+      items.forEach((item: any) => {
+        colorMap[item.id] =
+          SubjectColors[item.subject as keyof typeof SubjectColors];
+      });
+    }
     return colorMap;
-  }, [content, parent]);
+  }, [currentParagraphs, parent, items, type]);
 
-  const steps = useMemo(
+  const lessonSteps = useMemo(
     () =>
-      content.paragraph.map((q: any, i: any) => ({
+      currentParagraphs.map((q: any, i: number) => ({
         id: q.id,
-        label: `Q${i + 1}`,
+        label: `P${i + 1}`,
         data: q,
       })),
-    [items],
+    [currentParagraphs],
   );
 
   const [currentPage, setCurrentPage] = useState(0);
-  const totalSteps = steps.length;
+  const totalSteps = type === 'quiz' ? steps.length : content?.paragraph.length;
 
   const handleNextPage = () => {
     if (currentPage < totalSteps - 1) {
       setCurrentPage((prevPage) => prevPage + 1);
+      setCurrentParagraphs((prevParagraphs) => {
+        return prevParagraphs.slice(1);
+      });
     } else {
-      // navigation(-1);
+      navigation(-1);
     }
   };
 
@@ -90,8 +100,8 @@ export default function Quiz() {
       className={`${STYLES.container} ${theme === 'dark' ? 'bg-[#1a1a1a]' : 'bg-neutral-100'}`}
     >
       <StepsIndicator
-        steps={steps}
-        currentStep={0} // Always show first step as current in the quiz
+        steps={type === 'lesson' ? lessonSteps : steps}
+        currentStep={0} // Show current page for lessons
         maxVisibleSteps={SHOWN_NODES}
         showBackButton={true}
         backIcon={icons.closebtn}
@@ -127,7 +137,7 @@ export default function Quiz() {
         } relative overflow-hidden ${anim?.direction && 'translate-x-full'}`}
       >
         {/* Question Display */}
-        {items?.length > 0 && type === 'quiz' ? (
+        {items.length > 0 && type === 'quiz' ? (
           <>
             {!anim?.showingBack ? (
               <>
@@ -137,8 +147,8 @@ export default function Quiz() {
                       'absolute top-[-30px] right-2 bg-[#eefdf3] py-2 px-6 rounded-full'
                     }
                   >
-                    <text className=" text-[#117b34]">
-                      {current.difficulty}
+                    <text className="text-[#117b34]">
+                      {current?.difficulty}
                     </text>
                   </view>
                   <text
@@ -146,10 +156,10 @@ export default function Quiz() {
                       theme === 'dark' ? 'text-white' : 'text-[#9095a0]'
                     }`}
                   >
-                    {current.question}
+                    {current?.question}
                   </text>
                   <view className={STYLES.choicesContainer}>
-                    {current.type === 'sequencing' ? (
+                    {current?.type === 'sequencing' ? (
                       <view className="flex flex-col h-full justify-center">
                         <text
                           className={`${STYLES.sequenceInstructions} ${
@@ -233,8 +243,10 @@ export default function Quiz() {
                           ))}
                         </scroll-view>
                       </view>
-                    ) : current.type === 'fillInTheBlank' ? (
-                      <view className="flex flex-col h-full justify-center"></view>
+                    ) : current?.type === 'fillInTheBlank' ? (
+                      <view className="flex flex-col h-full justify-center">
+                        {/* Add fill-in-the-blank logic if needed */}
+                      </view>
                     ) : (
                       <view className="flex flex-col h-full justify-center">
                         <scroll-view
@@ -283,7 +295,7 @@ export default function Quiz() {
                             onTap={() =>
                               selectChoice(
                                 "I don't know",
-                                current?.choices?.length!,
+                                current?.choices?.length ?? 0,
                               )
                             }
                           />
@@ -294,8 +306,8 @@ export default function Quiz() {
                 </view>
 
                 <view className="flex flex-col items-center w-[300px] flex-none pt-4">
-                  {current.type !== 'multipleChoices' &&
-                    current.type !== 'caseBased' && (
+                  {current?.type !== 'multipleChoices' &&
+                    current?.type !== 'caseBased' && (
                       <view className={STYLES.buttonContainer}>
                         <Button
                           className={`${STYLES.dontKnowButton} ${
@@ -327,18 +339,22 @@ export default function Quiz() {
                         theme === 'dark' ? 'text-gray-400' : 'text-[#bcc1ca]'
                       }`}
                     >
-                      {QuestionType[current.type as keyof typeof QuestionType]}
+                      {current?.type
+                        ? QuestionType[
+                            current.type as keyof typeof QuestionType
+                          ]
+                        : ''}
                     </text>
                     <text
                       className={`${STYLES.footerText} ${
                         theme === 'dark' ? 'text-gray-400' : 'text-[#bcc1ca]'
                       }`}
                     >
-                      {
-                        SubjectTitle[
-                          current.subject as keyof typeof SubjectColors
-                        ]
-                      }
+                      {current?.subject
+                        ? SubjectTitle[
+                            current.subject as keyof typeof SubjectColors
+                          ]
+                        : ''}
                     </text>
                   </view>
                 </view>
@@ -361,7 +377,7 @@ export default function Quiz() {
                       theme === 'dark' ? 'text-white' : 'text-[#9095a0]'
                     }`}
                   >
-                    {current.rationale}
+                    {current?.rationale}
                   </text>
                 </view>
                 <text
@@ -375,57 +391,65 @@ export default function Quiz() {
             )}
           </>
         ) : (
-          <view className="flex flex-col justify-center items-center gap-2 px-8 w-full h-full">
-            <scroll-view
-              scroll-orientation="vertical"
-              className="flex flex-col h-full w-full"
-            >
-              {/* <text>{content[0].text}</text> */}
-              <view className="flex flex-col gap-2 justify-center items-center mb-10">
-                <text className={`text-xl text-[#ed7d2d] font-extrabold`}>
-                  {parent?.re}
-                </text>
+          type === 'lesson' && (
+            <view className="flex flex-col justify-center items-center gap-2 px-8 w-full h-full">
+              <scroll-view
+                scroll-orientation="vertical"
+                className="flex flex-col h-full w-full"
+              >
+                <view className="flex flex-col gap-2 justify-center items-center mb-10">
+                  <text className="text-xl text-[#ed7d2d] font-extrabold">
+                    {parent?.re}
+                  </text>
+                  <text
+                    className={`text-xl font-bold ${
+                      theme === 'dark' ? 'text-white' : 'text-[#9095a0]'
+                    }`}
+                  >
+                    {content?.title}
+                  </text>
+                  <text
+                    className={`text-xl ${
+                      theme === 'dark' ? 'text-white' : 'text-[#9095a0]'
+                    }`}
+                  >
+                    {currentPage + 1} / {totalSteps}
+                  </text>
+                </view>
                 <text
-                  className={`text-xl font-bold ${
+                  className={`text-xl ${
                     theme === 'dark' ? 'text-white' : 'text-[#9095a0]'
                   }`}
                 >
-                  {content?.title}
+                  {currentParagraphs[0]?.text}
                 </text>
-              </view>
-
+                <view className="rounded-lg">
+                  {currentParagraphs[0]?.figure?.map((image: any) => (
+                    <image
+                      key={image}
+                      src={`data:image/png;base64,${image}`}
+                      className="rounded-lg mt-5 w-full h-[150px]"
+                    />
+                  ))}
+                </view>
+                <Button
+                  className={`self-end mt-10 w-1/2 ${STYLES.confirmButton} ${
+                    theme === 'dark' ? 'bg-[#ed7d2d]' : 'border-[#ed7d2d]'
+                  }`}
+                  variant="plain"
+                  text="Continue"
+                  onTap={handleNextPage}
+                />
+              </scroll-view>
               <text
-                className={`text-xl ${
-                  theme === 'dark' ? 'text-white' : 'text-[#9095a0]'
+                className={`text-md py-2 ${
+                  theme === 'dark' ? 'text-[#ffffff7e]' : 'text-[#0000002f]'
                 }`}
               >
-                {content?.paragraph[currentPage].text}
+                {attribution}
               </text>
-              <view className="rounded-lg">
-                {content?.paragraph[currentPage]?.figure?.map((image: any) => (
-                  <image
-                    src={`data:image/png;base64,${image}`}
-                    className="rounded-lg mt-5 w-full h-[150px]"
-                  />
-                ))}
-              </view>
-              <Button
-                className={`self-end mt-10 w-1/2 ${STYLES.confirmButton} ${
-                  theme === 'dark' ? 'bg-[#ed7d2d]' : 'border-[#ed7d2d]'
-                }`}
-                variant="plain"
-                text="Continue"
-                onTap={handleNextPage}
-              />
-            </scroll-view>
-            <text
-              className={`text-md py-2 ${
-                theme === 'dark' ? 'text-[#ffffff7e]' : 'text-[#0000002f]'
-              }`}
-            >
-              {attribution}
-            </text>
-          </view>
+            </view>
+          )
         )}
       </view>
 
@@ -439,7 +463,7 @@ export default function Quiz() {
           variant="plain"
         />
         <Button
-          textStyle={` text-white`}
+          textStyle="text-white"
           className={`${STYLES.actionButton} opacity-30`}
           icon={<image src={icons.bug} className="w-5 h-5" />}
           disabled={true}
@@ -447,7 +471,7 @@ export default function Quiz() {
         />
         <Button
           textStyle={` ${theme === 'dark' ? 'text-black' : 'text-white'}`}
-          className={`${STYLES.actionButton} ${'bg-white'}`}
+          className={`${STYLES.actionButton} bg-white`}
           variant="plain"
           icon={
             <image
@@ -458,7 +482,7 @@ export default function Quiz() {
           onTap={toggleTheme}
         />
         <Button
-          textStyle={` text-white`}
+          textStyle="text-white"
           className={`${STYLES.actionButton} opacity-30`}
           disabled={true}
           icon={<image src={icons.book} className="w-5 h-5" />}

@@ -81,7 +81,7 @@ export default function Path() {
                     attribution: chapter?.data?.attribution,
                     parent: chapter.parent,
                     academicStatus: 'Freshman',
-                    type: 'discussion',
+                    type: 'lesson',
                   },
                 })
               }

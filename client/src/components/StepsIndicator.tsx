@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import Button from './Button/Button.jsx';
 import { useTheme } from '../context/ThemeContext.jsx';
 
@@ -76,12 +76,12 @@ export default function StepsIndicator({
   activeColor = '#ed7d2d',
   styles = {},
 }: StepsIndicatorProps) {
+  const [totalSteps, setTotalSteps] = useState(0);
   const { theme } = useTheme();
   // Merge default styles with custom styles
   const mergedStyles = { ...defaultStyles, ...styles };
 
   // Calculate the total and remaining steps
-  const totalSteps = steps.length;
   const remainingSteps = Math.max(0, totalSteps - maxVisibleSteps);
   const visibleSteps = steps.slice(0, maxVisibleSteps);
 
@@ -113,6 +113,11 @@ export default function StepsIndicator({
     }
     return step.completed ? activeColor : '#dee1e6';
   };
+
+  useEffect(() => {
+    const tempSteps = steps.slice(currentStep);
+    setTotalSteps(tempSteps.length);
+  }, [steps]);
 
   return (
     <>

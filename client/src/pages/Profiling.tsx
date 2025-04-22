@@ -98,7 +98,7 @@ export default function Profiling() {
       if (currentStep === 5 && step > 0) {
         navigation('/content', {
           state: {
-            questions: DIAGNOSTIC_QUESTIONS,
+            content: DIAGNOSTIC_QUESTIONS,
             academicStatus: formData?.academicStatus as AcademicStatus,
             type: 'quiz',
           },

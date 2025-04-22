@@ -1,4 +1,3 @@
-// src/hooks/useQuiz.ts
 import { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router';
 import { flattenQuestions, swap } from '../utils/quiz.js';
@@ -16,11 +15,12 @@ export function useQuiz({
 }: {
   content: any;
   academicStatus: AcademicStatus;
-  type: 'quiz' | 'discussion';
+  type: 'quiz' | 'lesson';
 }) {
   const navigate = useNavigate();
 
   const [items, setItems] = useState<SelectedQuestion[]>([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [userAnswers, setUserAnswers] = useState<AnswerRecord[]>([]);
   const [sequence, setSequence] = useState<SequenceItem[]>([]);
   const [selectedChoice, setSelectedChoice] = useState<number | null>(null);
@@ -36,11 +36,11 @@ export function useQuiz({
       const all: any[] = flattenQuestions(content, academicStatus);
       setItems(all);
     }
-  }, [content, academicStatus]);
+  }, [content, academicStatus, type]);
 
-  const current = items[0] ?? null;
+  const current = items[currentIndex] ?? null;
 
-  // init sequence for sequencing questions
+  // Initialize sequence for sequencing questions
   useEffect(() => {
     if (current?.type === 'sequencing' && current.choices) {
       setSequence(
@@ -67,14 +67,9 @@ export function useQuiz({
 
   const selectChoice = (choice: string, idx: number) => {
     setSelectedChoice(idx);
-    // compute correctness...
     if (current) {
-      setSelectedChoice(idx);
-
       if (Array.isArray(current.answer)) {
-        setTimeout(() => {
-          finish(false, null);
-        }, 700);
+        setTimeout(() => finish(false, null), 700);
         return;
       }
 
@@ -84,7 +79,6 @@ export function useQuiz({
       }
 
       const isLetterAnswer = /^[A-Za-z]$/.test(answer);
-
       let isCorrect = false;
       let userAnswer: string;
 
@@ -110,10 +104,8 @@ export function useQuiz({
         );
         return String.fromCharCode(97 + originalIndex!);
       });
-
       const isCorrect =
         JSON.stringify(currentSequence) === JSON.stringify(current.answer);
-
       finish(isCorrect, currentSequence);
     } else {
       finish(false, null);
@@ -136,16 +128,16 @@ export function useQuiz({
   const moveUp = (i: number) => swap(sequence, i, i - 1, setSequence);
   const moveDown = (i: number) => swap(sequence, i, i + 1, setSequence);
 
-  // const steps = useMemo(
-  //   () => items.map((q, i) => ({ id: q.id, label: `Q${i + 1}`, data: q })),
-  //   [items],
-  // );
+  const steps = useMemo(
+    () => items.map((q, i) => ({ id: q.id, label: `Q${i + 1}`, data: q })),
+    [items],
+  );
 
   return {
     items,
     current,
     sequence,
-    // steps,
+    steps,
     anim,
     selectedChoice,
     selectedId,
