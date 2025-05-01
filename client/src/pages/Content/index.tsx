@@ -13,6 +13,8 @@ import icons from '../../constants/icons.js';
 import { STYLES } from './styles.js';
 import Button from '../../components/Button/Button.jsx';
 import type { AcademicStatus } from '../../types/types.js';
+// import { LynxRenderer } from '../../utils/LynxParser/lynxRenderer.jsx';
+// import { useParsedLynx } from '../../hooks/useParser.jsx';
 
 export default function Content() {
   const { theme, toggleTheme } = useTheme();
@@ -51,7 +53,7 @@ export default function Content() {
   const navigation = useNavigate();
 
   const [currentParagraphs, setCurrentParagraphs] = useState<any[]>([
-    ...content?.paragraph,
+    ...(content?.paragraph ?? []),
   ]);
 
   // Create step colors mapping
@@ -423,6 +425,9 @@ export default function Content() {
                 >
                   {currentParagraphs[0]?.text}
                 </text>
+
+                {/* {parseLynxString(currentParagraphs[0]?.text)} */}
+                {/* <LynxRenderer ast={ast} /> */}
                 <view className="rounded-lg">
                   {currentParagraphs[0]?.figure?.map((image: any) => (
                     <image

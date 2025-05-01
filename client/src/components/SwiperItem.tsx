@@ -7,7 +7,11 @@ export default function SwiperItem({
 }) {
   return (
     <view style={{ width: `${itemWidth}px`, height: `100%` }}>
-      <image mode="aspectFill" src={pic} className="rounded-xl h-full w-full" />
+      <image
+        mode="scaleToFill"
+        src={pic}
+        className="rounded-xl h-full w-full"
+      />
     </view>
   );
 }

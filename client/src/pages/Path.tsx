@@ -63,7 +63,7 @@ export default function Path() {
             key={item.id}
             className="flex flex-col justify-center items-center relative w-full"
           >
-            {index > 0 && <view className="w-[2px] h-16 bg-[#bcc1ca]" />}
+            {/* {index > 0 && <view className="w-[2px] h-16 bg-[#bcc1ca]" />}
             {index > 0 && (
               <view className="w-14 h-14 flex justify-center items-center rounded-full bg-[#bcc1ca]"></view>
             )}
@@ -72,24 +72,41 @@ export default function Path() {
             {index > 0 && (
               <view className="w-14 h-14 flex justify-center items-center rounded-full bg-[#bcc1ca]"></view>
             )}
-            {index > 0 && <view className="w-[2px] h-16 bg-[#bcc1ca]" />}
-            <PathNode
-              onTap={() =>
-                navigation('/content', {
-                  state: {
-                    content: item,
-                    attribution: chapter?.data?.attribution,
-                    parent: chapter.parent,
-                    academicStatus: 'Freshman',
-                    type: 'lesson',
-                  },
-                })
-              }
-            >
-              <text className="text-lg font-semibold text-[#9095a0]">
-                {item.title}
-              </text>
-            </PathNode>
+            {index > 0 && <view className="w-[2px] h-16 bg-[#bcc1ca]" />} */}
+            <view className="flex items-center gap-2 my-5 w-full ">
+              <view className="h-[1px] flex-1 bg-[#bcc1ca]" />
+              <text className="text-[#9095a0]">{item.title}</text>
+              <view className="h-[1px] flex-1 bg-[#bcc1ca]" />
+            </view>
+            {item.paragraph.map((innerItem: any, index: number) => (
+              // <>
+              //   <view className="w-[2px] h-8 bg-[#bcc1ca]" />
+              //   <view
+              //     key={item.id}
+              //     className="w-14 h-14 flex justify-center items-center rounded-full bg-[#bcc1ca]"
+              //   />
+              //   <view className="w-[2px] h-8 bg-[#bcc1ca]" />
+              // </>
+              <>
+                {index > 0 && <view className="w-[2px] h-8 bg-[#bcc1ca]" />}
+                <PathNode
+                  onTap={() =>
+                    navigation('/content', {
+                      state: {
+                        content: item,
+                        attribution: chapter?.data?.attribution,
+                        parent: chapter.parent,
+                        academicStatus: 'Freshman',
+                        type: 'lesson',
+                      },
+                    })
+                  }
+                ></PathNode>
+                {chapter?.data?.subChapter?.length && (
+                  <view className="w-[2px] h-8 bg-[#bcc1ca]" />
+                )}
+              </>
+            ))}
           </view>
         ))}
       </scroll-view>

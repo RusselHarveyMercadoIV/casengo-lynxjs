@@ -5,7 +5,7 @@ export default function Node({
   className,
   onTap,
 }: {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   className?: string;
   onTap?: () => void;
 }) {

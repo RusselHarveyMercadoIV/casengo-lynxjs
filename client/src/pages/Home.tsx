@@ -3,7 +3,7 @@ import Button from '../components/Button/Button.jsx';
 import Card from '../components/Card.jsx';
 import icons from '../constants/icons.js';
 
-import BANNER from '../assets/cover/casengo_banner.png';
+import BANNER from '../assets/cover/casengo_banner_0.png';
 import { useEffect, useRef } from 'react';
 import type { NodesRef } from '@lynx-js/types';
 import { Swiper } from '../components/Swiper.jsx';
@@ -102,7 +102,7 @@ export default function Home() {
         className="flex flex-col items-center pt-2 h-full w-full"
         scroll-orientation="vertical"
       >
-        <view className="flex flex-col w-[350px] h-[220px] mb-10 rounded-xl">
+        <view className="flex flex-col w-[350px] h-[300px] mb-10 rounded-xl">
           <Swiper data={[BANNER]} itemWidth={350} />
         </view>
         <view className=" flex flex-col gap-8">

@@ -13,7 +13,7 @@ export default function Layout() {
         </view>
         <view className="flex flex-row gap-1 items-center">
           <image src={icons.streak} className="w-6 h-6" />
-          <text className="text-md font-bold text-[#ed7d2d]">7</text>
+          <text className="text-md font-bold text-[#ed7d2d]">21</text>
         </view>
         <view className="flex flex-row items-center">
           <image src={icons.potion} className="w-8 h-8" />
