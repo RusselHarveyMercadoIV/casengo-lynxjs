@@ -466,6 +466,339 @@ Some emergency department physicians use controlled hypothermia to reduce damage
               },
             ],
           },
+          {
+            id: '5',
+            sub: '1.5',
+            title: 'Homeostasis',
+            objectives: [
+              'Discuss the role of homeostasis in healthy functioning',
+              'Contrast negative and positive feedback, giving one physiologic example of each mechanism',
+            ],
+            figures: [
+              {
+                id: '1.3',
+                caption: 'Levels of Structural Organization of the Human Body',
+                description:
+                  'The organization of the body often is discussed in terms of six distinct levels of increasing complexity, from the smallest chemical building blocks to a unique human organism.',
+                image: '',
+              },
+            ],
+            paragraph: [
+              {
+                title: null,
+                text: 'Maintaining homeostasis requires that the body continuously monitor its internal conditions. From body temperature to blood pressure to levels of certain nutrients, each physiological condition has a particular set point. A set point is the physiological value around which the normal range fluctuates. A normal range is the restricted set of values that is optimally healthful and stable. For example, the set point for normal human body temperature is approximately 37°C (98.6°F) Physiological parameters, such as body temperature and blood pressure, tend to fluctuate within a normal range a few degrees above and below that point. Control centers in the brain and other parts of the body monitor and react to deviations from homeostasis using negative feedback. Negative feedback is a mechanism that reverses a deviation from the set point. Therefore, negative feedback maintains body parameters within their normal range. The maintenance of homeostasis by negative feedback goes on throughout the body at all times, and an understanding of negative feedback is thus fundamental to an understanding of human physiology.',
+                sub: [],
+                figure: null,
+              },
+              // {
+              //   title: null,
+              //   text: null,
+              //   sub: [],
+              //   figure: '1.3',
+              // },
+              {
+                title: 'Negative Feedback',
+                text: `A negative feedback system has three basic components (Figure 1.10a). A sensor, also referred to a receptor, is a component of a feedback system that monitors a physiological value. This value is reported to the control center. The control center is the component in a feedback system that compares the value to the normal range. If the value deviates too much from the set point, then the control center activates an effector. An effector is the component in a feedback system that causes a change to reverse the situation and return the value to the normal range.`,
+                sub: [],
+                figure: null,
+              },
+              {
+                title: null,
+                text: `In order to set the system in motion, a stimulus must drive a physiological parameter beyond its normal range (that is, beyond homeostasis). This stimulus is “heard” by a specific sensor. For example, in the control of blood glucose, specific endocrine cells in the pancreas detect excess glucose (the stimulus) in the bloodstream. These pancreatic beta cells respond to the increased level of blood glucose by releasing the hormone insulin into the bloodstream. The insulin signals skeletal muscle fibers, fat cells (adipocytes), and liver cells to take up the excess glucose, removing it from the bloodstream. As glucose concentration in the bloodstream drops, the decrease in concentration—the actual negative feedback—is detected by pancreatic alpha cells, and insulin release stops. This prevents blood sugar levels from continuing to drop below the normal range.
+
+Humans have a similar temperature regulation feedback system that works by promoting either heat loss or heat gain (Figure 1.10b). When the brain’s temperature regulation center receives data from the sensors indicating that the body’s temperature exceeds its normal range, it stimulates a cluster of brain cells referred to as the “heat-loss center.” This stimulation has three major effects:`,
+                sub: [
+                  {
+                    title: null,
+                    text: `Blood vessels in the skin begin to dilate allowing more blood from the body core to flow to the surface of the skin allowing the heat to radiate into the environment.`,
+                  },
+                  {
+                    title: null,
+                    text: `As blood flow to the skin increases, sweat glands are activated to increase their output. As the sweat evaporates from the skin surface into the surrounding air, it takes heat with it.`,
+                  },
+                  {
+                    title: null,
+                    text: `The depth of respiration increases, and a person may breathe through an open mouth instead of through the nasal passageways. This further increases heat loss from the lungs.`,
+                  },
+                ],
+                figure: null,
+              },
+              // {
+              //   title: null,
+              //   text: null,
+              //   sub: [],
+              //   figure: null,
+              // },
+              {
+                title: null,
+                text: `In contrast, activation of the brain’s heat-gain center by exposure to cold reduces blood flow to the skin, and blood returning from the limbs is diverted into a network of deep veins. This arrangement traps heat closer to the body core and restricts heat loss. If heat loss is severe, the brain triggers an increase in random signals to skeletal muscles, causing them to contract and producing shivering. The muscle contractions of shivering release heat while using up ATP. The brain triggers the thyroid gland in the endocrine system to release thyroid hormone, which increases metabolic activity and heat production in cells throughout the body. The brain also signals the adrenal glands to release epinephrine (adrenaline), a hormone that causes the breakdown of glycogen into glucose, which can be used as an energy source. The breakdown of glycogen into glucose also results in increased metabolism and heat production.`,
+                sub: [],
+                figure: null,
+              },
+              {
+                title: 'Positive Feedback',
+                text: `Positive feedback intensifies a change in the body’s physiological condition rather than reversing it. A deviation from the normal range results in more change, and the system moves farther away from the normal range. Positive feedback in the body is normal only when there is a definite end point. Childbirth and the body’s response to blood loss are two examples of positive feedback loops that are normal but are activated only when needed.
+
+Childbirth at full term is an example of a situation in which the maintenance of the existing body state is not desired. Enormous changes in a person’s body are required to expel the baby at the end of pregnancy. And the events of childbirth, once begun, must progress rapidly to a conclusion or the life of a person giving birth and the baby are at risk. The extreme muscular work of labor and delivery are the result of a positive feedback system`,
+                sub: [],
+                figure: null,
+              },
+              {
+                title: null,
+                text: `The first contractions of labor (the stimulus) push the baby toward the cervix (the lowest part of the uterus). The cervix contains stretch-sensitive nerve cells that monitor the degree of stretching (the sensors). These nerve cells send messages to the brain, which in turn causes the pituitary gland at the base of the brain to release the hormone oxytocin into the bloodstream. Oxytocin causes stronger contractions of the smooth muscles in of the uterus (the effectors), pushing the baby further down the birth canal. This causes even greater stretching of the cervix. The cycle of stretching, oxytocin release, and increasingly more forceful contractions stops only when the baby is born. At this point, the stretching of the cervix halts, stopping the release of oxytocin.`,
+                sub: [],
+                figure: null,
+              },
+              {
+                title: null,
+                text: `A second example of positive feedback centers on reversing extreme damage to the body. Following a penetrating wound, the most immediate threat is excessive blood loss. Less blood circulating means reduced blood pressure and reduced perfusion (penetration of blood) to the brain and other vital organs. If perfusion is severely reduced, vital organs will shut down and the person will die. The body responds to this potential catastrophe by releasing substances in the injured blood vessel wall that begin the process of blood clotting. As each step of clotting occurs, it stimulates the release of more clotting substances. This accelerates the processes of clotting and sealing off the damaged area. Clotting is contained in a local area based on the tightly controlled availability of clotting proteins. This is an adaptive, life-saving cascade of events.`,
+                sub: [],
+                figure: null,
+              },
+            ],
+          },
+          {
+            id: '6',
+            sub: '1.6',
+            title: 'Anatomical Terminology',
+            objectives: [
+              'Demonstrate the anatomical position',
+              'Describe the human body using directional and regional terms',
+              'Identify three planes most commonly used in the study of anatomy',
+              'Distinguish between the posterior (dorsal) and the anterior (ventral) body cavities, identifying their subdivisions and representative organs found in each',
+              'Describe serous membrane and explain its function',
+            ],
+            figures: [
+              {
+                id: '1.3',
+                caption: 'Levels of Structural Organization of the Human Body',
+                description:
+                  'The organization of the body often is discussed in terms of six distinct levels of increasing complexity, from the smallest chemical building blocks to a unique human organism.',
+                image: '',
+              },
+            ],
+            paragraph: [
+              {
+                title: null,
+                text: `Anatomists and health care providers use terminology that can be bewildering to the uninitiated. However, the purpose of this language is not to confuse, but rather to increase precision and reduce medical errors. For example, is a scar “above the wrist” located on the forearm two or three inches away from the hand? Or is it at the base of the hand? Is it on the palm-side or back-side? By using precise anatomical terminology, we eliminate ambiguity. Anatomical terms derive from ancient Greek and Latin words. Because these languages are no longer used in everyday conversation, the meaning of their words does not change.
+
+Anatomical terms are made up of roots, prefixes, and suffixes. The root of a term often refers to an organ, tissue, or condition, whereas the prefix or suffix often describes the root. For example, in the disorder hypertension, the prefix “hyper-” means “high” or “over,” and the root word “tension” refers to pressure, so the word “hypertension” refers to abnormally high blood pressure.`,
+                sub: [],
+                figure: null,
+              },
+              {
+                title: 'Anatomical Position',
+                text: `To further increase precision, anatomists standardize the way in which they view the body. Just as maps are normally oriented with north at the top, the standard body “map,” or anatomical position, is that of the body standing upright, with the feet at shoulder width and parallel, toes forward. The upper limbs are held out to each side, and the palms of the hands face forward as illustrated in Figure 1.12. Using this standard position reduces confusion. It does not matter how the body being described is oriented, the terms are used as if it is in anatomical position. For example, a scar in the “anterior (front) carpal (wrist) region” would be present on the palm side of the wrist. The term “anterior” would be used even if the hand were palm down on a table.
+                
+A body that is lying down is described as either prone or supine. Prone describes a face-down orientation, and supine describes a face up orientation. These terms are sometimes used in describing the position of the body during specific physical examinations or surgical procedures.`,
+                sub: [],
+                figure: null,
+              },
+              {
+                title: 'Regional Terms',
+                text: `The human body’s numerous regions have specific terms to help increase precision (see Figure 1.12). Notice that the term “brachium” or “arm” is reserved for the “upper arm” and “antebrachium” or “forearm” is used rather than “lower arm.” Similarly, “femur” or “thigh” is correct, and “leg” or “crus” is reserved for the portion of the lower limb between the knee and the ankle. You will be able to describe the body’s regions using the terms from the figure.`,
+                sub: [],
+                figure: null,
+              },
+              // {
+              //   title: null,
+              //   text: null,
+              //   sub: [],
+              //   figure: null,
+              // },
+              {
+                title: 'Directional Terms',
+                text: `Certain directional anatomical terms appear throughout this and any other anatomy textbook (Figure 1.13). These terms are essential for describing the relative locations of different body structures. For instance, an anatomist might describe one band of tissue as “inferior to” another or a physician might describe a tumor as “superficial to” a deeper body structure. Commit these terms to memory to avoid confusion when you are studying or describing the locations of particular body parts.`,
+                sub: [
+                  {
+                    title: 'Anterior (or ventral)',
+                    text: `describes the front or direction toward the front of the body. The toes are anterior to the foot.`,
+                  },
+                  {
+                    title: 'Posterior (or dorsal)',
+                    text: `describes the back or direction toward the back of the body. The popliteus is posterior to the patella.`,
+                  },
+                  {
+                    title: 'Superior (or cranial)',
+                    text: `describes a position above or higher than another part of the body proper. The orbits are superior to the oris.`,
+                  },
+                  {
+                    title: 'Inferior (or caudal)',
+                    text: `describes a position below or lower than another part of the body proper; near or toward the tail (in humans, the coccyx, or lowest part of the spinal column). The pelvis is inferior to the abdomen.`,
+                  },
+                  {
+                    title: 'Lateral',
+                    text: `describes the side or direction toward the side of the body. The thumb (pollex) is lateral to the digits.`,
+                  },
+                  {
+                    title: 'Medial',
+                    text: `describes the middle or direction toward the middle of the body. The hallux is the medial toe.`,
+                  },
+                  {
+                    title: 'Proximal',
+                    text: `describes a position in a limb that is nearer to the point of attachment or the trunk of the body. The brachium is proximal to the antebrachium.`,
+                  },
+                  {
+                    title: 'Distal',
+                    text: `describes a position in a limb that is farther from the point of attachment or the trunk of the body. The crus is distal to the femur.`,
+                  },
+                  {
+                    title: 'Superficial',
+                    text: `describes a position closer to the surface of the body. The skin is superficial to the bones.`,
+                  },
+                  {
+                    title: 'Deep',
+                    text: `describes a position farther from the surface of the body. The brain is deep to the skull.`,
+                  },
+                ],
+                figure: null,
+              },
+              {
+                title: 'Body Planes',
+                text: `A section is a two-dimensional surface of a three-dimensional structure that has been cut. Modern medical imaging devices enable clinicians to obtain “virtual sections” of living bodies. We call these scans. Body sections and scans can be correctly interpreted, however, only if the viewer understands the plane along which the section was made. A plane is an imaginary two-dimensional surface that passes through the body. There are three planes commonly referred to in anatomy and medicine, as illustrated in Figure 1.14.`,
+                sub: [
+                  {
+                    title: 'Sagittal plane',
+                    text: `is the plane that divides the body or an organ vertically into right and left sides. If this vertical plane runs directly down the middle of the body, it is called the midsagittal or median plane. If it divides the body into unequal right and left sides, it is called a parasagittal plane or less commonly a longitudinal section.`,
+                  },
+                  {
+                    title: 'Frontal plane',
+                    text: `is the plane that divides the body or an organ into an anterior (front) portion and a posterior (rear) portion. The frontal plane is often referred to as a coronal plane. (“Corona” is Latin for “crown.”)`,
+                  },
+                  {
+                    title: 'Transverse plane',
+                    text: `is the plane that divides the body or organ horizontally into upper and lower portions. Transverse planes produce images referred to as cross sections.`,
+                  },
+                ],
+                figure: null,
+              },
+              {
+                title: 'Body Cavities and Serous Membranes',
+                text: `The body maintains its internal organization by means of membranes, sheaths, and other structures that separate compartments. The dorsal (posterior) cavity and the ventral (anterior) cavity are the largest body compartments (Figure 1.15). These cavities contain and protect delicate internal organs, and the ventral cavity allows for significant changes in the size and shape of the organs as they perform their functions. The lungs, heart, stomach, and intestines, for example, can expand and contract without distorting other tissues or disrupting the activity of nearby organs.`,
+                sub: [],
+                figure: null,
+              },
+              {
+                title:
+                  'Subdivisions of the Posterior (Dorsal) and Anterior (Ventral) Cavities',
+                text: `The posterior (dorsal) and anterior (ventral) cavities are each subdivided into smaller cavities. In the posterior (dorsal) cavity, the cranial cavity houses the brain, and the spinal cavity (or vertebral cavity) encloses the spinal cord. Just as the brain and spinal cord make up a continuous, uninterrupted structure, the cranial and spinal cavities that house them are also continuous. The brain and spinal cord are protected by the bones of the skull and vertebral column and by cerebrospinal fluid, a colorless fluid produced by the brain, which cushions the brain and spinal cord within the posterior (dorsal) cavity.
+
+The anterior (ventral) cavity has two main subdivisions: the thoracic cavity and the abdominopelvic cavity (see Figure 1.15). The thoracic cavity is the more superior subdivision of the anterior cavity, and it is enclosed by the rib cage. The thoracic cavity contains the lungs and the heart, which is located in the mediastinum. The diaphragm forms the floor of the thoracic cavity and separates it from the more inferior abdominopelvic cavity. The abdominopelvic cavity is the largest cavity in the body. Although no membrane physically divides the abdominopelvic cavity, it can be useful to distinguish between the abdominal cavity, the division that houses the digestive organs, and the pelvic cavity, the division that houses the organs of reproduction.`,
+                sub: [],
+                figure: null,
+              },
+              {
+                title: 'Abdominal Regions and Quadrants',
+                text: `To promote clear communication, for instance about the location of a patient’s abdominal pain or a suspicious mass, health care providers typically divide up the cavity into either nine regions or four quadrants (Figure 1.16).
+
+The more detailed regional approach subdivides the cavity with one horizontal line immediately inferior to the ribs and one immediately superior to the pelvis, and two vertical lines drawn as if dropped from the midpoint of each clavicle (collarbone). There are nine resulting regions. The simpler quadrants approach, which is more commonly used in medicine, subdivides the cavity with one horizontal and one vertical line that intersect at the patient’s umbilicus (navel).`,
+                sub: [],
+                figure: null,
+              },
+              {
+                title: 'Membranes of the Anterior (Ventral) Body Cavity',
+                text: `A serous membrane (also referred to a serosa) is one of the thin membranes that cover the walls and organs in the thoracic and abdominopelvic cavities. The parietal layers of the membranes line the walls of the body cavity (pariet- refers to a cavity wall). The visceral layer of the membrane covers the organs (the viscera). Between the parietal and visceral layers is a very thin, fluid-filled serous space, or cavity (Figure 1.17).
+                
+There are three serous cavities and their associated membranes. The pleura is the serous membrane that encloses the pleural cavity; the pleural cavity surrounds the lungs. The pericardium is the serous membrane that encloses the pericardial cavity; the pericardial cavity surrounds the heart. The peritoneum is the serous membrane that encloses the peritoneal cavity; the peritoneal cavity surrounds several organs in the abdominopelvic cavity. The serous membranes form fluid-filled sacs, or cavities, that are meant to cushion and reduce friction on internal organs when they move, such as when the lungs inflate or the heart beats. Both the parietal and visceral serosa secrete the thin, slippery serous fluid located within the serous cavities. The pleural cavity reduces friction between the lungs and the body wall. Likewise, the pericardial cavity reduces friction between the heart and the wall of the pericardium. The peritoneal cavity reduces friction between the abdominal and pelvic organs and the body wall. Therefore, serous membranes provide additional protection to the viscera they enclose by reducing friction that could lead to inflammation of the organs.`,
+                sub: [],
+                figure: null,
+              },
+            ],
+          },
+          {
+            id: '7',
+            sub: '1.7',
+            title: 'Medical Imaging',
+            objectives: [
+              'Discuss the uses and drawbacks of X-ray imaging',
+              'Identify four modern medical imaging techniques and how they are used',
+            ],
+            figures: [
+              {
+                id: '1.3',
+                caption: 'Levels of Structural Organization of the Human Body',
+                description:
+                  'The organization of the body often is discussed in terms of six distinct levels of increasing complexity, from the smallest chemical building blocks to a unique human organism.',
+                image: '',
+              },
+            ],
+            paragraph: [
+              {
+                title: null,
+                text: `For thousands of years, fear of the dead and legal sanctions limited the ability of anatomists and physicians to study the internal structures of the human body. An inability to control bleeding, infection, and pain made surgeries infrequent, and those that were performed—such as wound suturing, amputations, tooth and tumor removals, skull drilling, and cesarean births—did not greatly advance knowledge about internal anatomy. 
+                
+Theories about the function of the body and about disease were therefore largely based on external observations and imagination. During the fourteenth and fifteenth centuries, however, the detailed anatomical drawings of Italian artist and anatomist Leonardo da Vinci and Flemish anatomist Andreas Vesalius were published, and interest in human anatomy began to increase. Medical schools began to teach anatomy using human dissection; although some resorted to grave robbing to obtain corpses.
+
+Laws were eventually passed that enabled students to dissect the corpses of criminals and those who donated their bodies for research. Still, it was not until the late nineteenth century that medical researchers discovered non-surgical methods to look inside the living body.`,
+                sub: [],
+                figure: null,
+              },
+              {
+                title: 'X-Rays',
+                text: `German physicist Wilhelm Röntgen (1845–1923) was experimenting with electrical current when he discovered that a mysterious and invisible “ray” would pass through his flesh but leave an outline of his bones on a screen coated with a metal compound. In 1895, Röntgen made the first durable record of the internal parts of a living human: an “X-ray” image (as it came to be called) of his wife’s hand. Scientists around the world quickly began their own experiments with X-rays, and by 1900, X-rays were widely used to detect a variety of injuries and diseases. In 1901, Röntgen was awarded the first Nobel Prize for physics for his work in this field.`,
+                sub: [],
+                figure: null,
+              },
+              {
+                title: 'Modern Medical Imaging',
+                text: `The X-ray is a form of high energy electromagnetic radiation with a short wavelength capable of penetrating solids and ionizing gases. As they are used in medicine, X-rays are emitted from an X-ray machine and directed toward a specially treated metallic plate placed behind the patient’s body. The beam of radiation results in darkening of the X-ray plate. X-rays are slightly impeded by soft tissues, which show up as gray on the X-ray plate, whereas hard tissues, such as bone, largely block the rays, producing a light-toned “shadow.” Thus, X-rays are best used to visualize hard body structures such as teeth and bones (Figure 1.18). Like many forms of high energy radiation, however, X-rays are capable of damaging cells and initiating changes that can lead to cancer. This danger of excessive exposure to X-rays was not fully appreciated for many years after their widespread use.
+
+Refinements and enhancements of X-ray techniques have continued throughout the twentieth and twenty-first centuries. Although often supplanted by more sophisticated imaging techniques, the X-ray remains a “workhorse” in medical imaging, especially for viewing fractures and for dentistry. The disadvantage of irradiation to the patient and the operator is now attenuated by proper shielding and by limiting exposure.`,
+                sub: [],
+                figure: null,
+              },
+              {
+                title: 'Modern Medical Imaging',
+                text: `X-rays can depict a two-dimensional image of a body region, and only from a single angle. In contrast, more recent medical imaging technologies produce data that is integrated and analyzed by computers to produce three-dimensional images or images that reveal aspects of body functioning.`,
+                sub: [],
+                figure: null,
+              },
+              // {
+              //   title: null,
+              //   text: null,
+              //   sub: [],
+              //   figure: null,
+              // },
+              {
+                title: 'Computed Tomography',
+                text: `Tomography refers to imaging by sections. Computed tomography (CT) is a noninvasive imaging technique that uses computers to analyze several cross-sectional X-rays in order to reveal minute details about structures in the body (Figure 1.19a). The technique was invented in the 1970s and is based on the principle that, as X-rays pass through the body, they are absorbed or reflected at different levels. In the technique, a patient lies on a motorized platform while a computerized axial tomography (CAT) scanner rotates 360 degrees around the patient, taking X-ray images. A computer combines these images into a two-dimensional view of the scanned area, or “slice.”`,
+                sub: [],
+                figure: null,
+              },
+              {
+                title: 'Modern Medical Imaging',
+                text: `Since 1970, the development of more powerful computers and more sophisticated software has made CT scanning routine for many types of diagnostic evaluations. It is especially useful for soft tissue scanning, such as of the brain and the thoracic and abdominal viscera. Its level of detail is so precise that it can allow physicians to measure the size of a mass down to a millimeter. The main disadvantage of CT scanning is that it exposes patients to a dose of radiation many times higher than that of X-rays. In fact, children who undergo CT scans are at increased risk of developing cancer, as are adults who have multiple CT scans.`,
+                sub: [],
+                figure: null,
+              },
+              {
+                title: 'Magnetic Resonance Imaging',
+                text: `Magnetic resonance imaging (MRI) is a noninvasive medical imaging technique based on a phenomenon of nuclear physics discovered in the 1930s, in which matter exposed to magnetic fields and radio waves was found to emit radio signals. In 1970, a physician and researcher named Raymond Damadian noticed that malignant (cancerous) tissue gave off different signals than normal body tissue. He applied for a patent for the first MRI scanning device, which was in use clinically by the early 1980s. The early MRI scanners were crude, but advances in digital computing and electronics led to their advancement over any other technique for precise imaging, especially to discover tumors. MRI also has the major advantage of not exposing patients to radiation.`,
+                sub: [],
+                figure: null,
+              },
+              {
+                title: 'Modern Medical Imaging',
+                text: `Drawbacks of MRI scans include their much higher cost, and patient discomfort with the procedure. The MRI scanner subjects the patient to such powerful electromagnets that the scan room must be shielded. The patient must be enclosed in a metal tube-like device for the duration of the scan (see Figure 1.19b), sometimes as long as thirty minutes, which can be uncomfortable and impractical for ill patients. The device is also so noisy that, even with earplugs, patients can become anxious or even fearful. These problems have been overcome somewhat with the development of “open” MRI scanning, which does not require the patient to be entirely enclosed in the metal tube. Patients with iron-containing metallic implants (internal sutures, some prosthetic devices, and so on) cannot undergo MRI scanning because it can dislodge these implants.
+
+Functional MRIs (fMRIs), which detect the concentration of blood flow in certain parts of the body, are increasingly being used to study the activity in parts of the brain during various body activities. This has helped scientists learn more about the locations of different brain functions and more about brain abnormalities and diseases.`,
+                sub: [],
+                figure: null,
+              },
+              {
+                title: 'Positron Emission Tomography',
+                text: `Positron emission tomography (PET) is a medical imaging technique involving the use of so-called radiopharmaceuticals, substances that emit radiation that is short-lived and therefore relatively safe to administer to the body. Although the first PET scanner was introduced in 1961, it took 15 more years before radiopharmaceuticals were combined with the technique and revolutionized its potential. The main advantage is that PET (see Figure 1.19c) can illustrate physiologic activity—including nutrient metabolism and blood flow—of the organ or organs being targeted, whereas CT and MRI scans can only show static images. PET is widely used to diagnose a multitude of conditions, such as heart disease, the spread of cancer, certain forms of infection, brain abnormalities, bone disease, and thyroid disease.`,
+                sub: [],
+                figure: null,
+              },
+              {
+                title: 'Ultrasonography',
+                text: `Ultrasonography is an imaging technique that uses the transmission of high-frequency sound waves into the body to generate an echo signal that is converted by a computer into a real-time image of anatomy and physiology (see Figure 1.19d). Ultrasonography is the least invasive of all imaging techniques, and it is therefore used more freely in sensitive situations such as pregnancy. The technology was first developed in the 1940s and 1950s. Ultrasonography is used to study heart function, blood flow in the neck or extremities, certain conditions such as gallbladder disease, and fetal growth and development. The main disadvantages of ultrasonography are that the image quality is heavily operator-dependent and that it is unable to penetrate bone and gas.`,
+                sub: [],
+                figure: null,
+              },
+            ],
+          },
         ],
       },
     ],
