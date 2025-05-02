@@ -8,7 +8,7 @@ export const STYLES = {
   progressDot: 'w-[6px] h-[12px] rounded-full opacity-50',
   remainingCount: 'text-sm text-[#ed7d2d]',
   questionCard:
-    'flex flex-col justify-between py-8 pt-12 border-2 items-center  w-[370px] h-[675px] mt-4 mb-3 rounded-[2rem] transition-transform duration-300 ease-in-out',
+    'flex flex-col justify-between py-8 pt-12 border-2 items-center  w-[370px] h-full mt-4 mb-3 rounded-[2rem] transition-transform duration-300 ease-in-out',
   questionContainer: 'flex flex-col flex-1 px-8 w-[350px] relative',
   questionText: 'text-3xl text-clip mb-4 font-semibold',
   choicesContainer: 'h-[350px] grow justify-center',
@@ -29,7 +29,7 @@ export const STYLES = {
   confirmText: 'text-xl',
   footer: 'w-full flex flex-row justify-between items-center border-t pt-2',
   footerText: 'text-sm',
-  bottomBar: 'flex flex-row justify-around w-[350px] opacity-90',
+  bottomBar: 'flex flex-row justify-around w-[350px] h-[50px] opacity-90 mb-5',
   actionButton: 'px-5 py-3 rounded-2xl',
   actionText: 'text-md text-white',
   feedbackOverlay:

@@ -98,16 +98,28 @@ In order to observe structures in living people, however, a number of imaging te
               },
               {
                 title: null,
-                text: `Anatomists take two general approaches to the study of the body’s structures: regional and systemic. Regional anatomy is the study of the interrelationships of all of the structures in a specific body region, such as the abdomen. Studying regional anatomy helps us appreciate the interrelationships of body structures, such as how muscles, nerves, blood vessels, and other structures work together to serve a particular body region. In contrast, systemic anatomy is the study of the structures that make up a discrete body system—that is, a group of structures that work together to perform a unique body function. For example, a systemic anatomical study of the muscular system would consider all of the skeletal muscles of the body.
-        
-        Whereas anatomy is about structure, physiology is about function. Human physiology is the scientific study of the chemistry and physics of the structures of the body and the ways in which they work together to support the functions of life. Much of the study of physiology centers on the body’s tendency toward homeostasis. Homeostasis is the state of steady internal conditions maintained by living things. The study of physiology certainly includes observation, both with the naked eye and with microscopes, as well as manipulations and measurements. However, current advances in physiology usually depend on carefully designed laboratory experiments that reveal the functions of the many structures and chemical compounds that make up the human body.
-        
-        Like anatomists, physiologists typically specialize in a particular branch of physiology. For example, neurophysiology is the study of the brain, spinal cord, and nerves and how these work together to perform functions as complex and diverse as vision, movement, and thinking. Physiologists may work from the organ level (exploring, for example, what different parts of the brain do) to the molecular level (such as exploring how an electrochemical signal travels along nerves).
-        
-        Form is closely related to function in all living things. For example, the thin flap of your eyelid can snap down to clear away dust particles and almost instantaneously slide back up to allow you to see again. At the microscopic level, the arrangement and function of the nerves and muscles that serve the eyelid allow for its quick action and retreat. At a smaller level of analysis, the function of these nerves and muscles likewise relies on the interactions of specific molecules and ions. Even the three-dimensional structure of certain molecules is essential to their function.
-        
-        Your study of anatomy and physiology will make more sense if you continually relate the form of the structures you are studying to their function. In fact, it can be somewhat frustrating to attempt to study anatomy without an understanding of the physiology that a body structure supports. Imagine, for example, trying to appreciate the unique arrangement of the bones of the human hand if you had no conception of the function of the hand. Fortunately, your understanding of how the human hand manipulates tools—from pens to cell phones—helps you appreciate the unique alignment of the thumb in opposition to the four fingers, making your hand a structure that allows you to pinch and grasp objects and type text messages.`,
+                text: `Anatomists take two general approaches to the study of the body’s structures: regional and systemic. Regional anatomy is the study of the interrelationships of all of the structures in a specific body region, such as the abdomen. Studying regional anatomy helps us appreciate the interrelationships of body structures, such as how muscles, nerves, blood vessels, and other structures work together to serve a particular body region. In contrast, systemic anatomy is the study of the structures that make up a discrete body system—that is, a group of structures that work together to perform a unique body function. For example, a systemic anatomical study of the muscular system would consider all of the skeletal muscles of the body.`,
                 sub: [],
+                figure: null,
+              },
+              {
+                title: null,
+                text: `Whereas anatomy is about structure, physiology is about function. Human physiology is the scientific study of the chemistry and physics of the structures of the body and the ways in which they work together to support the functions of life. Much of the study of physiology centers on the body’s tendency toward homeostasis. Homeostasis is the state of steady internal conditions maintained by living things. The study of physiology certainly includes observation, both with the naked eye and with microscopes, as well as manipulations and measurements. However, current advances in physiology usually depend on carefully designed laboratory experiments that reveal the functions of the many structures and chemical compounds that make up the human body.`,
+                figure: null,
+              },
+              {
+                title: null,
+                text: `Like anatomists, physiologists typically specialize in a particular branch of physiology. For example, neurophysiology is the study of the brain, spinal cord, and nerves and how these work together to perform functions as complex and diverse as vision, movement, and thinking. Physiologists may work from the organ level (exploring, for example, what different parts of the brain do) to the molecular level (such as exploring how an electrochemical signal travels along nerves).`,
+                figure: null,
+              },
+              {
+                title: null,
+                text: `Form is closely related to function in all living things. For example, the thin flap of your eyelid can snap down to clear away dust particles and almost instantaneously slide back up to allow you to see again. At the microscopic level, the arrangement and function of the nerves and muscles that serve the eyelid allow for its quick action and retreat. At a smaller level of analysis, the function of these nerves and muscles likewise relies on the interactions of specific molecules and ions. Even the three-dimensional structure of certain molecules is essential to their function.`,
+                figure: null,
+              },
+              {
+                title: null,
+                text: `Your study of anatomy and physiology will make more sense if you continually relate the form of the structures you are studying to their function. In fact, it can be somewhat frustrating to attempt to study anatomy without an understanding of the physiology that a body structure supports. Imagine, for example, trying to appreciate the unique arrangement of the bones of the human hand if you had no conception of the function of the hand. Fortunately, your understanding of how the human hand manipulates tools—from pens to cell phones—helps you appreciate the unique alignment of the thumb in opposition to the four fingers, making your hand a structure that allows you to pinch and grasp objects and type text messages.`,
                 figure: null,
               },
             ],
@@ -184,30 +196,31 @@ In order to observe structures in living people, however, a number of imaging te
               // },
               {
                 title: 'The Levels of Organization',
-                text: `To study the chemical level of organization, scientists consider the simplest building blocks of matter: subatomic particles, atoms and molecules. All matter in the universe is composed of one or more unique pure substances called elements, familiar examples of which are hydrogen, oxygen, carbon, nitrogen, calcium, and iron. The smallest unit of any of these pure substances (elements) is an atom. Atoms are made up of subatomic particles such as the proton, electron and neutron. Two or more atoms combine to form a molecule, such as the water molecules, proteins, and sugars found in living things. Molecules are the chemical building blocks of all body structures.
-        
-        A cell is the smallest independently functioning unit of a living organism. Even bacteria, which are extremely small, independently-living organisms, have a cellular structure. Each bacterium is a single cell. All living structures of human anatomy contain cells, and almost all functions of human physiology are performed in cells or are initiated by cells.
-        
-        A human cell typically consists of flexible membranes that enclose cytoplasm, a water-based cellular fluid together with a variety of tiny functioning units called organelles. In humans, as in all organisms, cells perform all functions of life. A tissue is a group of many similar cells (though sometimes composed of a few related types) that work together to perform a specific function. An organ is an anatomically distinct structure of the body composed of two or more tissue types. Each organ performs one or more specific physiological functions. An organ system is a group of organs that work together to perform major functions or meet physiological needs of the body.
-        
-        This book covers eleven distinct organ systems in the human body (Figure 1.4 and Figure 1.5). Assigning organs to organ systems can be imprecise since organs that “belong” to one system can also have functions integral to another system. In fact, most organs contribute to more than one system.
+                text: `To study the chemical level of organization, scientists consider the simplest building blocks of matter: subatomic particles, atoms and molecules. All matter in the universe is composed of one or more unique pure substances called elements, familiar examples of which are hydrogen, oxygen, carbon, nitrogen, calcium, and iron. The smallest unit of any of these pure substances (elements) is an atom. Atoms are made up of subatomic particles such as the proton, electron and neutron. Two or more atoms combine to form a molecule, such as the water molecules, proteins, and sugars found in living things. Molecules are the chemical building blocks of all body structures.`,
+                sub: [],
+                figure: null,
+              },
+              {
+                title: null,
+                text: `A cell is the smallest independently functioning unit of a living organism. Even bacteria, which are extremely small, independently-living organisms, have a cellular structure. Each bacterium is a single cell. All living structures of human anatomy contain cells, and almost all functions of human physiology are performed in cells or are initiated by cells.`,
+                sub: [],
+                figure: null,
+              },
+              {
+                title: null,
+                text: `A human cell typically consists of flexible membranes that enclose cytoplasm, a water-based cellular fluid together with a variety of tiny functioning units called organelles. In humans, as in all organisms, cells perform all functions of life. A tissue is a group of many similar cells (though sometimes composed of a few related types) that work together to perform a specific function. An organ is an anatomically distinct structure of the body composed of two or more tissue types. Each organ performs one or more specific physiological functions. An organ system is a group of organs that work together to perform major functions or meet physiological needs of the body.`,
+                sub: [],
+                figure: null,
+              },
+              {
+                title: null,
+                text: `This book covers eleven distinct organ systems in the human body (Figure 1.4 and Figure 1.5). Assigning organs to organ systems can be imprecise since organs that “belong” to one system can also have functions integral to another system. In fact, most organs contribute to more than one system.
         
         In this book and throughout your studies of biological sciences, you will often read descriptions related to similarities and differences among biological structures, processes, and health related to a person's biological sex. People often use the words "female" and "male" to describe two different concepts: our sense of gender identity, and our biological sex as determined by our chromosomes, hormones, organs, and other physical characteristics. For some people, gender identity is different from biological sex or their sex assigned at birth. Throughout this book, "female" and "male" refer to sex only, and the typical anatomy and physiology of XX and XY individuals is discussed.`,
                 sub: [],
                 figure: null,
               },
-              // {
-              //   title: null,
-              //   text: null,
-              //   sub: [],
-              //   figure: '1.4',
-              // },
-              // {
-              //   title: null,
-              //   text: null,
-              //   sub: [],
-              //   figure: '1.5',
-              // },
+
               {
                 title: null,
                 text: 'The organism level is the highest level of organization. An organism is a living being that has a cellular structure and that can independently perform all physiologic functions necessary for life. In multicellular organisms, including humans, all cells, tissues, organs, and organ systems of the body work together to maintain the life and health of the organism.',
@@ -251,9 +264,13 @@ In order to observe structures in living people, however, a number of imaging te
               },
               {
                 title: 'Organization',
-                text: `A human body consists of trillions of cells organized in a way that maintains distinct internal compartments. These compartments keep body cells separated from external environmental threats and keep the cells moist and nourished. They also separate internal body fluids from the countless microorganisms that grow on body surfaces, including the lining of certain passageways that connect to the outer surface of the body. The intestinal tract, for example, is home to more bacterial cells than the total of all human cells in the body, yet these bacteria are outside the body and cannot be allowed to circulate freely inside the body.
-            
-            Cells, for example, have a cell membrane (also referred to as the plasma membrane) that keeps the intracellular environment—the fluids and organelles—separate from the extracellular environment. Blood vessels keep blood inside a closed circulatory system, and nerves and muscles are wrapped in connective tissue sheaths that separate them from surrounding structures. In the chest and abdomen, a variety of internal membranes keep major organs such as the lungs, heart, and kidneys separate from others.
+                text: `A human body consists of trillions of cells organized in a way that maintains distinct internal compartments. These compartments keep body cells separated from external environmental threats and keep the cells moist and nourished. They also separate internal body fluids from the countless microorganisms that grow on body surfaces, including the lining of certain passageways that connect to the outer surface of the body. The intestinal tract, for example, is home to more bacterial cells than the total of all human cells in the body, yet these bacteria are outside the body and cannot be allowed to circulate freely inside the body.`,
+                sub: [],
+                figure: null,
+              },
+              {
+                title: null,
+                text: `Cells, for example, have a cell membrane (also referred to as the plasma membrane) that keeps the intracellular environment—the fluids and organelles—separate from the extracellular environment. Blood vessels keep blood inside a closed circulatory system, and nerves and muscles are wrapped in connective tissue sheaths that separate them from surrounding structures. In the chest and abdomen, a variety of internal membranes keep major organs such as the lungs, heart, and kidneys separate from others.
             
             The body’s largest organ system is the integumentary system, which includes the skin and its associated structures, such as hair and nails. The surface tissue of skin is a barrier that protects internal structures and fluids from potentially harmful microorganisms and other toxins.`,
                 sub: [],
@@ -357,21 +374,40 @@ In order to observe structures in living people, however, a number of imaging te
                 title: 'Nutrients',
                 text: `A nutrient is a substance in foods and beverages that is essential to human survival. The three basic classes of nutrients are water, the energy-yielding and body-building nutrients, and the micronutrients (vitamins and minerals).
 
-The most critical nutrient is water. Depending on the environmental temperature and our state of health, we may be able to survive for only a few days without water. The body’s functional chemicals are dissolved and transported in water, and the chemical reactions of life take place in water. Moreover, water is the largest component of cells, blood, and the fluid between cells, and water makes up about 70 percent of an adult’s body mass. Water also helps regulate our internal temperature and cushions, protects, and lubricates joints and many other body structures.
-
-The energy-yielding nutrients are primarily carbohydrates and lipids, while proteins mainly supply the amino acids that are the building blocks of the body itself. You ingest these in plant and animal foods and beverages, and the digestive system breaks them down into molecules small enough to be absorbed. The breakdown products of carbohydrates and lipids can then be used in the metabolic processes that convert them to ATP. Although you might feel as if you are starving after missing a single meal, you can survive without consuming the energy-yielding nutrients for at least several weeks.
-
-Water and the energy-yielding nutrients are also referred to as macronutrients because the body needs them in large amounts. In contrast, micronutrients are vitamins and minerals. These elements and compounds participate in many essential chemical reactions and processes, such as nerve impulses, and some, such as calcium, also contribute to the body’s structure. Your body can store some of the micronutrients in its tissues, and draw on those reserves if you fail to consume them in your diet for a few days or weeks. Some others micronutrients, such as vitamin C and most of the B vitamins, are water-soluble and cannot be stored, so you need to consume them every day or two.`,
+The most critical nutrient is water. Depending on the environmental temperature and our state of health, we may be able to survive for only a few days without water. The body’s functional chemicals are dissolved and transported in water, and the chemical reactions of life take place in water. Moreover, water is the largest component of cells, blood, and the fluid between cells, and water makes up about 70 percent of an adult’s body mass. Water also helps regulate our internal temperature and cushions, protects, and lubricates joints and many other body structures.`,
+                sub: [],
+                figure: null,
+              },
+              // {
+              //   title: null,
+              //   text: ``,
+              //   sub: [],
+              //   figure: null,
+              // },
+              {
+                title: null,
+                text: `The energy-yielding nutrients are primarily carbohydrates and lipids, while proteins mainly supply the amino acids that are the building blocks of the body itself. You ingest these in plant and animal foods and beverages, and the digestive system breaks them down into molecules small enough to be absorbed. The breakdown products of carbohydrates and lipids can then be used in the metabolic processes that convert them to ATP. Although you might feel as if you are starving after missing a single meal, you can survive without consuming the energy-yielding nutrients for at least several weeks.`,
                 sub: [],
                 figure: null,
               },
               {
+                title: null,
+                text: `Water and the energy-yielding nutrients are also referred to as macronutrients because the body needs them in large amounts. In contrast, micronutrients are vitamins and minerals. These elements and compounds participate in many essential chemical reactions and processes, such as nerve impulses, and some, such as calcium, also contribute to the body’s structure. Your body can store some of the micronutrients in its tissues, and draw on those reserves if you fail to consume them in your diet for a few days or weeks. Some others micronutrients, such as vitamin C and most of the B vitamins, are water-soluble and cannot be stored, so you need to consume them every day or two.`,
+                sub: [],
+                figure: null,
+              },
+
+              {
                 title: 'Narrow Range of Temperature',
                 text: `You have probably seen news stories about athletes who died of heat stroke, or hikers who died of exposure to cold. Such deaths occur because the chemical reactions upon which the body depends can only take place within a narrow range of body temperature, from just below to just above 37°C (98.6°F). When body temperature rises well above or drops well below normal, certain proteins (enzymes) that facilitate chemical reactions lose their normal structure and their ability to function and the chemical reactions of metabolism cannot proceed.
 
-That said, the body can respond effectively to short-term exposure to heat (Figure 1.8) or cold. One of the body’s responses to heat is, of course, sweating. As sweat evaporates from skin, it removes some thermal energy from the body, cooling it. Adequate water (from the extracellular fluid in the body) is necessary to produce sweat, so adequate fluid intake is essential to balance that loss during the sweat response. Not surprisingly, the sweat response is much less effective in a humid environment because the air is already saturated with water. Thus, the sweat on the skin’s surface is not able to evaporate, and internal body temperature can get dangerously high.
-
-The body can also respond effectively to short-term exposure to cold. One response to cold is shivering, which is random muscle movement that generates heat. Another response is increased breakdown of stored energy to generate heat. When that energy reserve is depleted, however, and the core temperature begins to drop significantly, red blood cells will lose their ability to give up oxygen, denying the brain of this critical component of ATP production. This lack of oxygen can cause confusion, lethargy, and eventually loss of consciousness and death. The body responds to cold by reducing blood circulation to the extremities, the hands and feet, in order to prevent blood from cooling there and so that the body’s core can stay warm. Even when core body temperature remains stable, however, tissues exposed to severe cold, especially the fingers and toes, can develop frostbite when blood flow to the extremities has been much reduced. This form of tissue damage can be permanent and lead to gangrene, requiring amputation of the affected region.`,
+That said, the body can respond effectively to short-term exposure to heat (Figure 1.8) or cold. One of the body’s responses to heat is, of course, sweating. As sweat evaporates from skin, it removes some thermal energy from the body, cooling it. Adequate water (from the extracellular fluid in the body) is necessary to produce sweat, so adequate fluid intake is essential to balance that loss during the sweat response. Not surprisingly, the sweat response is much less effective in a humid environment because the air is already saturated with water. Thus, the sweat on the skin’s surface is not able to evaporate, and internal body temperature can get dangerously high.`,
+                sub: [],
+                figure: null,
+              },
+              {
+                title: null,
+                text: `The body can also respond effectively to short-term exposure to cold. One response to cold is shivering, which is random muscle movement that generates heat. Another response is increased breakdown of stored energy to generate heat. When that energy reserve is depleted, however, and the core temperature begins to drop significantly, red blood cells will lose their ability to give up oxygen, denying the brain of this critical component of ATP production. This lack of oxygen can cause confusion, lethargy, and eventually loss of consciousness and death. The body responds to cold by reducing blood circulation to the extremities, the hands and feet, in order to prevent blood from cooling there and so that the body’s core can stay warm. Even when core body temperature remains stable, however, tissues exposed to severe cold, especially the fingers and toes, can develop frostbite when blood flow to the extremities has been much reduced. This form of tissue damage can be permanent and lead to gangrene, requiring amputation of the affected region.`,
                 sub: [],
                 figure: null,
               },
@@ -388,21 +424,37 @@ Some emergency department physicians use controlled hypothermia to reduce damage
               },
               {
                 title: 'Narrow Range of Atmospheric Pressure',
-                text: `Pressure is a force exerted by a substance that is in contact with another substance. Atmospheric pressure is pressure exerted by the mixture of gases (primarily nitrogen and oxygen) in the Earth’s atmosphere. Although you may not perceive it, atmospheric pressure is constantly pressing down on your body. This pressure keeps gases within your body, such as the gaseous nitrogen in body fluids, dissolved. If you were suddenly ejected from a space ship above Earth’s atmosphere, you would go from a situation of normal pressure to one of very low pressure. The pressure of the nitrogen gas in your blood would be much higher than the pressure of nitrogen in the space surrounding your body. As a result, the nitrogen gas in your blood would expand, forming bubbles that could block blood vessels and even cause cells to break apart.
-
-Atmospheric pressure does more than just keep blood gases dissolved. Your ability to breathe—that is, to take in oxygen and release carbon dioxide—also depends upon a precise atmospheric pressure. Altitude sickness occurs in part because the atmosphere at high altitudes exerts less pressure, reducing the exchange of these gases, and causing shortness of breath, confusion, headache, lethargy, and nausea. Mountain climbers carry oxygen to reduce the effects of both low oxygen levels and low barometric pressure at higher altitudes (Figure 1.9).`,
+                text: `Pressure is a force exerted by a substance that is in contact with another substance. Atmospheric pressure is pressure exerted by the mixture of gases (primarily nitrogen and oxygen) in the Earth’s atmosphere. Although you may not perceive it, atmospheric pressure is constantly pressing down on your body. This pressure keeps gases within your body, such as the gaseous nitrogen in body fluids, dissolved. If you were suddenly ejected from a space ship above Earth’s atmosphere, you would go from a situation of normal pressure to one of very low pressure. The pressure of the nitrogen gas in your blood would be much higher than the pressure of nitrogen in the space surrounding your body. As a result, the nitrogen gas in your blood would expand, forming bubbles that could block blood vessels and even cause cells to break apart.`,
+                sub: [],
+                figure: null,
+              },
+              {
+                title: null,
+                text: `Atmospheric pressure does more than just keep blood gases dissolved. Your ability to breathe—that is, to take in oxygen and release carbon dioxide—also depends upon a precise atmospheric pressure. Altitude sickness occurs in part because the atmosphere at high altitudes exerts less pressure, reducing the exchange of these gases, and causing shortness of breath, confusion, headache, lethargy, and nausea. Mountain climbers carry oxygen to reduce the effects of both low oxygen levels and low barometric pressure at higher altitudes (Figure 1.9).`,
                 sub: [],
                 figure: null,
               },
               {
                 title: 'Decompression Sickness',
-                text: `Decompression sickness (DCS) is a condition in which gases dissolved in the blood or in other body tissues are no longer dissolved following a reduction in pressure on the body. This condition affects underwater divers who surface from a deep dive too quickly, and it can affect pilots flying at high altitudes in planes with unpressurized cabins. Divers often call this condition “the bends,” a reference to joint pain that is a symptom of DCS.
-
-In all cases, DCS is brought about by a reduction in barometric pressure. At high altitude, barometric pressure is much less than on Earth’s surface because pressure is produced by the weight of the column of air above the body pressing down on the body. The very great pressures on divers in deep water are likewise from the weight of a column of water pressing down on the body. For divers, DCS occurs at normal barometric pressure (at sea level), but it is brought on by the relatively rapid decrease of pressure as divers rise from the high pressure conditions of deep water to the now low, by comparison, pressure at sea level. Not surprisingly, diving in deep mountain lakes, where barometric pressure at the surface of the lake is less than that at sea level is more likely to result in DCS than diving in water at sea level.
-
-In DCS, gases dissolved in the blood (primarily nitrogen) come rapidly out of solution, forming bubbles in the blood and in other body tissues. This occurs because when pressure of a gas over a liquid is decreased, the amount of gas that can remain dissolved in the liquid also is decreased. It is air pressure that keeps your normal blood gases dissolved in the blood. When pressure is reduced, less gas remains dissolved. You have seen this in effect when you open a carbonated drink. Removing the seal of the bottle reduces the pressure of the gas over the liquid. This in turn causes bubbles as dissolved gases (in this case, carbon dioxide) come out of solution in the liquid.
-
-The most common symptoms of DCS are pain in the joints, with headache and disturbances of vision occurring in 10 percent to 15 percent of cases. Left untreated, very severe DCS can result in death. Immediate treatment is with pure oxygen. The affected person is then moved into a hyperbaric chamber. A hyperbaric chamber is a reinforced, closed chamber that is pressurized to greater than atmospheric pressure. It treats DCS by repressurizing the body so that pressure can then be removed much more gradually. Because the hyperbaric chamber introduces oxygen to the body at high pressure, it increases the concentration of oxygen in the blood. This has the effect of replacing some of the nitrogen in the blood with oxygen, which is easier to tolerate out of solution.`,
+                text: `Decompression sickness (DCS) is a condition in which gases dissolved in the blood or in other body tissues are no longer dissolved following a reduction in pressure on the body. This condition affects underwater divers who surface from a deep dive too quickly, and it can affect pilots flying at high altitudes in planes with unpressurized cabins. Divers often call this condition “the bends,” a reference to joint pain that is a symptom of DCS.`,
+                sub: [],
+                figure: null,
+              },
+              {
+                title: null,
+                text: `In all cases, DCS is brought about by a reduction in barometric pressure. At high altitude, barometric pressure is much less than on Earth’s surface because pressure is produced by the weight of the column of air above the body pressing down on the body. The very great pressures on divers in deep water are likewise from the weight of a column of water pressing down on the body. For divers, DCS occurs at normal barometric pressure (at sea level), but it is brought on by the relatively rapid decrease of pressure as divers rise from the high pressure conditions of deep water to the now low, by comparison, pressure at sea level. Not surprisingly, diving in deep mountain lakes, where barometric pressure at the surface of the lake is less than that at sea level is more likely to result in DCS than diving in water at sea level.`,
+                sub: [],
+                figure: null,
+              },
+              {
+                title: null,
+                text: `In DCS, gases dissolved in the blood (primarily nitrogen) come rapidly out of solution, forming bubbles in the blood and in other body tissues. This occurs because when pressure of a gas over a liquid is decreased, the amount of gas that can remain dissolved in the liquid also is decreased. It is air pressure that keeps your normal blood gases dissolved in the blood. When pressure is reduced, less gas remains dissolved. You have seen this in effect when you open a carbonated drink. Removing the seal of the bottle reduces the pressure of the gas over the liquid. This in turn causes bubbles as dissolved gases (in this case, carbon dioxide) come out of solution in the liquid.`,
+                sub: [],
+                figure: null,
+              },
+              {
+                title: null,
+                text: `The most common symptoms of DCS are pain in the joints, with headache and disturbances of vision occurring in 10 percent to 15 percent of cases. Left untreated, very severe DCS can result in death. Immediate treatment is with pure oxygen. The affected person is then moved into a hyperbaric chamber. A hyperbaric chamber is a reinforced, closed chamber that is pressurized to greater than atmospheric pressure. It treats DCS by repressurizing the body so that pressure can then be removed much more gradually. Because the hyperbaric chamber introduces oxygen to the body at high pressure, it increases the concentration of oxygen in the blood. This has the effect of replacing some of the nitrogen in the blood with oxygen, which is easier to tolerate out of solution.`,
                 sub: [],
                 figure: null,
               },
