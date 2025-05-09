@@ -97,6 +97,46 @@ export default function Content() {
     }
   };
 
+  function parseParagraphWithImages(text: string, figures: any[] = []) {
+    const regex = /<([^>]+)>/g;
+    const parts: (string | JSX.Element)[] = [];
+
+    let lastIndex = 0;
+    let match;
+
+    while ((match = regex.exec(text)) !== null) {
+      const id = match[1];
+      const start = match.index;
+      const end = regex.lastIndex;
+
+      // Push text before the placeholder
+      if (start > lastIndex) {
+        parts.push(text.slice(lastIndex, start));
+      }
+
+      // Find corresponding image
+      const figure = figures.find((f) => f.id === id);
+      if (figure) {
+        parts.push(
+          <image
+            key={id}
+            src={figure.image}
+            className={`rounded-lg w-full h-[150px] h-[${figure.height}]`}
+          />,
+        );
+      }
+
+      lastIndex = end;
+    }
+
+    // Push remaining text
+    if (lastIndex < text.length) {
+      parts.push(text.slice(lastIndex));
+    }
+
+    return parts;
+  }
+
   return (
     <view
       className={`${STYLES.container} ${theme === 'dark' ? 'bg-[#1a1a1a]' : 'bg-neutral-100'}`}
@@ -418,24 +458,22 @@ export default function Content() {
                     {currentPage + 1} / {totalSteps}
                   </text>
                 </view>
-                <text
-                  className={`text-xl ${
-                    theme === 'dark' ? 'text-white' : 'text-[#9095a0]'
-                  }`}
-                >
-                  {currentParagraphs[0]?.text}
-                </text>
-
-                {/* {parseLynxString(currentParagraphs[0]?.text)} */}
-                {/* <LynxRenderer ast={ast} /> */}
-                <view className="rounded-lg">
-                  {currentParagraphs[0]?.figure?.map((image: any) => (
-                    <image
-                      key={image}
-                      src={`data:image/png;base64,${image}`}
-                      className="rounded-lg mt-5 w-full h-[150px]"
-                    />
-                  ))}
+                <view className="text-xl leading-relaxed flex flex-col gap-4">
+                  {parseParagraphWithImages(
+                    currentParagraphs[0]?.text,
+                    content?.figures,
+                  ).map((part, index) =>
+                    typeof part === 'string' ? (
+                      <text
+                        key={index}
+                        className={`text-xl ${theme === 'dark' ? 'text-white' : 'text-[#9095a0]'}`}
+                      >
+                        {part}
+                      </text>
+                    ) : (
+                      part
+                    ),
+                  )}
                 </view>
                 <Button
                   className={`self-end mt-10 w-1/2 ${STYLES.confirmButton} ${
