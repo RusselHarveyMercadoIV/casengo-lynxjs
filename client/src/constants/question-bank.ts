@@ -4,7 +4,7 @@ export const DIAGNOSTIC_QUESTIONS = {
       easy: {
         multipleChoices: [
           {
-            id: 'sample',
+            id: 1,
             question:
               'A patient has difficulty producing speech but can understand language after a stroke. Which area of the brain is likely affected?',
             choices: {
@@ -23,7 +23,7 @@ export const DIAGNOSTIC_QUESTIONS = {
             ],
           },
           {
-            id: 'sample2',
+            id: 2,
             question:
               'A patient has difficulty producing speech but can understand language after a stroke. Which area of the brain is likely affected?',
             choices: {

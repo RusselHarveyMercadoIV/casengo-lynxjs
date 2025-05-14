@@ -13,6 +13,8 @@ import icons from '../../constants/icons.js';
 import { STYLES } from './styles.js';
 import Button from '../../components/Button/Button.jsx';
 import type { AcademicStatus } from '../../types/types.js';
+import LessonView from '../../components/LessonView.jsx';
+import QuizView from '../../components/QuizView.jsx';
 // import { LynxRenderer } from '../../utils/LynxParser/lynxRenderer.jsx';
 // import { useParsedLynx } from '../../hooks/useParser.jsx';
 
@@ -184,366 +186,35 @@ export default function Content() {
       >
         {/* Question Display */}
         {items.length > 0 && type === 'quiz' ? (
-          <>
-            {!anim?.showingBack ? (
-              <>
-                <view className={STYLES.questionContainer}>
-                  <view
-                    className={
-                      'absolute top-[-30px] right-2 bg-[#eefdf3] py-2 px-6 rounded-full'
-                    }
-                  >
-                    <text className="text-[#117b34]">
-                      {current?.difficulty}
-                    </text>
-                  </view>
-                  <text
-                    className={`${STYLES.questionText} ${
-                      theme === 'dark' ? 'text-white' : 'text-[#9095a0]'
-                    }`}
-                  >
-                    {current?.question}
-                  </text>
-                  <view className={STYLES.choicesContainer}>
-                    {current?.type === 'sequencing' ? (
-                      <view className="flex flex-col h-full justify-center">
-                        <text
-                          className={`${STYLES.sequenceInstructions} ${
-                            theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
-                          }`}
-                        >
-                          (Arrange these steps in the correct order)
-                        </text>
-                        <scroll-view
-                          scroll-orientation="vertical"
-                          className="flex flex-col h-[350px]"
-                          style={{ gap: '10px' }}
-                          scroll-bar-enable={true}
-                        >
-                          {sequence.map((item, index) => (
-                            <view
-                              key={item.id}
-                              className={`${STYLES.sequenceItem} ${
-                                selectedId === item.id
-                                  ? `${STYLES.activeSequenceItem} ${
-                                      theme === 'dark'
-                                        ? 'bg-[#3a3a3a] border-[#ed7d2d]'
-                                        : 'bg-[#fff3ea] border-[#ed7d2d]'
-                                    }`
-                                  : `${STYLES.inactiveSequenceItem} ${
-                                      theme === 'dark'
-                                        ? 'border-[#333333]'
-                                        : 'border-[#dee1e6]'
-                                    }`
-                              }`}
-                              bindtap={() => setSelectedId(item.id)}
-                            >
-                              <text
-                                className={`${STYLES.sequenceText} ${
-                                  theme === 'dark'
-                                    ? 'text-white'
-                                    : 'text-[#565e6c]'
-                                }`}
-                              >
-                                {item.text}
-                              </text>
-                              <view className={STYLES.sequenceControls}>
-                                <view
-                                  className={`${STYLES.sequenceButton} ${
-                                    theme === 'dark'
-                                      ? 'bg-[#3a3a3a]'
-                                      : 'bg-[#f3f4f6]'
-                                  }`}
-                                  bindtap={() => moveUp(index)}
-                                >
-                                  <text
-                                    className={
-                                      theme === 'dark'
-                                        ? 'text-white'
-                                        : 'text-[#565e6c]'
-                                    }
-                                  >
-                                    ↑
-                                  </text>
-                                </view>
-                                <view
-                                  className={`${STYLES.sequenceButton} ${
-                                    theme === 'dark'
-                                      ? 'bg-[#3a3a3a]'
-                                      : 'bg-[#f3f4f6]'
-                                  }`}
-                                  bindtap={() => moveDown(index)}
-                                >
-                                  <text
-                                    className={
-                                      theme === 'dark'
-                                        ? 'text-white'
-                                        : 'text-[#565e6c]'
-                                    }
-                                  >
-                                    ↓
-                                  </text>
-                                </view>
-                              </view>
-                            </view>
-                          ))}
-                        </scroll-view>
-                      </view>
-                    ) : current?.type === 'fillInTheBlank' ? (
-                      <view className="flex flex-col h-full justify-center">
-                        {/* Add fill-in-the-blank logic if needed */}
-                      </view>
-                    ) : (
-                      <view className="flex flex-col h-full justify-center">
-                        <scroll-view
-                          scroll-orientation="vertical"
-                          className="flex flex-col h-[370px]"
-                          style={{ gap: '10px' }}
-                          scroll-bar-enable={true}
-                        >
-                          {current?.choices?.map(
-                            (choice: string, index: number) => (
-                              <Button
-                                key={index}
-                                textStyle="text-[#9095a0]"
-                                className={`${
-                                  selectedChoice === index
-                                    ? `${STYLES.selectedChoiceButton} ${
-                                        theme === 'dark'
-                                          ? 'bg-[#3a3a3a] border-[#ed7d2d]'
-                                          : 'bg-[#fff3ea] border-[#ed7d2d]'
-                                      }`
-                                    : `${STYLES.choiceButton} ${
-                                        theme === 'dark'
-                                          ? 'bg-[#2a2a2a]'
-                                          : 'bg-white'
-                                      }`
-                                } my-2`}
-                                variant="plain"
-                                text={choice}
-                                onTap={() => selectChoice(choice, index)}
-                              />
-                            ),
-                          )}
-                          <Button
-                            className={`${STYLES.choiceButton} ${
-                              selectedChoice === current?.choices?.length
-                                ? `${STYLES.selectedChoiceButton} ${
-                                    theme === 'dark'
-                                      ? 'bg-[#3a3a3a] border-[#ed7d2d]'
-                                      : 'bg-[#fff3ea] border-[#ed7d2d]'
-                                  }`
-                                : `${theme === 'dark' ? 'bg-[#2a2a2a]' : 'bg-white'}`
-                            } my-2`}
-                            textStyle="text-[#9095a0]"
-                            variant="plain"
-                            text="I don't know"
-                            onTap={() =>
-                              selectChoice(
-                                "I don't know",
-                                current?.choices?.length ?? 0,
-                              )
-                            }
-                          />
-                        </scroll-view>
-                      </view>
-                    )}
-                  </view>
-                </view>
-
-                <view className="flex flex-col items-center w-[300px] flex-none pt-4">
-                  {current?.type !== 'multipleChoices' &&
-                    current?.type !== 'caseBased' && (
-                      <view className={STYLES.buttonContainer}>
-                        <Button
-                          className={`${STYLES.dontKnowButton} ${
-                            theme === 'dark' ? 'bg-[#3a3a3a]' : 'bg-[#f3f4f6]'
-                          }`}
-                          variant="plain"
-                          text="I don't know"
-                          onTap={() => finish(false, "I don't know")}
-                        />
-                        <Button
-                          className={`${STYLES.confirmButton} ${
-                            theme === 'dark'
-                              ? 'bg-[#ed7d2d]'
-                              : 'border-[#ed7d2d]'
-                          }`}
-                          variant="plain"
-                          text="Confirm"
-                          onTap={confirmSequence}
-                        />
-                      </view>
-                    )}
-                  <view
-                    className={`${STYLES.footer} ${
-                      theme === 'dark' ? 'border-[#333333]' : 'border-[#bcc1ca]'
-                    }`}
-                  >
-                    <text
-                      className={`${STYLES.footerText} ${
-                        theme === 'dark' ? 'text-gray-400' : 'text-[#bcc1ca]'
-                      }`}
-                    >
-                      {current?.type
-                        ? QuestionType[
-                            current.type as keyof typeof QuestionType
-                          ]
-                        : ''}
-                    </text>
-                    <text
-                      className={`${STYLES.footerText} ${
-                        theme === 'dark' ? 'text-gray-400' : 'text-[#bcc1ca]'
-                      }`}
-                    >
-                      {current?.subject
-                        ? SubjectTitle[
-                            current.subject as keyof typeof SubjectColors
-                          ]
-                        : ''}
-                    </text>
-                  </view>
-                </view>
-              </>
-            ) : (
-              <view
-                className="flex flex-col h-full items-center justify-between px-8"
-                bindtap={handleCardPress}
-              >
-                <view className="flex flex-col gap-5">
-                  <text
-                    className={`text-2xl text-clip font-bold ${
-                      theme === 'dark' ? 'text-white' : 'text-black'
-                    }`}
-                  >
-                    Rationale
-                  </text>
-                  <text
-                    className={`text-xl ${
-                      theme === 'dark' ? 'text-white' : 'text-[#9095a0]'
-                    }`}
-                  >
-                    {current?.rationale}
-                  </text>
-                </view>
-                <text
-                  className={` ${
-                    theme === 'dark' ? 'text-[#ffffff7e]' : 'text-[#0000002f]'
-                  }`}
-                >
-                  tap to continue
-                </text>
-              </view>
-            )}
-          </>
+          <QuizView
+            current={current}
+            sequence={sequence}
+            selectedChoice={selectedChoice}
+            selectedId={selectedId}
+            setSelectedId={setSelectedId}
+            selectChoice={selectChoice}
+            confirmSequence={confirmSequence}
+            moveUp={moveUp}
+            moveDown={moveDown}
+            finish={finish}
+            handleCardPress={handleCardPress}
+            theme={theme}
+            anim={anim}
+          />
         ) : (
           type === 'lesson' && (
-            <view className="flex flex-col justify-center items-center gap-2 px-8 w-full h-full">
-              <scroll-view
-                scroll-orientation="vertical"
-                className="flex flex-col h-full w-full"
-              >
-                <view className="flex flex-col gap-2 justify-center items-center mb-10">
-                  <text className="text-xl text-[#ed7d2d] font-extrabold">
-                    {parent?.re}
-                  </text>
-                  <text
-                    className={`text-xl font-bold ${
-                      theme === 'dark' ? 'text-white' : 'text-[#9095a0]'
-                    }`}
-                  >
-                    {title}
-                  </text>
-                  <text
-                    className={`text-xl ${
-                      theme === 'dark' ? 'text-white' : 'text-[#9095a0]'
-                    }`}
-                  >
-                    {currentPage + 1} / {totalSteps}
-                  </text>
-                </view>
-                <view className="text-xl leading-relaxed flex flex-col gap-4">
-                  {currentParagraphs[0]?.title && (
-                    <text
-                      className={`text-xl font-bold ${
-                        theme === 'dark' ? 'text-white' : 'text-[#9095a0]'
-                      }`}
-                    >
-                      {currentParagraphs[0].title}
-                    </text>
-                  )}
-                  {parseParagraphWithImages(
-                    currentParagraphs[0]?.text,
-                    figures,
-                  ).map((part, index) =>
-                    typeof part === 'string' ? (
-                      <text
-                        key={`main-${index}`}
-                        className={`text-xl ${
-                          theme === 'dark' ? 'text-white' : 'text-[#9095a0]'
-                        }`}
-                      >
-                        {part}
-                      </text>
-                    ) : (
-                      <view key={`main-img-${index}`}>{part}</view>
-                    ),
-                  )}
-                  {currentParagraphs[0]?.sub?.map(
-                    (subItem: any, subIndex: number) => (
-                      <view
-                        key={`sub-${subIndex}`}
-                        className="flex flex-col gap-2"
-                      >
-                        {subItem.title && (
-                          <text
-                            className={`text-xl font-bold ${
-                              theme === 'dark' ? 'text-white' : 'text-[#9095a0]'
-                            }`}
-                          >
-                            {subItem.title}
-                          </text>
-                        )}
-                        {parseParagraphWithImages(subItem.text, figures).map(
-                          (part, partIndex) =>
-                            typeof part === 'string' ? (
-                              <text
-                                key={`sub-${subIndex}-${partIndex}`}
-                                className={`text-xl ${
-                                  theme === 'dark'
-                                    ? 'text-white'
-                                    : 'text-[#9095a0]'
-                                }`}
-                              >
-                                {part}
-                              </text>
-                            ) : (
-                              <view key={`sub-img-${subIndex}-${partIndex}`}>
-                                {part}
-                              </view>
-                            ),
-                        )}
-                      </view>
-                    ),
-                  )}
-                </view>
-                <Button
-                  className={`self-end mt-10 w-1/2 ${STYLES.confirmButton} ${
-                    theme === 'dark' ? 'bg-[#ed7d2d]' : 'border-[#ed7d2d]'
-                  }`}
-                  variant="plain"
-                  text="Continue"
-                  onTap={handleNextPage}
-                />
-              </scroll-view>
-              <text
-                className={`text-md py-2 ${
-                  theme === 'dark' ? 'text-[#ffffff7e]' : 'text-[#0000002f]'
-                }`}
-              >
-                {attribution}
-              </text>
-            </view>
+            <LessonView
+              paragraphs={currentParagraphs}
+              figures={figures}
+              theme={theme}
+              title={title}
+              currentPage={currentPage}
+              totalSteps={totalSteps}
+              attribution={attribution}
+              parent={parent}
+              parseParagraphWithImages={parseParagraphWithImages}
+              handleNextPage={handleNextPage}
+            />
           )
         )}
       </view>
