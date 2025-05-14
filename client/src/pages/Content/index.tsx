@@ -22,12 +22,16 @@ export default function Content() {
   const {
     content,
     academicStatus,
+    title,
+    figures,
     type,
     attribution,
     parent,
   }: {
     content: any;
     academicStatus: AcademicStatus;
+    title: string;
+    figures: any[];
     type: 'quiz' | 'lesson';
     attribution?: string;
     parent?: any;
@@ -448,7 +452,7 @@ export default function Content() {
                       theme === 'dark' ? 'text-white' : 'text-[#9095a0]'
                     }`}
                   >
-                    {content?.title}
+                    {title}
                   </text>
                   <text
                     className={`text-xl ${
@@ -461,7 +465,7 @@ export default function Content() {
                 <view className="text-xl leading-relaxed flex flex-col gap-4">
                   {parseParagraphWithImages(
                     currentParagraphs[0]?.text,
-                    content?.figures,
+                    figures,
                   ).map((part, index) =>
                     typeof part === 'string' ? (
                       <text

@@ -60,7 +60,7 @@ export default function Path() {
 
         {chapter?.data?.subChapters.map((item: any, index: number) => (
           <view
-            key={item.id}
+            key={index}
             className="flex flex-col justify-center items-center relative w-full"
           >
             {/* {index > 0 && <view className="w-[2px] h-16 bg-[#bcc1ca]" />}
@@ -78,7 +78,7 @@ export default function Path() {
               <text className="text-[#9095a0]">{item.title}</text>
               <view className="h-[1px] flex-1 bg-[#bcc1ca]" />
             </view>
-            {item.paragraph.map((innerItem: any, index: number) => (
+            {item?.nodes?.map((innerItem: any, index: number) => (
               // <>
               //   <view className="w-[2px] h-8 bg-[#bcc1ca]" />
               //   <view
@@ -93,7 +93,9 @@ export default function Path() {
                   onTap={() =>
                     navigation('/content', {
                       state: {
-                        content: item,
+                        content: innerItem,
+                        title: item.title,
+                        figures: item.figures,
                         attribution: chapter?.data?.attribution,
                         parent: chapter.parent,
                         academicStatus: 'Freshman',
