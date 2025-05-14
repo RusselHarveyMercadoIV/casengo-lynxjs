@@ -463,19 +463,67 @@ export default function Content() {
                   </text>
                 </view>
                 <view className="text-xl leading-relaxed flex flex-col gap-4">
+                  {currentParagraphs[0]?.title && (
+                    <text
+                      className={`text-xl font-bold ${
+                        theme === 'dark' ? 'text-white' : 'text-[#9095a0]'
+                      }`}
+                    >
+                      {currentParagraphs[0].title}
+                    </text>
+                  )}
                   {parseParagraphWithImages(
                     currentParagraphs[0]?.text,
                     figures,
                   ).map((part, index) =>
                     typeof part === 'string' ? (
                       <text
-                        key={index}
-                        className={`text-xl ${theme === 'dark' ? 'text-white' : 'text-[#9095a0]'}`}
+                        key={`main-${index}`}
+                        className={`text-xl ${
+                          theme === 'dark' ? 'text-white' : 'text-[#9095a0]'
+                        }`}
                       >
                         {part}
                       </text>
                     ) : (
-                      part
+                      <view key={`main-img-${index}`}>{part}</view>
+                    ),
+                  )}
+                  {currentParagraphs[0]?.sub?.map(
+                    (subItem: any, subIndex: number) => (
+                      <view
+                        key={`sub-${subIndex}`}
+                        className="flex flex-col gap-2"
+                      >
+                        {subItem.title && (
+                          <text
+                            className={`text-xl font-bold ${
+                              theme === 'dark' ? 'text-white' : 'text-[#9095a0]'
+                            }`}
+                          >
+                            {subItem.title}
+                          </text>
+                        )}
+                        {parseParagraphWithImages(subItem.text, figures).map(
+                          (part, partIndex) =>
+                            typeof part === 'string' ? (
+                              <text
+                                key={`sub-${subIndex}-${partIndex}`}
+                                className={`text-xl ${
+                                  theme === 'dark'
+                                    ? 'text-white'
+                                    : 'text-[#9095a0]'
+                                }`}
+                              >
+                                {part}
+                              </text>
+                            ) : (
+                              <view key={`sub-img-${subIndex}-${partIndex}`}>
+                                {part}
+                              </view>
+                            ),
+                        )}
+                      </view>
                     ),
                   )}
                 </view>
